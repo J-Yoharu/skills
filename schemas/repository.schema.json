@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "title": "Repository operational configuration",
+  "required": [
+    "schema_version",
+    "name",
+    "github",
+    "limits",
+    "ci"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "github": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9_.-]+$"
+        }
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_skill_lines",
+        "max_file_bytes",
+        "max_skill_bytes"
+      ],
+      "properties": {
+        "max_skill_lines": {
+          "type": "integer",
+          "minimum": 20,
+          "maximum": 10000
+        },
+        "max_file_bytes": {
+          "type": "integer",
+          "minimum": 1024
+        },
+        "max_skill_bytes": {
+          "type": "integer",
+          "minimum": 1024
+        }
+      }
+    },
+    "ci": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_shards"
+      ],
+      "properties": {
+        "max_shards": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        }
+      }
+    }
+  }
+}

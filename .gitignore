@@ -1,0 +1,38 @@
+# Local environments and caches
+.venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+# Build output and private settings
+dist/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+.repository.lock
+
+# Maintenance environments and locally generated outputs
+.bootstrap.lock
+.pnpm-store/
+package-lock.json
+yarn.lock
+
+# Per-user agent settings, credentials, and sessions (never shared policy)
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/worktrees/
+.codex/auth.json
+.codex/history.jsonl
+.codex/log/
+.codex/sessions/
+.codex-log/
+
+# Local orchestration profiles, checkpoints, and overrides
+.orquestrar/

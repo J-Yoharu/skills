@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": false,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": false,
+  "packages": {
+    ".": {
+      "release-type": "simple",
+      "package-name": "agent-skills-catalog",
+      "include-component-in-tag": false,
+      "version-file": "version.txt",
+      "changelog-path": "CHANGELOG.md",
+      "exclude-paths": [
+        "skills/orquestrar"
+      ]
+    }
+  }
+}

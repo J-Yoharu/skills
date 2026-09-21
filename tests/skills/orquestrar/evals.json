@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "skill": "orquestrar",
+  "review": {
+    "status": "pending",
+    "evidence": "",
+    "payload_sha256": ""
+  },
+  "cases": [
+    {
+      "id": "implementation-request",
+      "prompt": "Implement the approved plan using the repository workflow and verify the completed units.",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Discover and reuse the canonical repository workflow before delegating.",
+        "Keep the current session as coordinator and apply dynamic model selection only to subagents."
+      ]
+    },
+    {
+      "id": "graceful-pause",
+      "prompt": "Pause after finishing the units already in progress so I can review before continuing.",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Latch the pause before a new dispatch.",
+        "Finish and verify active units without starting new objectives; save an honest checkpoint."
+      ]
+    },
+    {
+      "id": "discussion-only",
+      "prompt": "Explain the Orquestrar design and translate this example; do not execute any implementation.",
+      "should_trigger": false,
+      "expected_behaviors": [
+        "Explain or translate only; do not start orchestration or write a checkpoint."
+      ]
+    }
+  ]
+}

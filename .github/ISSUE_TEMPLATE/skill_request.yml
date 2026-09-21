@@ -1,0 +1,24 @@
+name: Skill request
+description: Propose an independent skill or a new capability.
+title: "feat: "
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name
+    validations:
+      required: true
+  - type: textarea
+    id: usecases
+    attributes:
+      label: Use cases, triggers, and non-goals
+    validations:
+      required: true
+  - type: textarea
+    id: overlap
+    attributes:
+      label: Difference from existing skills
+  - type: textarea
+    id: validation
+    attributes:
+      label: How to verify the expected behavior

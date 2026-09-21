@@ -1,0 +1,15 @@
+{
+  "role_overrides": {
+    "codex": {
+      "implement": {
+        "choices": [
+          {
+            "family": "sol",
+            "effort": "high"
+          }
+        ]
+      }
+    }
+  },
+  "selection_scope": "subagents"
+}

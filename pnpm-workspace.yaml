@@ -1,0 +1,5 @@
+# Only the root maintenance project is an npm package. Skills are not workspace packages.
+packages: []
+
+# Never authorize dependency install scripts implicitly.
+onlyBuiltDependencies: []

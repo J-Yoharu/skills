@@ -1,0 +1,6 @@
+interface:
+  display_name: "Orquestrar"
+  short_description: "Coordinate implementations with reusable project context"
+  default_prompt: "Use $orquestrar to carry out this work following the repository workflow."
+policy:
+  allow_implicit_invocation: true

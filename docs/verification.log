@@ -1,0 +1,236 @@
+TAP version 13
+# Subtest: accepts the pinned pnpm user agent
+ok 1 - accepts the pinned pnpm user agent
+  ---
+  duration_ms: 1.182844
+  type: 'test'
+  ...
+# Subtest: rejects npm as the repository package manager
+ok 2 - rejects npm as the repository package manager
+  ---
+  duration_ms: 0.492509
+  type: 'test'
+  ...
+# Subtest: rejects a different pnpm version
+ok 3 - rejects a different pnpm version
+  ---
+  duration_ms: 0.125157
+  type: 'test'
+  ...
+# Subtest: rejects an ambiguous matching prefix
+ok 4 - rejects an ambiguous matching prefix
+  ---
+  duration_ms: 0.105177
+  type: 'test'
+  ...
+# Subtest: rejects a missing user agent
+ok 5 - rejects a missing user agent
+  ---
+  duration_ms: 0.134682
+  type: 'test'
+  ...
+# Subtest: selects the Unix venv interpreter
+ok 6 - selects the Unix venv interpreter
+  ---
+  duration_ms: 0.19314
+  type: 'test'
+  ...
+# Subtest: selects the Windows venv interpreter
+ok 7 - selects the Windows venv interpreter
+  ---
+  duration_ms: 0.116084
+  type: 'test'
+  ...
+# Subtest: missing environment has an actionable English error
+ok 8 - missing environment has an actionable English error
+  ---
+  duration_ms: 74.879418
+  type: 'test'
+  ...
+# Subtest: package-manager guard does not require a Python environment
+ok 9 - package-manager guard does not require a Python environment
+  ---
+  duration_ms: 43.351391
+  type: 'test'
+  ...
+# Subtest: an existing bootstrap lock is preserved and blocks bootstrap
+ok 10 - an existing bootstrap lock is preserved and blocks bootstrap
+  ---
+  duration_ms: 34.480967
+  type: 'test'
+  ...
+# Subtest: arguments with spaces and metacharacters remain literal argv
+ok 11 - arguments with spaces and metacharacters remain literal argv
+  ---
+  duration_ms: 86.205782
+  type: 'test'
+  ...
+# Subtest: launcher uses its checkout root from an unrelated directory
+ok 12 - launcher uses its checkout root from an unrelated directory
+  ---
+  duration_ms: 89.070113
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 402.860891
+[1/4] Repository validation
+[2/4] Tooling regression tests
+test_broken_local_link_rejected (test_contracts.BoundaryTests.test_broken_local_link_rejected) ... ok
+test_case_collision_rejected (test_contracts.BoundaryTests.test_case_collision_rejected) ... ok
+test_code_fence_examples_not_treated_as_links (test_contracts.BoundaryTests.test_code_fence_examples_not_treated_as_links) ... ok
+test_encoded_link_escape_rejected (test_contracts.BoundaryTests.test_encoded_link_escape_rejected) ... ok
+test_environment_file_rejected (test_contracts.BoundaryTests.test_environment_file_rejected) ... ok
+test_external_links_not_requested (test_contracts.BoundaryTests.test_external_links_not_requested) ... ok
+test_fixture_tree_not_shipped (test_contracts.BoundaryTests.test_fixture_tree_not_shipped) ... ok
+test_inline_code_resource_path_checked (test_contracts.BoundaryTests.test_inline_code_resource_path_checked) ... ok
+test_javascript_cross_skill_import_rejected (test_contracts.BoundaryTests.test_javascript_cross_skill_import_rejected) ... ok
+test_javascript_npm_runtime_dependency_rejected (test_contracts.BoundaryTests.test_javascript_npm_runtime_dependency_rejected) ... ok
+test_link_outside_skill_rejected (test_contracts.BoundaryTests.test_link_outside_skill_rejected) ... ok
+test_markdown_reference_html_and_parentheses (test_contracts.BoundaryTests.test_markdown_reference_html_and_parentheses) ... ok
+test_nested_skill_rejected (test_contracts.BoundaryTests.test_nested_skill_rejected) ... ok
+test_nonbundled_python_import_rejected (test_contracts.BoundaryTests.test_nonbundled_python_import_rejected) ... ok
+test_repository_python_import_rejected (test_contracts.BoundaryTests.test_repository_python_import_rejected) ... ok
+test_script_registration_required (test_contracts.BoundaryTests.test_script_registration_required) ... ok
+test_shell_command_not_allowed_in_smoke (test_contracts.BoundaryTests.test_shell_command_not_allowed_in_smoke) ... ok
+test_smoke_output_assertion_required (test_contracts.BoundaryTests.test_smoke_output_assertion_required) ... ok
+test_symlink_rejected (test_contracts.BoundaryTests.test_symlink_rejected) ... ok
+test_valid_local_link (test_contracts.BoundaryTests.test_valid_local_link) ... ok
+test_boolean_metadata_rejected (test_contracts.FormatTests.test_boolean_metadata_rejected) ... ok
+test_draft_is_valid_but_not_discoverable (test_contracts.FormatTests.test_draft_is_valid_but_not_discoverable) ... ok
+test_duplicate_json_key_rejected (test_contracts.FormatTests.test_duplicate_json_key_rejected) ... ok
+test_duplicate_yaml_key_rejected (test_contracts.FormatTests.test_duplicate_yaml_key_rejected) ... ok
+test_empty_repository_is_valid (test_contracts.FormatTests.test_empty_repository_is_valid) ... ok
+test_extra_frontmatter_field_rejected (test_contracts.FormatTests.test_extra_frontmatter_field_rejected) ... ok
+test_line_limit_is_configurable_and_enforced (test_contracts.FormatTests.test_line_limit_is_configurable_and_enforced) ... ok
+test_missing_frontmatter_rejected (test_contracts.FormatTests.test_missing_frontmatter_rejected) ... ok
+test_name_directory_mismatch_rejected (test_contracts.FormatTests.test_name_directory_mismatch_rejected) ... ok
+test_root_skill_is_rejected (test_contracts.FormatTests.test_root_skill_is_rejected) ... ok
+test_stable_semver_policy (test_contracts.FormatTests.test_stable_semver_policy) ... ok
+test_too_long_description_rejected (test_contracts.FormatTests.test_too_long_description_rejected) ... ok
+test_unregistered_skill_is_rejected (test_contracts.FormatTests.test_unregistered_skill_is_rejected) ... ok
+test_yaml_anchors_rejected (test_contracts.FormatTests.test_yaml_anchors_rejected) ... ok
+test_yaml_custom_constructor_rejected (test_contracts.FormatTests.test_yaml_custom_constructor_rejected) ... ok
+test_yaml_on_is_not_a_boolean (test_contracts.FormatTests.test_yaml_on_is_not_a_boolean) ... ok
+test_activation_updates_registry_and_release_paths (test_contracts.LifecycleTests.test_activation_updates_registry_and_release_paths) ... ok
+test_active_requires_negative_case (test_contracts.LifecycleTests.test_active_requires_negative_case) ... ok
+test_configure_updates_identity_without_remote_access (test_contracts.LifecycleTests.test_configure_updates_identity_without_remote_access) ... ok
+test_duplicate_creation_does_not_overwrite (test_contracts.LifecycleTests.test_duplicate_creation_does_not_overwrite) ... ok
+test_failed_scaffold_cleans_up_created_directories (test_contracts.LifecycleTests.test_failed_scaffold_cleans_up_created_directories) ... ok
+test_generated_catalog_drift_fails (test_contracts.LifecycleTests.test_generated_catalog_drift_fails) ... ok
+test_pending_review_cannot_activate (test_contracts.LifecycleTests.test_pending_review_cannot_activate) ... ok
+test_placeholder_cannot_activate_and_rolls_back (test_contracts.LifecycleTests.test_placeholder_cannot_activate_and_rolls_back) ... ok
+test_release_config_drift_fails (test_contracts.LifecycleTests.test_release_config_drift_fails) ... ok
+test_sync_preserves_independent_versions (test_contracts.LifecycleTests.test_sync_preserves_independent_versions) ... ok
+test_sync_refuses_version_reset (test_contracts.LifecycleTests.test_sync_refuses_version_reset) ... ok
+test_traversal_slug_rejected (test_contracts.LifecycleTests.test_traversal_slug_rejected) ... ok
+test_cli_activation_fails_for_shell (test_planning_cli.CliTests.test_cli_activation_fails_for_shell) ... ok
+test_cli_duplicate_returns_nonzero (test_planning_cli.CliTests.test_cli_duplicate_returns_nonzero) ... ok
+test_cli_unknown_skill_returns_error (test_planning_cli.CliTests.test_cli_unknown_skill_returns_error) ... ok
+test_help_available (test_planning_cli.CliTests.test_help_available) ... ok
+test_new_validate_and_has_active (test_planning_cli.CliTests.test_new_validate_and_has_active) ... ok
+test_preview_cli_excludes_shell (test_planning_cli.CliTests.test_preview_cli_excludes_shell) ... ok
+test_behavior_changes_are_not_docs_only (test_planning_cli.PlanningTests.test_behavior_changes_are_not_docs_only) ... ok
+test_docs_only_does_not_run_all_smokes (test_planning_cli.PlanningTests.test_docs_only_does_not_run_all_smokes) ... ok
+test_empty_shards (test_planning_cli.PlanningTests.test_empty_shards) ... ok
+test_invalid_title_rejected (test_planning_cli.PlanningTests.test_invalid_title_rejected) ... ok
+test_missing_base_conservatively_selects_all (test_planning_cli.PlanningTests.test_missing_base_conservatively_selects_all) ... ok
+test_real_git_deleted_file_is_detected (test_planning_cli.PlanningTests.test_real_git_deleted_file_is_detected) ... ok
+test_real_git_diff_selects_affected_skill (test_planning_cli.PlanningTests.test_real_git_diff_selects_affected_skill) ... ok
+test_release_pr_exemption_is_explicit (test_planning_cli.PlanningTests.test_release_pr_exemption_is_explicit) ... ok
+test_shards_bound_10000_skills_without_loss (test_planning_cli.PlanningTests.test_shards_bound_10000_skills_without_loss) ... ok
+test_shards_limit_validated (test_planning_cli.PlanningTests.test_shards_limit_validated) ... ok
+test_shared_tooling_impacts_all (test_planning_cli.PlanningTests.test_shared_tooling_impacts_all) ... ok
+test_skill_test_and_catalog_map_to_owner (test_planning_cli.PlanningTests.test_skill_test_and_catalog_map_to_owner) ... ok
+test_unknown_git_base_falls_back (test_planning_cli.PlanningTests.test_unknown_git_base_falls_back) ... ok
+test_valid_conventional_title (test_planning_cli.PlanningTests.test_valid_conventional_title) ... ok
+test_annotated_remote_tag_is_peeled (test_review_regressions.ReleaseReviewRegressions.test_annotated_remote_tag_is_peeled) ... ok
+test_catalog_downgrade_is_rejected (test_review_regressions.ReleaseReviewRegressions.test_catalog_downgrade_is_rejected) ... ok
+test_component_downgrade_is_rejected (test_review_regressions.ReleaseReviewRegressions.test_component_downgrade_is_rejected) ... ok
+test_existing_remote_component_does_not_get_recreated (test_review_regressions.ReleaseReviewRegressions.test_existing_remote_component_does_not_get_recreated) ... ok
+test_missing_assets_and_component_tag_are_written_after_preflight (test_review_regressions.ReleaseReviewRegressions.test_missing_assets_and_component_tag_are_written_after_preflight) ... ok
+test_remote_asset_conflict_precedes_any_write (test_review_regressions.ReleaseReviewRegressions.test_remote_asset_conflict_precedes_any_write) ... ok
+test_remote_auth_error_is_not_treated_as_missing_tag (test_review_regressions.ReleaseReviewRegressions.test_remote_auth_error_is_not_treated_as_missing_tag) ... ok
+test_remote_catalog_mismatch_precedes_any_write (test_review_regressions.ReleaseReviewRegressions.test_remote_catalog_mismatch_precedes_any_write) ... ok
+test_rewritten_checksum_cannot_authorize_changed_archive (test_review_regressions.ReleaseReviewRegressions.test_rewritten_checksum_cannot_authorize_changed_archive) ... ok
+test_unknown_remote_component_history_fails_before_upload (test_review_regressions.ReleaseReviewRegressions.test_unknown_remote_component_history_fails_before_upload) ... ok
+test_activation_fingerprint_sort_is_filename_independent (test_review_regressions.ReviewRegressions.test_activation_fingerprint_sort_is_filename_independent) ... ok
+test_activation_keeps_review_fingerprint (test_review_regressions.ReviewRegressions.test_activation_keeps_review_fingerprint) ... ok
+test_active_review_rejects_changed_asset (test_review_regressions.ReviewRegressions.test_active_review_rejects_changed_asset) ... ok
+test_active_review_rejects_missing_fingerprint (test_review_regressions.ReviewRegressions.test_active_review_rejects_missing_fingerprint) ... ok
+test_actual_git_behavior_change_is_not_metadata (test_review_regressions.ReviewRegressions.test_actual_git_behavior_change_is_not_metadata) ... ok
+test_actual_git_diff_allows_only_version_metadata (test_review_regressions.ReviewRegressions.test_actual_git_diff_allows_only_version_metadata) ... ok
+test_branch_name_alone_cannot_authorize_skill_content (test_review_regressions.ReviewRegressions.test_branch_name_alone_cannot_authorize_skill_content) ... ok
+test_compact_matrix_does_not_embed_names (test_review_regressions.ReviewRegressions.test_compact_matrix_does_not_embed_names) ... ok
+test_dist_symlink_cannot_redirect_the_builder (test_review_regressions.ReviewRegressions.test_dist_symlink_cannot_redirect_the_builder) ... ok
+test_documentation_escape_fails (test_review_regressions.ReviewRegressions.test_documentation_escape_fails) ... ok
+test_empty_matrix_is_empty (test_review_regressions.ReviewRegressions.test_empty_matrix_is_empty) ... ok
+test_fenced_documentation_examples_are_not_file_links (test_review_regressions.ReviewRegressions.test_fenced_documentation_examples_are_not_file_links) ... ok
+test_isolation_recomputes_compact_shards_with_same_refs (test_review_regressions.ReviewRegressions.test_isolation_recomputes_compact_shards_with_same_refs) ... ok
+test_launcher_tests_are_shared_changes (test_review_regressions.ReviewRegressions.test_launcher_tests_are_shared_changes) ... ok
+test_nested_bundled_python_module_is_allowed (test_review_regressions.ReviewRegressions.test_nested_bundled_python_module_is_allowed) ... ok
+test_nested_bundled_python_module_is_checked (test_review_regressions.ReviewRegressions.test_nested_bundled_python_module_is_checked) ... ok
+test_new_skill_file_cannot_use_version_only_exception (test_review_regressions.ReviewRegressions.test_new_skill_file_cannot_use_version_only_exception) ... ok
+test_new_skill_templates_are_english_and_keep_identity (test_review_regressions.ReviewRegressions.test_new_skill_templates_are_english_and_keep_identity) ... ok
+test_pnpm_environment_used_in_all_operational_jobs (test_review_regressions.ReviewRegressions.test_pnpm_environment_used_in_all_operational_jobs) ... ok
+test_release_exception_rejects_runtime_files (test_review_regressions.ReviewRegressions.test_release_exception_rejects_runtime_files) ... ok
+test_release_exception_rejects_unknown_diff (test_review_regressions.ReviewRegressions.test_release_exception_rejects_unknown_diff) ... ok
+test_release_only_changes_keep_review_fingerprint (test_review_regressions.ReviewRegressions.test_release_only_changes_keep_review_fingerprint) ... ok
+test_root_package_and_empty_lock_agree (test_review_regressions.ReviewRegressions.test_root_package_and_empty_lock_agree) ... ok
+test_root_readme_broken_link_fails (test_review_regressions.ReviewRegressions.test_root_readme_broken_link_fails) ... ok
+test_root_readme_external_link_is_not_fetched (test_review_regressions.ReviewRegressions.test_root_readme_external_link_is_not_fetched) ... ok
+test_skill_license_change_requires_review (test_review_regressions.ReviewRegressions.test_skill_license_change_requires_review) ... ok
+test_bundled_node_module_runs (test_runtime_release.IsolationTests.test_bundled_node_module_runs) ... ok
+test_bundled_python_helper_works (test_runtime_release.IsolationTests.test_bundled_python_helper_works) ... ok
+test_cwd_dependent_script_fails (test_runtime_release.IsolationTests.test_cwd_dependent_script_fails) ... ok
+test_environment_drops_secrets_and_pythonpath (test_runtime_release.IsolationTests.test_environment_drops_secrets_and_pythonpath) ... ok
+test_missing_command_fails_clearly (test_runtime_release.IsolationTests.test_missing_command_fails_clearly) ... ok
+test_modifying_installed_payload_fails (test_runtime_release.IsolationTests.test_modifying_installed_payload_fails) ... ok
+test_node_syntax_error_is_detected (test_runtime_release.IsolationTests.test_node_syntax_error_is_detected) ... ok
+test_output_can_be_written_to_work_directory (test_runtime_release.IsolationTests.test_output_can_be_written_to_work_directory) ... ok
+test_python_site_packages_are_not_loaded (test_runtime_release.IsolationTests.test_python_site_packages_are_not_loaded) ... ok
+test_runs_from_both_directories (test_runtime_release.IsolationTests.test_runs_from_both_directories) ... ok
+test_wrong_output_fails (test_runtime_release.IsolationTests.test_wrong_output_fails) ... ok
+test_archive_is_repeatable_and_contains_only_skill (test_runtime_release.PackagingTests.test_archive_is_repeatable_and_contains_only_skill) ... ok
+test_bootstrap_not_releasable (test_runtime_release.PackagingTests.test_bootstrap_not_releasable) ... ok
+test_builder_does_not_overwrite_user_directory (test_runtime_release.PackagingTests.test_builder_does_not_overwrite_user_directory) ... ok
+test_builder_refuses_outside_dist (test_runtime_release.PackagingTests.test_builder_refuses_outside_dist) ... ok
+test_changed_content_changes_hash (test_runtime_release.PackagingTests.test_changed_content_changes_hash) ... ok
+test_changed_payload_without_skill_bump_fails (test_runtime_release.PackagingTests.test_changed_payload_without_skill_bump_fails) ... ok
+test_corrupt_archive_rejected_before_remote_call (test_runtime_release.PackagingTests.test_corrupt_archive_rejected_before_remote_call) ... ok
+test_index_and_checksums_match (test_runtime_release.PackagingTests.test_index_and_checksums_match) ... ok
+test_preview_excludes_drafts (test_runtime_release.PackagingTests.test_preview_excludes_drafts) ... ok
+test_publish_refuses_wrong_github_repository (test_runtime_release.PackagingTests.test_publish_refuses_wrong_github_repository) ... ok
+test_real_git_tagged_fixture_builds (test_runtime_release.PackagingTests.test_real_git_tagged_fixture_builds) ... ok
+test_release_dirty_tree_fails (test_runtime_release.PackagingTests.test_release_dirty_tree_fails) ... ok
+test_release_mismatched_tag_fails (test_runtime_release.PackagingTests.test_release_mismatched_tag_fails) ... ok
+test_release_not_at_tag_fails (test_runtime_release.PackagingTests.test_release_not_at_tag_fails) ... ok
+test_unchanged_skill_can_keep_version (test_runtime_release.PackagingTests.test_unchanged_skill_can_keep_version) ... ok
+test_all_actions_pinned_to_full_sha (test_workflows.WorkflowContracts.test_all_actions_pinned_to_full_sha) ... ok
+test_checkouts_do_not_persist_credentials (test_workflows.WorkflowContracts.test_checkouts_do_not_persist_credentials) ... ok
+test_ci_has_stable_always_gate (test_workflows.WorkflowContracts.test_ci_has_stable_always_gate) ... ok
+test_issue_forms_parse_and_have_required_information (test_workflows.WorkflowContracts.test_issue_forms_parse_and_have_required_information) ... ok
+test_no_silent_release_token_fallback (test_workflows.WorkflowContracts.test_no_silent_release_token_fallback) ... ok
+test_optional_external_integrations_opt_in (test_workflows.WorkflowContracts.test_optional_external_integrations_opt_in) ... ok
+test_pr_workflow_is_read_only (test_workflows.WorkflowContracts.test_pr_workflow_is_read_only) ... ok
+test_release_is_opt_in_and_main_only (test_workflows.WorkflowContracts.test_release_is_opt_in_and_main_only) ... ok
+test_release_recovers_from_explicit_tag (test_workflows.WorkflowContracts.test_release_recovers_from_explicit_tag) ... ok
+test_remote_publish_not_in_ci (test_workflows.WorkflowContracts.test_remote_publish_not_in_ci) ... ok
+test_user_pr_title_not_interpolated_in_shell (test_workflows.WorkflowContracts.test_user_pr_title_not_interpolated_in_shell) ... ok
+test_workflows_have_explicit_timeouts (test_workflows.WorkflowContracts.test_workflows_have_explicit_timeouts) ... ok
+
+----------------------------------------------------------------------
+Ran 142 tests in 4.323s
+
+OK
+
+[3/4] Copy-only skill checks
+{"name": "orchestrar", "copied_files": 7, "smoke_executions": 0, "behavioral_llm_evaluation": "not executed by this command"}
+[4/4] Preview packaging (drafts excluded)
+OK: 0 active skill(s) packaged. No remote publication performed.

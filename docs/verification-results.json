@@ -1,0 +1,74 @@
+{
+  "review_date": "2026-09-21",
+  "baseline_archive_sha256": "fcf33c33febd70cf441d6f31d5c4593e16e0966e92d0669901167b3a01c50235",
+  "baseline_python_tests": {
+    "passed": 106,
+    "failed": 0
+  },
+  "revised_python_tests": {
+    "passed": 142,
+    "failed": 0
+  },
+  "revised_node_launcher_tests": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0
+  },
+  "executed_command": "node scripts/run.mjs check",
+  "local_node_version": "v22.16.0",
+  "local_python_version": "3.13.5",
+  "python_dependency_check": "pip check: No broken requirements found.",
+  "python_environment_setup": "Fresh venv populated offline from the already installed exact pinned distributions; no online bootstrap was executed.",
+  "dependencies": [
+    {
+      "name": "PyYAML",
+      "pinned_version": "6.0.3",
+      "locally_tested_version": "6.0.3"
+    },
+    {
+      "name": "jsonschema",
+      "pinned_version": "4.26.0",
+      "locally_tested_version": "4.26.0"
+    },
+    {
+      "name": "attrs",
+      "pinned_version": "26.1.0",
+      "locally_tested_version": "26.1.0"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "pinned_version": "2025.9.1",
+      "locally_tested_version": "2025.9.1"
+    },
+    {
+      "name": "referencing",
+      "pinned_version": "0.37.0",
+      "locally_tested_version": "0.37.0"
+    },
+    {
+      "name": "rpds-py",
+      "pinned_version": "2026.5.1",
+      "locally_tested_version": "2026.5.1"
+    },
+    {
+      "name": "typing_extensions",
+      "pinned_version": "4.16.0",
+      "locally_tested_version": "4.16.0"
+    }
+  ],
+  "language_review": "Maintained content and scaffold generation reviewed in English; legacy-language marker scan is a heuristic, not a general language detector.",
+  "matrix_output_utf16_bytes_for_10000_names": {
+    "before": 1360774,
+    "after": 806
+  },
+  "independent_model_review": false,
+  "pnpm_process_executed": false,
+  "frozen_pnpm_install_executed": false,
+  "online_python_bootstrap_executed": false,
+  "github_actions_executed": false,
+  "release_please_executed": false,
+  "remote_github_writes": false,
+  "external_installer_executed": false,
+  "orchestrar_status": "draft",
+  "orchestrar_behavioral_evaluation": "not performed; real skill content not supplied"
+}

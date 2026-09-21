@@ -1,0 +1,59 @@
+name: CI
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+jobs:
+  gate:
+    # Keep this stable required check; skip expensive steps, never the whole workflow by path.
+    name: gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: make bootstrap
+      - id: plan
+        run: make plan-ci
+      - name: Conventional title and behavioral changes
+        if: github.event_name == 'pull_request'
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BRANCH: ${{ github.head_ref }}
+        run: make check-pr
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        if: steps.plan.outputs.maintenance == 'true' || steps.plan.outputs.has_skills == 'true'
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+      - name: Node and Make contract regressions when maintenance changes
+        if: steps.plan.outputs.maintenance == 'true'
+        run: make test-launchers
+      - name: Repository contracts and affected regression suites
+        run: make ci-check
+      - name: Report scope without uploading artifacts
+        if: success()
+        run: |
+          echo '### CI passed' >> "$GITHUB_STEP_SUMMARY"
+          echo 'All repository contracts validated; affected regressions and copied-skill smoke tests passed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No behavioral LLM evaluation, activation, release, or deployment was performed.' >> "$GITHUB_STEP_SUMMARY"

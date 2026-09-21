@@ -1,0 +1,38 @@
+{
+  "name": "agent-skills-maintenance",
+  "private": true,
+  "type": "module",
+  "description": "Maintenance commands for a self-contained Agent Skills catalog. Skills are not npm packages.",
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22.13.0 <27",
+    "pnpm": "10.33.4"
+  },
+  "scripts": {
+    "bootstrap": "node scripts/run.mjs bootstrap",
+    "check": "node scripts/run.mjs check",
+    "validate": "node scripts/run.mjs validate",
+    "test": "node scripts/run.mjs test",
+    "test:launchers": "node scripts/run.mjs test-launchers",
+    "repo:configure": "node scripts/run.mjs configure",
+    "skill:new": "node scripts/run.mjs new",
+    "skill:activate": "node scripts/run.mjs activate",
+    "skill:fingerprint": "node scripts/run.mjs fingerprint",
+    "release:sync": "node scripts/run.mjs sync",
+    "build:preview": "node scripts/run.mjs build --preview",
+    "build:release": "node scripts/run.mjs build",
+    "test:isolation": "node scripts/run.mjs isolate",
+    "catalog": "node scripts/run.mjs catalog",
+    "ci:plan": "node scripts/run.mjs plan",
+    "ci:pr": "node scripts/run.mjs check-pr",
+    "interop": "node scripts/run.mjs interop",
+    "preinstall": "node scripts/run.mjs check-package-manager",
+    "repo:has-active": "node scripts/run.mjs has-active",
+    "release:publish-assets": "node scripts/run.mjs publish-assets",
+    "bootstrap:reference": "node scripts/run.mjs bootstrap-reference",
+    "repo:verify-identity": "node scripts/run.mjs verify-identity",
+    "skill:preview": "node scripts/run.mjs preview-skill",
+    "test:skills": "node scripts/run.mjs test-skills",
+    "ci:check": "node scripts/run.mjs ci-check"
+  }
+}

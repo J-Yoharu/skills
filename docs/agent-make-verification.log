@@ -1,0 +1,1216 @@
+CURRENT LOCAL CHECK
+Command: node scripts/run.mjs check
+Make tests use an explicit fake pnpm; Python requirements were seeded offline.
+
+TAP version 13
+# Subtest: Claude uses a native standalone import of the canonical AGENTS.md
+ok 1 - Claude uses a native standalone import of the canonical AGENTS.md
+  ---
+  duration_ms: 0.949195
+  type: 'test'
+  ...
+# Subtest: shared policy is a tracked plain file with review, reuse, and verification rules
+ok 2 - shared policy is a tracked plain file with review, reuse, and verification rules
+  ---
+  duration_ms: 0.446966
+  type: 'test'
+  ...
+# Subtest: Make facade and pnpm aliases cannot form an invocation cycle
+ok 3 - Make facade and pnpm aliases cannot form an invocation cycle
+  ---
+  duration_ms: 0.470051
+  type: 'test'
+  ...
+# Subtest: Make recipes retain tab indentation
+ok 4 - Make recipes retain tab indentation
+  ---
+  duration_ms: 0.259923
+  type: 'test'
+  ...
+# Subtest: instruction files are not inserted into the distributed starter skill
+ok 5 - instruction files are not inserted into the distributed starter skill
+  ---
+  duration_ms: 0.202917
+  type: 'test'
+  ...
+# Subtest: launcher discovery finds future test files and ignores non-test files/directories
+ok 6 - launcher discovery finds future test files and ignores non-test files/directories
+  ---
+  duration_ms: 2.281209
+  type: 'test'
+  ...
+# Subtest: all current launcher files are discovered without editing the runner
+ok 7 - all current launcher files are discovered without editing the runner
+  ---
+  duration_ms: 1.214596
+  type: 'test'
+  ...
+# Subtest: plain make only prints help without invoking pnpm
+ok 8 - plain make only prints help without invoking pnpm
+  ---
+  duration_ms: 9.346502
+  type: 'test'
+  ...
+# Subtest: help lists every public target exactly once
+ok 9 - help lists every public target exactly once
+  ---
+  duration_ms: 4.119289
+  type: 'test'
+  ...
+# Subtest: make install delegates exactly once to the expected pnpm alias
+ok 10 - make install delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 23.328505
+  type: 'test'
+  ...
+# Subtest: make bootstrap delegates exactly once to the expected pnpm alias
+ok 11 - make bootstrap delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 26.020996
+  type: 'test'
+  ...
+# Subtest: make bootstrap-reference delegates exactly once to the expected pnpm alias
+ok 12 - make bootstrap-reference delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 26.811161
+  type: 'test'
+  ...
+# Subtest: make validate delegates exactly once to the expected pnpm alias
+ok 13 - make validate delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 29.833395
+  type: 'test'
+  ...
+# Subtest: make test delegates exactly once to the expected pnpm alias
+ok 14 - make test delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 31.309413
+  type: 'test'
+  ...
+# Subtest: make test-launchers delegates exactly once to the expected pnpm alias
+ok 15 - make test-launchers delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 24.719838
+  type: 'test'
+  ...
+# Subtest: make check delegates exactly once to the expected pnpm alias
+ok 16 - make check delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 35.548678
+  type: 'test'
+  ...
+# Subtest: make catalog delegates exactly once to the expected pnpm alias
+ok 17 - make catalog delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 28.964146
+  type: 'test'
+  ...
+# Subtest: make catalog-update delegates exactly once to the expected pnpm alias
+ok 18 - make catalog-update delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 25.24353
+  type: 'test'
+  ...
+# Subtest: make release-sync delegates exactly once to the expected pnpm alias
+ok 19 - make release-sync delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 27.753966
+  type: 'test'
+  ...
+# Subtest: make isolate delegates exactly once to the expected pnpm alias
+ok 20 - make isolate delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 23.041872
+  type: 'test'
+  ...
+# Subtest: make plan delegates exactly once to the expected pnpm alias
+ok 21 - make plan delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 28.319732
+  type: 'test'
+  ...
+# Subtest: make plan-ci delegates exactly once to the expected pnpm alias
+ok 22 - make plan-ci delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 26.786003
+  type: 'test'
+  ...
+# Subtest: make check-pr delegates exactly once to the expected pnpm alias
+ok 23 - make check-pr delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 22.77686
+  type: 'test'
+  ...
+# Subtest: make has-active delegates exactly once to the expected pnpm alias
+ok 24 - make has-active delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 29.379469
+  type: 'test'
+  ...
+# Subtest: make has-active-ci delegates exactly once to the expected pnpm alias
+ok 25 - make has-active-ci delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 28.741089
+  type: 'test'
+  ...
+# Subtest: make interop delegates exactly once to the expected pnpm alias
+ok 26 - make interop delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 27.637094
+  type: 'test'
+  ...
+# Subtest: make build-preview delegates exactly once to the expected pnpm alias
+ok 27 - make build-preview delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 23.054841
+  type: 'test'
+  ...
+# Subtest: setup installs before bootstrapping even with parallel mode requested
+ok 28 - setup installs before bootstrapping even with parallel mode requested
+  ---
+  duration_ms: 52.916113
+  type: 'test'
+  ...
+# Subtest: setup never bootstraps after a failed install
+ok 29 - setup never bootstraps after a failed install
+  ---
+  duration_ms: 26.899584
+  type: 'test'
+  ...
+# Subtest: a failed task is not masked as success
+ok 30 - a failed task is not masked as success
+  ---
+  duration_ms: 31.211846
+  type: 'test'
+  ...
+# Subtest: phony targets still execute when a same-named file exists
+ok 31 - phony targets still execute when a same-named file exists
+  ---
+  duration_ms: 26.203497
+  type: 'test'
+  ...
+# Subtest: configure passes optional ownership as distinct arguments
+ok 32 - configure passes optional ownership as distinct arguments
+  ---
+  duration_ms: 25.700882
+  type: 'test'
+  ...
+# Subtest: configure omits an absent codeowner
+ok 33 - configure omits an absent codeowner
+  ---
+  duration_ms: 24.423069
+  type: 'test'
+  ...
+# Subtest: verify-identity accepts the workflow repository environment
+ok 34 - verify-identity accepts the workflow repository environment
+  ---
+  duration_ms: 22.556037
+  type: 'test'
+  ...
+# Subtest: draft creation preserves spaces, quotes, and shell punctuation literally
+ok 35 - draft creation preserves spaces, quotes, and shell punctuation literally
+  ---
+  duration_ms: 25.064319
+  type: 'test'
+  ...
+# Subtest: skill-activate passes the explicit skill name
+ok 36 - skill-activate passes the explicit skill name
+  ---
+  duration_ms: 24.606147
+  type: 'test'
+  ...
+# Subtest: skill-fingerprint passes the explicit skill name
+ok 37 - skill-fingerprint passes the explicit skill name
+  ---
+  duration_ms: 25.201833
+  type: 'test'
+  ...
+# Subtest: configure rejects absent required inputs before invoking pnpm
+ok 38 - configure rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.691693
+  type: 'test'
+  ...
+# Subtest: verify-identity rejects absent required inputs before invoking pnpm
+ok 39 - verify-identity rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.336215
+  type: 'test'
+  ...
+# Subtest: skill-new rejects absent required inputs before invoking pnpm
+ok 40 - skill-new rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.551289
+  type: 'test'
+  ...
+# Subtest: skill-activate rejects absent required inputs before invoking pnpm
+ok 41 - skill-activate rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.314783
+  type: 'test'
+  ...
+# Subtest: skill-fingerprint rejects absent required inputs before invoking pnpm
+ok 42 - skill-fingerprint rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.185557
+  type: 'test'
+  ...
+# Subtest: build-release rejects absent required inputs before invoking pnpm
+ok 43 - build-release rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.79922
+  type: 'test'
+  ...
+# Subtest: publish-assets rejects absent required inputs before invoking pnpm
+ok 44 - publish-assets rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.982162
+  type: 'test'
+  ...
+# Subtest: release build routes a tag and an output path containing spaces
+ok 45 - release build routes a tag and an output path containing spaces
+  ---
+  duration_ms: 22.681987
+  type: 'test'
+  ...
+# Subtest: publication fails without the exact explicit acknowledgement
+ok 46 - publication fails without the exact explicit acknowledgement
+  ---
+  duration_ms: 5.569031
+  type: 'test'
+  ...
+# Subtest: authorized publication mapping is tested with a fake process, never a remote
+ok 47 - authorized publication mapping is tested with a fake process, never a remote
+  ---
+  duration_ms: 25.424874
+  type: 'test'
+  ...
+# Subtest: selected isolation JSON remains one argument
+ok 48 - selected isolation JSON remains one argument
+  ---
+  duration_ms: 26.798792
+  type: 'test'
+  ...
+# Subtest: shard zero is preserved instead of treated as absent
+ok 49 - shard zero is preserved instead of treated as absent
+  ---
+  duration_ms: 24.518709
+  type: 'test'
+  ...
+# Subtest: invalid shard selection is blocked: SHARD_INDEX=0
+ok 50 - invalid shard selection is blocked: SHARD_INDEX=0
+  ---
+  duration_ms: 3.546612
+  type: 'test'
+  ...
+# Subtest: invalid shard selection is blocked: SHARD_COUNT=1
+ok 51 - invalid shard selection is blocked: SHARD_COUNT=1
+  ---
+  duration_ms: 3.014848
+  type: 'test'
+  ...
+# Subtest: invalid shard selection is blocked: SHARD_INDEX=0 SHARD_COUNT=1 SKILLS_JSON=[]
+ok 52 - invalid shard selection is blocked: SHARD_INDEX=0 SHARD_COUNT=1 SKILLS_JSON=[]
+  ---
+  duration_ms: 3.334963
+  type: 'test'
+  ...
+# Subtest: PR titles stay environment data rather than shell source
+ok 53 - PR titles stay environment data rather than shell source
+  ---
+  duration_ms: 24.85979
+  type: 'test'
+  ...
+# Subtest: unknown targets fail rather than executing arbitrary fallback commands
+ok 54 - unknown targets fail rather than executing arbitrary fallback commands
+  ---
+  duration_ms: 3.070353
+  type: 'test'
+  ...
+# Subtest: release tag fallback uses the same RELEASE_TAG environment as GitHub
+ok 55 - release tag fallback uses the same RELEASE_TAG environment as GitHub
+  ---
+  duration_ms: 24.598214
+  type: 'test'
+  ...
+# Subtest: Make and shell syntax inside an environment PR title is not evaluated
+ok 56 - Make and shell syntax inside an environment PR title is not evaluated
+  ---
+  duration_ms: 23.386342
+  type: 'test'
+  ...
+# Subtest: accepts the pinned pnpm user agent
+ok 57 - accepts the pinned pnpm user agent
+  ---
+  duration_ms: 1.04514
+  type: 'test'
+  ...
+# Subtest: rejects npm as the repository package manager
+ok 58 - rejects npm as the repository package manager
+  ---
+  duration_ms: 1.041885
+  type: 'test'
+  ...
+# Subtest: rejects a different pnpm version
+ok 59 - rejects a different pnpm version
+  ---
+  duration_ms: 0.109606
+  type: 'test'
+  ...
+# Subtest: rejects an ambiguous matching prefix
+ok 60 - rejects an ambiguous matching prefix
+  ---
+  duration_ms: 0.187714
+  type: 'test'
+  ...
+# Subtest: rejects a missing user agent
+ok 61 - rejects a missing user agent
+  ---
+  duration_ms: 0.10559
+  type: 'test'
+  ...
+# Subtest: selects the Unix venv interpreter
+ok 62 - selects the Unix venv interpreter
+  ---
+  duration_ms: 0.151139
+  type: 'test'
+  ...
+# Subtest: selects the Windows venv interpreter
+ok 63 - selects the Windows venv interpreter
+  ---
+  duration_ms: 0.100912
+  type: 'test'
+  ...
+# Subtest: missing environment has an actionable English error
+ok 64 - missing environment has an actionable English error
+  ---
+  duration_ms: 37.20695
+  type: 'test'
+  ...
+# Subtest: package-manager guard does not require a Python environment
+ok 65 - package-manager guard does not require a Python environment
+  ---
+  duration_ms: 48.414461
+  type: 'test'
+  ...
+# Subtest: an existing bootstrap lock is preserved and blocks bootstrap
+ok 66 - an existing bootstrap lock is preserved and blocks bootstrap
+  ---
+  duration_ms: 39.20406
+  type: 'test'
+  ...
+# Subtest: arguments with spaces and metacharacters remain literal argv
+ok 67 - arguments with spaces and metacharacters remain literal argv
+  ---
+  duration_ms: 74.859298
+  type: 'test'
+  ...
+# Subtest: launcher uses its checkout root from an unrelated directory
+ok 68 - launcher uses its checkout root from an unrelated directory
+  ---
+  duration_ms: 66.958767
+  type: 'test'
+  ...
+# Subtest: optional reference bootstrap requires the development environment first
+ok 69 - optional reference bootstrap requires the development environment first
+  ---
+  duration_ms: 34.988426
+  type: 'test'
+  ...
+# Subtest: reference bootstrap respects the shared bootstrap lock
+ok 70 - reference bootstrap respects the shared bootstrap lock
+  ---
+  duration_ms: 32.96142
+  type: 'test'
+  ...
+# Subtest: reference bootstrap routes only its pinned requirements and checks dependencies
+ok 71 - reference bootstrap routes only its pinned requirements and checks dependencies
+  ---
+  duration_ms: 140.205313
+  type: 'test'
+  ...
+# Subtest: test-launchers discovers and executes tests without a Python environment
+ok 72 - test-launchers discovers and executes tests without a Python environment
+  ---
+  duration_ms: 129.534703
+  type: 'test'
+  ...
+1..72
+# tests 72
+# suites 0
+# pass 72
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1084.218131
+[1/4] Repository validation
+[2/4] Tooling regression tests
+test_identity_check_is_local_and_preserves_configuration (test_agent_operations.AgentOperations.test_identity_check_is_local_and_preserves_configuration) ... ok
+test_identity_mismatch_fails_without_reconfiguring (test_agent_operations.AgentOperations.test_identity_mismatch_fails_without_reconfiguring) ... ok
+test_make_and_shared_instructions_select_all_skills (test_agent_operations.AgentOperations.test_make_and_shared_instructions_select_all_skills) ... ok
+test_release_workflow_explicitly_acknowledges_publication (test_agent_operations.AgentOperations.test_release_workflow_explicitly_acknowledges_publication) ... ok
+test_unconfigured_identity_is_not_accepted (test_agent_operations.AgentOperations.test_unconfigured_identity_is_not_accepted) ... ok
+test_unrelated_documentation_does_not_select_products (test_agent_operations.AgentOperations.test_unrelated_documentation_does_not_select_products) ... ok
+test_workflow_tasks_use_declared_make_targets (test_agent_operations.AgentOperations.test_workflow_tasks_use_declared_make_targets) ... ok
+test_broken_local_link_rejected (test_contracts.BoundaryTests.test_broken_local_link_rejected) ... ok
+test_case_collision_rejected (test_contracts.BoundaryTests.test_case_collision_rejected) ... ok
+test_code_fence_examples_not_treated_as_links (test_contracts.BoundaryTests.test_code_fence_examples_not_treated_as_links) ... ok
+test_encoded_link_escape_rejected (test_contracts.BoundaryTests.test_encoded_link_escape_rejected) ... ok
+test_environment_file_rejected (test_contracts.BoundaryTests.test_environment_file_rejected) ... ok
+test_external_links_not_requested (test_contracts.BoundaryTests.test_external_links_not_requested) ... ok
+test_fixture_tree_not_shipped (test_contracts.BoundaryTests.test_fixture_tree_not_shipped) ... ok
+test_inline_code_resource_path_checked (test_contracts.BoundaryTests.test_inline_code_resource_path_checked) ... ok
+test_javascript_cross_skill_import_rejected (test_contracts.BoundaryTests.test_javascript_cross_skill_import_rejected) ... ok
+test_javascript_npm_runtime_dependency_rejected (test_contracts.BoundaryTests.test_javascript_npm_runtime_dependency_rejected) ... ok
+test_link_outside_skill_rejected (test_contracts.BoundaryTests.test_link_outside_skill_rejected) ... ok
+test_markdown_reference_html_and_parentheses (test_contracts.BoundaryTests.test_markdown_reference_html_and_parentheses) ... ok
+test_nested_skill_rejected (test_contracts.BoundaryTests.test_nested_skill_rejected) ... ok
+test_nonbundled_python_import_rejected (test_contracts.BoundaryTests.test_nonbundled_python_import_rejected) ... ok
+test_repository_python_import_rejected (test_contracts.BoundaryTests.test_repository_python_import_rejected) ... ok
+test_script_registration_required (test_contracts.BoundaryTests.test_script_registration_required) ... ok
+test_shell_command_not_allowed_in_smoke (test_contracts.BoundaryTests.test_shell_command_not_allowed_in_smoke) ... ok
+test_smoke_output_assertion_required (test_contracts.BoundaryTests.test_smoke_output_assertion_required) ... ok
+test_symlink_rejected (test_contracts.BoundaryTests.test_symlink_rejected) ... ok
+test_valid_local_link (test_contracts.BoundaryTests.test_valid_local_link) ... ok
+test_boolean_metadata_rejected (test_contracts.FormatTests.test_boolean_metadata_rejected) ... ok
+test_draft_is_valid_but_not_discoverable (test_contracts.FormatTests.test_draft_is_valid_but_not_discoverable) ... ok
+test_duplicate_json_key_rejected (test_contracts.FormatTests.test_duplicate_json_key_rejected) ... ok
+test_duplicate_yaml_key_rejected (test_contracts.FormatTests.test_duplicate_yaml_key_rejected) ... ok
+test_empty_repository_is_valid (test_contracts.FormatTests.test_empty_repository_is_valid) ... ok
+test_extra_frontmatter_field_rejected (test_contracts.FormatTests.test_extra_frontmatter_field_rejected) ... ok
+test_line_limit_is_configurable_and_enforced (test_contracts.FormatTests.test_line_limit_is_configurable_and_enforced) ... ok
+test_missing_frontmatter_rejected (test_contracts.FormatTests.test_missing_frontmatter_rejected) ... ok
+test_name_directory_mismatch_rejected (test_contracts.FormatTests.test_name_directory_mismatch_rejected) ... ok
+test_root_skill_is_rejected (test_contracts.FormatTests.test_root_skill_is_rejected) ... ok
+test_stable_semver_policy (test_contracts.FormatTests.test_stable_semver_policy) ... ok
+test_too_long_description_rejected (test_contracts.FormatTests.test_too_long_description_rejected) ... ok
+test_unregistered_skill_is_rejected (test_contracts.FormatTests.test_unregistered_skill_is_rejected) ... ok
+test_yaml_anchors_rejected (test_contracts.FormatTests.test_yaml_anchors_rejected) ... ok
+test_yaml_custom_constructor_rejected (test_contracts.FormatTests.test_yaml_custom_constructor_rejected) ... ok
+test_yaml_on_is_not_a_boolean (test_contracts.FormatTests.test_yaml_on_is_not_a_boolean) ... ok
+test_activation_updates_registry_and_release_paths (test_contracts.LifecycleTests.test_activation_updates_registry_and_release_paths) ... ok
+test_active_requires_negative_case (test_contracts.LifecycleTests.test_active_requires_negative_case) ... ok
+test_configure_updates_identity_without_remote_access (test_contracts.LifecycleTests.test_configure_updates_identity_without_remote_access) ... ok
+test_duplicate_creation_does_not_overwrite (test_contracts.LifecycleTests.test_duplicate_creation_does_not_overwrite) ... ok
+test_failed_scaffold_cleans_up_created_directories (test_contracts.LifecycleTests.test_failed_scaffold_cleans_up_created_directories) ... ok
+test_generated_catalog_drift_fails (test_contracts.LifecycleTests.test_generated_catalog_drift_fails) ... ok
+test_pending_review_cannot_activate (test_contracts.LifecycleTests.test_pending_review_cannot_activate) ... ok
+test_placeholder_cannot_activate_and_rolls_back (test_contracts.LifecycleTests.test_placeholder_cannot_activate_and_rolls_back) ... ok
+test_release_config_drift_fails (test_contracts.LifecycleTests.test_release_config_drift_fails) ... ok
+test_sync_preserves_independent_versions (test_contracts.LifecycleTests.test_sync_preserves_independent_versions) ... ok
+test_sync_refuses_version_reset (test_contracts.LifecycleTests.test_sync_refuses_version_reset) ... ok
+test_traversal_slug_rejected (test_contracts.LifecycleTests.test_traversal_slug_rejected) ... ok
+test_cli_activation_fails_for_shell (test_planning_cli.CliTests.test_cli_activation_fails_for_shell) ... ok
+test_cli_duplicate_returns_nonzero (test_planning_cli.CliTests.test_cli_duplicate_returns_nonzero) ... ok
+test_cli_unknown_skill_returns_error (test_planning_cli.CliTests.test_cli_unknown_skill_returns_error) ... ok
+test_help_available (test_planning_cli.CliTests.test_help_available) ... ok
+test_new_validate_and_has_active (test_planning_cli.CliTests.test_new_validate_and_has_active) ... ok
+test_preview_cli_excludes_shell (test_planning_cli.CliTests.test_preview_cli_excludes_shell) ... ok
+test_behavior_changes_are_not_docs_only (test_planning_cli.PlanningTests.test_behavior_changes_are_not_docs_only) ... ok
+test_docs_only_does_not_run_all_smokes (test_planning_cli.PlanningTests.test_docs_only_does_not_run_all_smokes) ... ok
+test_empty_shards (test_planning_cli.PlanningTests.test_empty_shards) ... ok
+test_invalid_title_rejected (test_planning_cli.PlanningTests.test_invalid_title_rejected) ... ok
+test_missing_base_conservatively_selects_all (test_planning_cli.PlanningTests.test_missing_base_conservatively_selects_all) ... ok
+test_real_git_deleted_file_is_detected (test_planning_cli.PlanningTests.test_real_git_deleted_file_is_detected) ... ok
+test_real_git_diff_selects_affected_skill (test_planning_cli.PlanningTests.test_real_git_diff_selects_affected_skill) ... ok
+test_release_pr_exemption_is_explicit (test_planning_cli.PlanningTests.test_release_pr_exemption_is_explicit) ... ok
+test_shards_bound_10000_skills_without_loss (test_planning_cli.PlanningTests.test_shards_bound_10000_skills_without_loss) ... ok
+test_shards_limit_validated (test_planning_cli.PlanningTests.test_shards_limit_validated) ... ok
+test_shared_tooling_impacts_all (test_planning_cli.PlanningTests.test_shared_tooling_impacts_all) ... ok
+test_skill_test_and_catalog_map_to_owner (test_planning_cli.PlanningTests.test_skill_test_and_catalog_map_to_owner) ... ok
+test_unknown_git_base_falls_back (test_planning_cli.PlanningTests.test_unknown_git_base_falls_back) ... ok
+test_valid_conventional_title (test_planning_cli.PlanningTests.test_valid_conventional_title) ... ok
+test_annotated_remote_tag_is_peeled (test_review_regressions.ReleaseReviewRegressions.test_annotated_remote_tag_is_peeled) ... ok
+test_catalog_downgrade_is_rejected (test_review_regressions.ReleaseReviewRegressions.test_catalog_downgrade_is_rejected) ... ok
+test_component_downgrade_is_rejected (test_review_regressions.ReleaseReviewRegressions.test_component_downgrade_is_rejected) ... ok
+test_existing_remote_component_does_not_get_recreated (test_review_regressions.ReleaseReviewRegressions.test_existing_remote_component_does_not_get_recreated) ... ok
+test_missing_assets_and_component_tag_are_written_after_preflight (test_review_regressions.ReleaseReviewRegressions.test_missing_assets_and_component_tag_are_written_after_preflight) ... ok
+test_remote_asset_conflict_precedes_any_write (test_review_regressions.ReleaseReviewRegressions.test_remote_asset_conflict_precedes_any_write) ... ok
+test_remote_auth_error_is_not_treated_as_missing_tag (test_review_regressions.ReleaseReviewRegressions.test_remote_auth_error_is_not_treated_as_missing_tag) ... ok
+test_remote_catalog_mismatch_precedes_any_write (test_review_regressions.ReleaseReviewRegressions.test_remote_catalog_mismatch_precedes_any_write) ... ok
+test_rewritten_checksum_cannot_authorize_changed_archive (test_review_regressions.ReleaseReviewRegressions.test_rewritten_checksum_cannot_authorize_changed_archive) ... ok
+test_unknown_remote_component_history_fails_before_upload (test_review_regressions.ReleaseReviewRegressions.test_unknown_remote_component_history_fails_before_upload) ... ok
+test_activation_fingerprint_sort_is_filename_independent (test_review_regressions.ReviewRegressions.test_activation_fingerprint_sort_is_filename_independent) ... ok
+test_activation_keeps_review_fingerprint (test_review_regressions.ReviewRegressions.test_activation_keeps_review_fingerprint) ... ok
+test_active_review_rejects_changed_asset (test_review_regressions.ReviewRegressions.test_active_review_rejects_changed_asset) ... ok
+test_active_review_rejects_missing_fingerprint (test_review_regressions.ReviewRegressions.test_active_review_rejects_missing_fingerprint) ... ok
+test_actual_git_behavior_change_is_not_metadata (test_review_regressions.ReviewRegressions.test_actual_git_behavior_change_is_not_metadata) ... ok
+test_actual_git_diff_allows_only_version_metadata (test_review_regressions.ReviewRegressions.test_actual_git_diff_allows_only_version_metadata) ... ok
+test_branch_name_alone_cannot_authorize_skill_content (test_review_regressions.ReviewRegressions.test_branch_name_alone_cannot_authorize_skill_content) ... ok
+test_compact_matrix_does_not_embed_names (test_review_regressions.ReviewRegressions.test_compact_matrix_does_not_embed_names) ... ok
+test_dist_symlink_cannot_redirect_the_builder (test_review_regressions.ReviewRegressions.test_dist_symlink_cannot_redirect_the_builder) ... ok
+test_documentation_escape_fails (test_review_regressions.ReviewRegressions.test_documentation_escape_fails) ... ok
+test_empty_matrix_is_empty (test_review_regressions.ReviewRegressions.test_empty_matrix_is_empty) ... ok
+test_fenced_documentation_examples_are_not_file_links (test_review_regressions.ReviewRegressions.test_fenced_documentation_examples_are_not_file_links) ... ok
+test_isolation_recomputes_compact_shards_with_same_refs (test_review_regressions.ReviewRegressions.test_isolation_recomputes_compact_shards_with_same_refs) ... ok
+test_launcher_tests_are_shared_changes (test_review_regressions.ReviewRegressions.test_launcher_tests_are_shared_changes) ... ok
+test_nested_bundled_python_module_is_allowed (test_review_regressions.ReviewRegressions.test_nested_bundled_python_module_is_allowed) ... ok
+test_nested_bundled_python_module_is_checked (test_review_regressions.ReviewRegressions.test_nested_bundled_python_module_is_checked) ... ok
+test_new_skill_file_cannot_use_version_only_exception (test_review_regressions.ReviewRegressions.test_new_skill_file_cannot_use_version_only_exception) ... ok
+test_new_skill_templates_are_english_and_keep_identity (test_review_regressions.ReviewRegressions.test_new_skill_templates_are_english_and_keep_identity) ... ok
+test_pnpm_environment_used_in_all_operational_jobs (test_review_regressions.ReviewRegressions.test_pnpm_environment_used_in_all_operational_jobs) ... ok
+test_release_exception_rejects_runtime_files (test_review_regressions.ReviewRegressions.test_release_exception_rejects_runtime_files) ... ok
+test_release_exception_rejects_unknown_diff (test_review_regressions.ReviewRegressions.test_release_exception_rejects_unknown_diff) ... ok
+test_release_only_changes_keep_review_fingerprint (test_review_regressions.ReviewRegressions.test_release_only_changes_keep_review_fingerprint) ... ok
+test_root_package_and_empty_lock_agree (test_review_regressions.ReviewRegressions.test_root_package_and_empty_lock_agree) ... ok
+test_root_readme_broken_link_fails (test_review_regressions.ReviewRegressions.test_root_readme_broken_link_fails) ... ok
+test_root_readme_external_link_is_not_fetched (test_review_regressions.ReviewRegressions.test_root_readme_external_link_is_not_fetched) ... ok
+test_skill_license_change_requires_review (test_review_regressions.ReviewRegressions.test_skill_license_change_requires_review) ... ok
+test_bundled_node_module_runs (test_runtime_release.IsolationTests.test_bundled_node_module_runs) ... ok
+test_bundled_python_helper_works (test_runtime_release.IsolationTests.test_bundled_python_helper_works) ... ok
+test_cwd_dependent_script_fails (test_runtime_release.IsolationTests.test_cwd_dependent_script_fails) ... ok
+test_environment_drops_secrets_and_pythonpath (test_runtime_release.IsolationTests.test_environment_drops_secrets_and_pythonpath) ... ok
+test_missing_command_fails_clearly (test_runtime_release.IsolationTests.test_missing_command_fails_clearly) ... ok
+test_modifying_installed_payload_fails (test_runtime_release.IsolationTests.test_modifying_installed_payload_fails) ... ok
+test_node_syntax_error_is_detected (test_runtime_release.IsolationTests.test_node_syntax_error_is_detected) ... ok
+test_output_can_be_written_to_work_directory (test_runtime_release.IsolationTests.test_output_can_be_written_to_work_directory) ... ok
+test_python_site_packages_are_not_loaded (test_runtime_release.IsolationTests.test_python_site_packages_are_not_loaded) ... ok
+test_runs_from_both_directories (test_runtime_release.IsolationTests.test_runs_from_both_directories) ... ok
+test_wrong_output_fails (test_runtime_release.IsolationTests.test_wrong_output_fails) ... ok
+test_archive_is_repeatable_and_contains_only_skill (test_runtime_release.PackagingTests.test_archive_is_repeatable_and_contains_only_skill) ... ok
+test_bootstrap_not_releasable (test_runtime_release.PackagingTests.test_bootstrap_not_releasable) ... ok
+test_builder_does_not_overwrite_user_directory (test_runtime_release.PackagingTests.test_builder_does_not_overwrite_user_directory) ... ok
+test_builder_refuses_outside_dist (test_runtime_release.PackagingTests.test_builder_refuses_outside_dist) ... ok
+test_changed_content_changes_hash (test_runtime_release.PackagingTests.test_changed_content_changes_hash) ... ok
+test_changed_payload_without_skill_bump_fails (test_runtime_release.PackagingTests.test_changed_payload_without_skill_bump_fails) ... ok
+test_corrupt_archive_rejected_before_remote_call (test_runtime_release.PackagingTests.test_corrupt_archive_rejected_before_remote_call) ... ok
+test_index_and_checksums_match (test_runtime_release.PackagingTests.test_index_and_checksums_match) ... ok
+test_preview_excludes_drafts (test_runtime_release.PackagingTests.test_preview_excludes_drafts) ... ok
+test_publish_refuses_wrong_github_repository (test_runtime_release.PackagingTests.test_publish_refuses_wrong_github_repository) ... ok
+test_real_git_tagged_fixture_builds (test_runtime_release.PackagingTests.test_real_git_tagged_fixture_builds) ... ok
+test_release_dirty_tree_fails (test_runtime_release.PackagingTests.test_release_dirty_tree_fails) ... ok
+test_release_mismatched_tag_fails (test_runtime_release.PackagingTests.test_release_mismatched_tag_fails) ... ok
+test_release_not_at_tag_fails (test_runtime_release.PackagingTests.test_release_not_at_tag_fails) ... ok
+test_unchanged_skill_can_keep_version (test_runtime_release.PackagingTests.test_unchanged_skill_can_keep_version) ... ok
+test_all_actions_pinned_to_full_sha (test_workflows.WorkflowContracts.test_all_actions_pinned_to_full_sha) ... ok
+test_checkouts_do_not_persist_credentials (test_workflows.WorkflowContracts.test_checkouts_do_not_persist_credentials) ... ok
+test_ci_has_stable_always_gate (test_workflows.WorkflowContracts.test_ci_has_stable_always_gate) ... ok
+test_issue_forms_parse_and_have_required_information (test_workflows.WorkflowContracts.test_issue_forms_parse_and_have_required_information) ... ok
+test_no_silent_release_token_fallback (test_workflows.WorkflowContracts.test_no_silent_release_token_fallback) ... ok
+test_optional_external_integrations_opt_in (test_workflows.WorkflowContracts.test_optional_external_integrations_opt_in) ... ok
+test_pr_workflow_is_read_only (test_workflows.WorkflowContracts.test_pr_workflow_is_read_only) ... ok
+test_release_is_opt_in_and_main_only (test_workflows.WorkflowContracts.test_release_is_opt_in_and_main_only) ... ok
+test_release_recovers_from_explicit_tag (test_workflows.WorkflowContracts.test_release_recovers_from_explicit_tag) ... ok
+test_remote_publish_not_in_ci (test_workflows.WorkflowContracts.test_remote_publish_not_in_ci) ... ok
+test_user_pr_title_not_interpolated_in_shell (test_workflows.WorkflowContracts.test_user_pr_title_not_interpolated_in_shell) ... ok
+test_workflows_have_explicit_timeouts (test_workflows.WorkflowContracts.test_workflows_have_explicit_timeouts) ... ok
+
+----------------------------------------------------------------------
+Ran 149 tests in 4.051s
+
+OK
+
+[3/4] Copy-only skill checks
+{"name": "orchestrar", "copied_files": 7, "smoke_executions": 0, "behavioral_llm_evaluation": "not executed by this command"}
+[4/4] Preview packaging (drafts excluded)
+OK: 0 active skill(s) packaged. No remote publication performed.
+
+
+ARCHIVE RE-EXTRACTION CHECK
+Command: node scripts/run.mjs check
+An isolated offline-seeded venv was used; no real pnpm or hosted agent session.
+
+TAP version 13
+# Subtest: Claude uses a native standalone import of the canonical AGENTS.md
+ok 1 - Claude uses a native standalone import of the canonical AGENTS.md
+  ---
+  duration_ms: 1.035265
+  type: 'test'
+  ...
+# Subtest: shared policy is a tracked plain file with review, reuse, and verification rules
+ok 2 - shared policy is a tracked plain file with review, reuse, and verification rules
+  ---
+  duration_ms: 0.511854
+  type: 'test'
+  ...
+# Subtest: Make facade and pnpm aliases cannot form an invocation cycle
+ok 3 - Make facade and pnpm aliases cannot form an invocation cycle
+  ---
+  duration_ms: 0.466405
+  type: 'test'
+  ...
+# Subtest: Make recipes retain tab indentation
+ok 4 - Make recipes retain tab indentation
+  ---
+  duration_ms: 0.312513
+  type: 'test'
+  ...
+# Subtest: instruction files are not inserted into the distributed starter skill
+ok 5 - instruction files are not inserted into the distributed starter skill
+  ---
+  duration_ms: 0.167183
+  type: 'test'
+  ...
+# Subtest: launcher discovery finds future test files and ignores non-test files/directories
+ok 6 - launcher discovery finds future test files and ignores non-test files/directories
+  ---
+  duration_ms: 3.244246
+  type: 'test'
+  ...
+# Subtest: all current launcher files are discovered without editing the runner
+ok 7 - all current launcher files are discovered without editing the runner
+  ---
+  duration_ms: 1.336411
+  type: 'test'
+  ...
+# Subtest: plain make only prints help without invoking pnpm
+ok 8 - plain make only prints help without invoking pnpm
+  ---
+  duration_ms: 8.590475
+  type: 'test'
+  ...
+# Subtest: help lists every public target exactly once
+ok 9 - help lists every public target exactly once
+  ---
+  duration_ms: 5.167689
+  type: 'test'
+  ...
+# Subtest: make install delegates exactly once to the expected pnpm alias
+ok 10 - make install delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 26.584379
+  type: 'test'
+  ...
+# Subtest: make bootstrap delegates exactly once to the expected pnpm alias
+ok 11 - make bootstrap delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 33.973027
+  type: 'test'
+  ...
+# Subtest: make bootstrap-reference delegates exactly once to the expected pnpm alias
+ok 12 - make bootstrap-reference delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 29.201566
+  type: 'test'
+  ...
+# Subtest: make validate delegates exactly once to the expected pnpm alias
+ok 13 - make validate delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 31.339199
+  type: 'test'
+  ...
+# Subtest: make test delegates exactly once to the expected pnpm alias
+ok 14 - make test delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 29.839581
+  type: 'test'
+  ...
+# Subtest: make test-launchers delegates exactly once to the expected pnpm alias
+ok 15 - make test-launchers delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 24.168015
+  type: 'test'
+  ...
+# Subtest: make check delegates exactly once to the expected pnpm alias
+ok 16 - make check delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 26.25401
+  type: 'test'
+  ...
+# Subtest: make catalog delegates exactly once to the expected pnpm alias
+ok 17 - make catalog delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 27.658654
+  type: 'test'
+  ...
+# Subtest: make catalog-update delegates exactly once to the expected pnpm alias
+ok 18 - make catalog-update delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 31.010322
+  type: 'test'
+  ...
+# Subtest: make release-sync delegates exactly once to the expected pnpm alias
+ok 19 - make release-sync delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 24.006811
+  type: 'test'
+  ...
+# Subtest: make isolate delegates exactly once to the expected pnpm alias
+ok 20 - make isolate delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 24.357743
+  type: 'test'
+  ...
+# Subtest: make plan delegates exactly once to the expected pnpm alias
+ok 21 - make plan delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 22.675759
+  type: 'test'
+  ...
+# Subtest: make plan-ci delegates exactly once to the expected pnpm alias
+ok 22 - make plan-ci delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 22.325088
+  type: 'test'
+  ...
+# Subtest: make check-pr delegates exactly once to the expected pnpm alias
+ok 23 - make check-pr delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 47.046371
+  type: 'test'
+  ...
+# Subtest: make has-active delegates exactly once to the expected pnpm alias
+ok 24 - make has-active delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 25.154968
+  type: 'test'
+  ...
+# Subtest: make has-active-ci delegates exactly once to the expected pnpm alias
+ok 25 - make has-active-ci delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 24.438184
+  type: 'test'
+  ...
+# Subtest: make interop delegates exactly once to the expected pnpm alias
+ok 26 - make interop delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 34.968782
+  type: 'test'
+  ...
+# Subtest: make build-preview delegates exactly once to the expected pnpm alias
+ok 27 - make build-preview delegates exactly once to the expected pnpm alias
+  ---
+  duration_ms: 37.062719
+  type: 'test'
+  ...
+# Subtest: setup installs before bootstrapping even with parallel mode requested
+ok 28 - setup installs before bootstrapping even with parallel mode requested
+  ---
+  duration_ms: 51.605395
+  type: 'test'
+  ...
+# Subtest: setup never bootstraps after a failed install
+ok 29 - setup never bootstraps after a failed install
+  ---
+  duration_ms: 25.537255
+  type: 'test'
+  ...
+# Subtest: a failed task is not masked as success
+ok 30 - a failed task is not masked as success
+  ---
+  duration_ms: 23.037536
+  type: 'test'
+  ...
+# Subtest: phony targets still execute when a same-named file exists
+ok 31 - phony targets still execute when a same-named file exists
+  ---
+  duration_ms: 23.528708
+  type: 'test'
+  ...
+# Subtest: configure passes optional ownership as distinct arguments
+ok 32 - configure passes optional ownership as distinct arguments
+  ---
+  duration_ms: 23.789393
+  type: 'test'
+  ...
+# Subtest: configure omits an absent codeowner
+ok 33 - configure omits an absent codeowner
+  ---
+  duration_ms: 26.07557
+  type: 'test'
+  ...
+# Subtest: verify-identity accepts the workflow repository environment
+ok 34 - verify-identity accepts the workflow repository environment
+  ---
+  duration_ms: 27.023754
+  type: 'test'
+  ...
+# Subtest: draft creation preserves spaces, quotes, and shell punctuation literally
+ok 35 - draft creation preserves spaces, quotes, and shell punctuation literally
+  ---
+  duration_ms: 27.474255
+  type: 'test'
+  ...
+# Subtest: skill-activate passes the explicit skill name
+ok 36 - skill-activate passes the explicit skill name
+  ---
+  duration_ms: 24.703645
+  type: 'test'
+  ...
+# Subtest: skill-fingerprint passes the explicit skill name
+ok 37 - skill-fingerprint passes the explicit skill name
+  ---
+  duration_ms: 25.945343
+  type: 'test'
+  ...
+# Subtest: configure rejects absent required inputs before invoking pnpm
+ok 38 - configure rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.696309
+  type: 'test'
+  ...
+# Subtest: verify-identity rejects absent required inputs before invoking pnpm
+ok 39 - verify-identity rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.069722
+  type: 'test'
+  ...
+# Subtest: skill-new rejects absent required inputs before invoking pnpm
+ok 40 - skill-new rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 2.864541
+  type: 'test'
+  ...
+# Subtest: skill-activate rejects absent required inputs before invoking pnpm
+ok 41 - skill-activate rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 2.84342
+  type: 'test'
+  ...
+# Subtest: skill-fingerprint rejects absent required inputs before invoking pnpm
+ok 42 - skill-fingerprint rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 2.979085
+  type: 'test'
+  ...
+# Subtest: build-release rejects absent required inputs before invoking pnpm
+ok 43 - build-release rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 2.867807
+  type: 'test'
+  ...
+# Subtest: publish-assets rejects absent required inputs before invoking pnpm
+ok 44 - publish-assets rejects absent required inputs before invoking pnpm
+  ---
+  duration_ms: 3.11469
+  type: 'test'
+  ...
+# Subtest: release build routes a tag and an output path containing spaces
+ok 45 - release build routes a tag and an output path containing spaces
+  ---
+  duration_ms: 25.081176
+  type: 'test'
+  ...
+# Subtest: publication fails without the exact explicit acknowledgement
+ok 46 - publication fails without the exact explicit acknowledgement
+  ---
+  duration_ms: 4.552775
+  type: 'test'
+  ...
+# Subtest: authorized publication mapping is tested with a fake process, never a remote
+ok 47 - authorized publication mapping is tested with a fake process, never a remote
+  ---
+  duration_ms: 26.652172
+  type: 'test'
+  ...
+# Subtest: selected isolation JSON remains one argument
+ok 48 - selected isolation JSON remains one argument
+  ---
+  duration_ms: 28.528849
+  type: 'test'
+  ...
+# Subtest: shard zero is preserved instead of treated as absent
+ok 49 - shard zero is preserved instead of treated as absent
+  ---
+  duration_ms: 28.962265
+  type: 'test'
+  ...
+# Subtest: invalid shard selection is blocked: SHARD_INDEX=0
+ok 50 - invalid shard selection is blocked: SHARD_INDEX=0
+  ---
+  duration_ms: 3.813797
+  type: 'test'
+  ...
+# Subtest: invalid shard selection is blocked: SHARD_COUNT=1
+ok 51 - invalid shard selection is blocked: SHARD_COUNT=1
+  ---
+  duration_ms: 4.392242
+  type: 'test'
+  ...
+# Subtest: invalid shard selection is blocked: SHARD_INDEX=0 SHARD_COUNT=1 SKILLS_JSON=[]
+ok 52 - invalid shard selection is blocked: SHARD_INDEX=0 SHARD_COUNT=1 SKILLS_JSON=[]
+  ---
+  duration_ms: 3.549097
+  type: 'test'
+  ...
+# Subtest: PR titles stay environment data rather than shell source
+ok 53 - PR titles stay environment data rather than shell source
+  ---
+  duration_ms: 29.156128
+  type: 'test'
+  ...
+# Subtest: unknown targets fail rather than executing arbitrary fallback commands
+ok 54 - unknown targets fail rather than executing arbitrary fallback commands
+  ---
+  duration_ms: 3.004643
+  type: 'test'
+  ...
+# Subtest: release tag fallback uses the same RELEASE_TAG environment as GitHub
+ok 55 - release tag fallback uses the same RELEASE_TAG environment as GitHub
+  ---
+  duration_ms: 25.008646
+  type: 'test'
+  ...
+# Subtest: Make and shell syntax inside an environment PR title is not evaluated
+ok 56 - Make and shell syntax inside an environment PR title is not evaluated
+  ---
+  duration_ms: 22.876022
+  type: 'test'
+  ...
+# Subtest: accepts the pinned pnpm user agent
+ok 57 - accepts the pinned pnpm user agent
+  ---
+  duration_ms: 0.874242
+  type: 'test'
+  ...
+# Subtest: rejects npm as the repository package manager
+ok 58 - rejects npm as the repository package manager
+  ---
+  duration_ms: 0.346904
+  type: 'test'
+  ...
+# Subtest: rejects a different pnpm version
+ok 59 - rejects a different pnpm version
+  ---
+  duration_ms: 0.113873
+  type: 'test'
+  ...
+# Subtest: rejects an ambiguous matching prefix
+ok 60 - rejects an ambiguous matching prefix
+  ---
+  duration_ms: 0.09917
+  type: 'test'
+  ...
+# Subtest: rejects a missing user agent
+ok 61 - rejects a missing user agent
+  ---
+  duration_ms: 0.101333
+  type: 'test'
+  ...
+# Subtest: selects the Unix venv interpreter
+ok 62 - selects the Unix venv interpreter
+  ---
+  duration_ms: 0.1852
+  type: 'test'
+  ...
+# Subtest: selects the Windows venv interpreter
+ok 63 - selects the Windows venv interpreter
+  ---
+  duration_ms: 0.098429
+  type: 'test'
+  ...
+# Subtest: missing environment has an actionable English error
+ok 64 - missing environment has an actionable English error
+  ---
+  duration_ms: 46.209705
+  type: 'test'
+  ...
+# Subtest: package-manager guard does not require a Python environment
+ok 65 - package-manager guard does not require a Python environment
+  ---
+  duration_ms: 41.058111
+  type: 'test'
+  ...
+# Subtest: an existing bootstrap lock is preserved and blocks bootstrap
+ok 66 - an existing bootstrap lock is preserved and blocks bootstrap
+  ---
+  duration_ms: 38.552531
+  type: 'test'
+  ...
+# Subtest: arguments with spaces and metacharacters remain literal argv
+ok 67 - arguments with spaces and metacharacters remain literal argv
+  ---
+  duration_ms: 66.007838
+  type: 'test'
+  ...
+# Subtest: launcher uses its checkout root from an unrelated directory
+ok 68 - launcher uses its checkout root from an unrelated directory
+  ---
+  duration_ms: 64.029186
+  type: 'test'
+  ...
+# Subtest: optional reference bootstrap requires the development environment first
+ok 69 - optional reference bootstrap requires the development environment first
+  ---
+  duration_ms: 28.84684
+  type: 'test'
+  ...
+# Subtest: reference bootstrap respects the shared bootstrap lock
+ok 70 - reference bootstrap respects the shared bootstrap lock
+  ---
+  duration_ms: 34.232835
+  type: 'test'
+  ...
+# Subtest: reference bootstrap routes only its pinned requirements and checks dependencies
+ok 71 - reference bootstrap routes only its pinned requirements and checks dependencies
+  ---
+  duration_ms: 134.083422
+  type: 'test'
+  ...
+# Subtest: test-launchers discovers and executes tests without a Python environment
+ok 72 - test-launchers discovers and executes tests without a Python environment
+  ---
+  duration_ms: 133.640492
+  type: 'test'
+  ...
+1..72
+# tests 72
+# suites 0
+# pass 72
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1147.53253
+[1/4] Repository validation
+[2/4] Tooling regression tests
+test_identity_check_is_local_and_preserves_configuration (test_agent_operations.AgentOperations.test_identity_check_is_local_and_preserves_configuration) ... ok
+test_identity_mismatch_fails_without_reconfiguring (test_agent_operations.AgentOperations.test_identity_mismatch_fails_without_reconfiguring) ... ok
+test_make_and_shared_instructions_select_all_skills (test_agent_operations.AgentOperations.test_make_and_shared_instructions_select_all_skills) ... ok
+test_release_workflow_explicitly_acknowledges_publication (test_agent_operations.AgentOperations.test_release_workflow_explicitly_acknowledges_publication) ... ok
+test_unconfigured_identity_is_not_accepted (test_agent_operations.AgentOperations.test_unconfigured_identity_is_not_accepted) ... ok
+test_unrelated_documentation_does_not_select_products (test_agent_operations.AgentOperations.test_unrelated_documentation_does_not_select_products) ... ok
+test_workflow_tasks_use_declared_make_targets (test_agent_operations.AgentOperations.test_workflow_tasks_use_declared_make_targets) ... ok
+test_broken_local_link_rejected (test_contracts.BoundaryTests.test_broken_local_link_rejected) ... ok
+test_case_collision_rejected (test_contracts.BoundaryTests.test_case_collision_rejected) ... ok
+test_code_fence_examples_not_treated_as_links (test_contracts.BoundaryTests.test_code_fence_examples_not_treated_as_links) ... ok
+test_encoded_link_escape_rejected (test_contracts.BoundaryTests.test_encoded_link_escape_rejected) ... ok
+test_environment_file_rejected (test_contracts.BoundaryTests.test_environment_file_rejected) ... ok
+test_external_links_not_requested (test_contracts.BoundaryTests.test_external_links_not_requested) ... ok
+test_fixture_tree_not_shipped (test_contracts.BoundaryTests.test_fixture_tree_not_shipped) ... ok
+test_inline_code_resource_path_checked (test_contracts.BoundaryTests.test_inline_code_resource_path_checked) ... ok
+test_javascript_cross_skill_import_rejected (test_contracts.BoundaryTests.test_javascript_cross_skill_import_rejected) ... ok
+test_javascript_npm_runtime_dependency_rejected (test_contracts.BoundaryTests.test_javascript_npm_runtime_dependency_rejected) ... ok
+test_link_outside_skill_rejected (test_contracts.BoundaryTests.test_link_outside_skill_rejected) ... ok
+test_markdown_reference_html_and_parentheses (test_contracts.BoundaryTests.test_markdown_reference_html_and_parentheses) ... ok
+test_nested_skill_rejected (test_contracts.BoundaryTests.test_nested_skill_rejected) ... ok
+test_nonbundled_python_import_rejected (test_contracts.BoundaryTests.test_nonbundled_python_import_rejected) ... ok
+test_repository_python_import_rejected (test_contracts.BoundaryTests.test_repository_python_import_rejected) ... ok
+test_script_registration_required (test_contracts.BoundaryTests.test_script_registration_required) ... ok
+test_shell_command_not_allowed_in_smoke (test_contracts.BoundaryTests.test_shell_command_not_allowed_in_smoke) ... ok
+test_smoke_output_assertion_required (test_contracts.BoundaryTests.test_smoke_output_assertion_required) ... ok
+test_symlink_rejected (test_contracts.BoundaryTests.test_symlink_rejected) ... ok
+test_valid_local_link (test_contracts.BoundaryTests.test_valid_local_link) ... ok
+test_boolean_metadata_rejected (test_contracts.FormatTests.test_boolean_metadata_rejected) ... ok
+test_draft_is_valid_but_not_discoverable (test_contracts.FormatTests.test_draft_is_valid_but_not_discoverable) ... ok
+test_duplicate_json_key_rejected (test_contracts.FormatTests.test_duplicate_json_key_rejected) ... ok
+test_duplicate_yaml_key_rejected (test_contracts.FormatTests.test_duplicate_yaml_key_rejected) ... ok
+test_empty_repository_is_valid (test_contracts.FormatTests.test_empty_repository_is_valid) ... ok
+test_extra_frontmatter_field_rejected (test_contracts.FormatTests.test_extra_frontmatter_field_rejected) ... ok
+test_line_limit_is_configurable_and_enforced (test_contracts.FormatTests.test_line_limit_is_configurable_and_enforced) ... ok
+test_missing_frontmatter_rejected (test_contracts.FormatTests.test_missing_frontmatter_rejected) ... ok
+test_name_directory_mismatch_rejected (test_contracts.FormatTests.test_name_directory_mismatch_rejected) ... ok
+test_root_skill_is_rejected (test_contracts.FormatTests.test_root_skill_is_rejected) ... ok
+test_stable_semver_policy (test_contracts.FormatTests.test_stable_semver_policy) ... ok
+test_too_long_description_rejected (test_contracts.FormatTests.test_too_long_description_rejected) ... ok
+test_unregistered_skill_is_rejected (test_contracts.FormatTests.test_unregistered_skill_is_rejected) ... ok
+test_yaml_anchors_rejected (test_contracts.FormatTests.test_yaml_anchors_rejected) ... ok
+test_yaml_custom_constructor_rejected (test_contracts.FormatTests.test_yaml_custom_constructor_rejected) ... ok
+test_yaml_on_is_not_a_boolean (test_contracts.FormatTests.test_yaml_on_is_not_a_boolean) ... ok
+test_activation_updates_registry_and_release_paths (test_contracts.LifecycleTests.test_activation_updates_registry_and_release_paths) ... ok
+test_active_requires_negative_case (test_contracts.LifecycleTests.test_active_requires_negative_case) ... ok
+test_configure_updates_identity_without_remote_access (test_contracts.LifecycleTests.test_configure_updates_identity_without_remote_access) ... ok
+test_duplicate_creation_does_not_overwrite (test_contracts.LifecycleTests.test_duplicate_creation_does_not_overwrite) ... ok
+test_failed_scaffold_cleans_up_created_directories (test_contracts.LifecycleTests.test_failed_scaffold_cleans_up_created_directories) ... ok
+test_generated_catalog_drift_fails (test_contracts.LifecycleTests.test_generated_catalog_drift_fails) ... ok
+test_pending_review_cannot_activate (test_contracts.LifecycleTests.test_pending_review_cannot_activate) ... ok
+test_placeholder_cannot_activate_and_rolls_back (test_contracts.LifecycleTests.test_placeholder_cannot_activate_and_rolls_back) ... ok
+test_release_config_drift_fails (test_contracts.LifecycleTests.test_release_config_drift_fails) ... ok
+test_sync_preserves_independent_versions (test_contracts.LifecycleTests.test_sync_preserves_independent_versions) ... ok
+test_sync_refuses_version_reset (test_contracts.LifecycleTests.test_sync_refuses_version_reset) ... ok
+test_traversal_slug_rejected (test_contracts.LifecycleTests.test_traversal_slug_rejected) ... ok
+test_cli_activation_fails_for_shell (test_planning_cli.CliTests.test_cli_activation_fails_for_shell) ... ok
+test_cli_duplicate_returns_nonzero (test_planning_cli.CliTests.test_cli_duplicate_returns_nonzero) ... ok
+test_cli_unknown_skill_returns_error (test_planning_cli.CliTests.test_cli_unknown_skill_returns_error) ... ok
+test_help_available (test_planning_cli.CliTests.test_help_available) ... ok
+test_new_validate_and_has_active (test_planning_cli.CliTests.test_new_validate_and_has_active) ... ok
+test_preview_cli_excludes_shell (test_planning_cli.CliTests.test_preview_cli_excludes_shell) ... ok
+test_behavior_changes_are_not_docs_only (test_planning_cli.PlanningTests.test_behavior_changes_are_not_docs_only) ... ok
+test_docs_only_does_not_run_all_smokes (test_planning_cli.PlanningTests.test_docs_only_does_not_run_all_smokes) ... ok
+test_empty_shards (test_planning_cli.PlanningTests.test_empty_shards) ... ok
+test_invalid_title_rejected (test_planning_cli.PlanningTests.test_invalid_title_rejected) ... ok
+test_missing_base_conservatively_selects_all (test_planning_cli.PlanningTests.test_missing_base_conservatively_selects_all) ... ok
+test_real_git_deleted_file_is_detected (test_planning_cli.PlanningTests.test_real_git_deleted_file_is_detected) ... ok
+test_real_git_diff_selects_affected_skill (test_planning_cli.PlanningTests.test_real_git_diff_selects_affected_skill) ... ok
+test_release_pr_exemption_is_explicit (test_planning_cli.PlanningTests.test_release_pr_exemption_is_explicit) ... ok
+test_shards_bound_10000_skills_without_loss (test_planning_cli.PlanningTests.test_shards_bound_10000_skills_without_loss) ... ok
+test_shards_limit_validated (test_planning_cli.PlanningTests.test_shards_limit_validated) ... ok
+test_shared_tooling_impacts_all (test_planning_cli.PlanningTests.test_shared_tooling_impacts_all) ... ok
+test_skill_test_and_catalog_map_to_owner (test_planning_cli.PlanningTests.test_skill_test_and_catalog_map_to_owner) ... ok
+test_unknown_git_base_falls_back (test_planning_cli.PlanningTests.test_unknown_git_base_falls_back) ... ok
+test_valid_conventional_title (test_planning_cli.PlanningTests.test_valid_conventional_title) ... ok
+test_annotated_remote_tag_is_peeled (test_review_regressions.ReleaseReviewRegressions.test_annotated_remote_tag_is_peeled) ... ok
+test_catalog_downgrade_is_rejected (test_review_regressions.ReleaseReviewRegressions.test_catalog_downgrade_is_rejected) ... ok
+test_component_downgrade_is_rejected (test_review_regressions.ReleaseReviewRegressions.test_component_downgrade_is_rejected) ... ok
+test_existing_remote_component_does_not_get_recreated (test_review_regressions.ReleaseReviewRegressions.test_existing_remote_component_does_not_get_recreated) ... ok
+test_missing_assets_and_component_tag_are_written_after_preflight (test_review_regressions.ReleaseReviewRegressions.test_missing_assets_and_component_tag_are_written_after_preflight) ... ok
+test_remote_asset_conflict_precedes_any_write (test_review_regressions.ReleaseReviewRegressions.test_remote_asset_conflict_precedes_any_write) ... ok
+test_remote_auth_error_is_not_treated_as_missing_tag (test_review_regressions.ReleaseReviewRegressions.test_remote_auth_error_is_not_treated_as_missing_tag) ... ok
+test_remote_catalog_mismatch_precedes_any_write (test_review_regressions.ReleaseReviewRegressions.test_remote_catalog_mismatch_precedes_any_write) ... ok
+test_rewritten_checksum_cannot_authorize_changed_archive (test_review_regressions.ReleaseReviewRegressions.test_rewritten_checksum_cannot_authorize_changed_archive) ... ok
+test_unknown_remote_component_history_fails_before_upload (test_review_regressions.ReleaseReviewRegressions.test_unknown_remote_component_history_fails_before_upload) ... ok
+test_activation_fingerprint_sort_is_filename_independent (test_review_regressions.ReviewRegressions.test_activation_fingerprint_sort_is_filename_independent) ... ok
+test_activation_keeps_review_fingerprint (test_review_regressions.ReviewRegressions.test_activation_keeps_review_fingerprint) ... ok
+test_active_review_rejects_changed_asset (test_review_regressions.ReviewRegressions.test_active_review_rejects_changed_asset) ... ok
+test_active_review_rejects_missing_fingerprint (test_review_regressions.ReviewRegressions.test_active_review_rejects_missing_fingerprint) ... ok
+test_actual_git_behavior_change_is_not_metadata (test_review_regressions.ReviewRegressions.test_actual_git_behavior_change_is_not_metadata) ... ok
+test_actual_git_diff_allows_only_version_metadata (test_review_regressions.ReviewRegressions.test_actual_git_diff_allows_only_version_metadata) ... ok
+test_branch_name_alone_cannot_authorize_skill_content (test_review_regressions.ReviewRegressions.test_branch_name_alone_cannot_authorize_skill_content) ... ok
+test_compact_matrix_does_not_embed_names (test_review_regressions.ReviewRegressions.test_compact_matrix_does_not_embed_names) ... ok
+test_dist_symlink_cannot_redirect_the_builder (test_review_regressions.ReviewRegressions.test_dist_symlink_cannot_redirect_the_builder) ... ok
+test_documentation_escape_fails (test_review_regressions.ReviewRegressions.test_documentation_escape_fails) ... ok
+test_empty_matrix_is_empty (test_review_regressions.ReviewRegressions.test_empty_matrix_is_empty) ... ok
+test_fenced_documentation_examples_are_not_file_links (test_review_regressions.ReviewRegressions.test_fenced_documentation_examples_are_not_file_links) ... ok
+test_isolation_recomputes_compact_shards_with_same_refs (test_review_regressions.ReviewRegressions.test_isolation_recomputes_compact_shards_with_same_refs) ... ok
+test_launcher_tests_are_shared_changes (test_review_regressions.ReviewRegressions.test_launcher_tests_are_shared_changes) ... ok
+test_nested_bundled_python_module_is_allowed (test_review_regressions.ReviewRegressions.test_nested_bundled_python_module_is_allowed) ... ok
+test_nested_bundled_python_module_is_checked (test_review_regressions.ReviewRegressions.test_nested_bundled_python_module_is_checked) ... ok
+test_new_skill_file_cannot_use_version_only_exception (test_review_regressions.ReviewRegressions.test_new_skill_file_cannot_use_version_only_exception) ... ok
+test_new_skill_templates_are_english_and_keep_identity (test_review_regressions.ReviewRegressions.test_new_skill_templates_are_english_and_keep_identity) ... ok
+test_pnpm_environment_used_in_all_operational_jobs (test_review_regressions.ReviewRegressions.test_pnpm_environment_used_in_all_operational_jobs) ... ok
+test_release_exception_rejects_runtime_files (test_review_regressions.ReviewRegressions.test_release_exception_rejects_runtime_files) ... ok
+test_release_exception_rejects_unknown_diff (test_review_regressions.ReviewRegressions.test_release_exception_rejects_unknown_diff) ... ok
+test_release_only_changes_keep_review_fingerprint (test_review_regressions.ReviewRegressions.test_release_only_changes_keep_review_fingerprint) ... ok
+test_root_package_and_empty_lock_agree (test_review_regressions.ReviewRegressions.test_root_package_and_empty_lock_agree) ... ok
+test_root_readme_broken_link_fails (test_review_regressions.ReviewRegressions.test_root_readme_broken_link_fails) ... ok
+test_root_readme_external_link_is_not_fetched (test_review_regressions.ReviewRegressions.test_root_readme_external_link_is_not_fetched) ... ok
+test_skill_license_change_requires_review (test_review_regressions.ReviewRegressions.test_skill_license_change_requires_review) ... ok
+test_bundled_node_module_runs (test_runtime_release.IsolationTests.test_bundled_node_module_runs) ... ok
+test_bundled_python_helper_works (test_runtime_release.IsolationTests.test_bundled_python_helper_works) ... ok
+test_cwd_dependent_script_fails (test_runtime_release.IsolationTests.test_cwd_dependent_script_fails) ... ok
+test_environment_drops_secrets_and_pythonpath (test_runtime_release.IsolationTests.test_environment_drops_secrets_and_pythonpath) ... ok
+test_missing_command_fails_clearly (test_runtime_release.IsolationTests.test_missing_command_fails_clearly) ... ok
+test_modifying_installed_payload_fails (test_runtime_release.IsolationTests.test_modifying_installed_payload_fails) ... ok
+test_node_syntax_error_is_detected (test_runtime_release.IsolationTests.test_node_syntax_error_is_detected) ... ok
+test_output_can_be_written_to_work_directory (test_runtime_release.IsolationTests.test_output_can_be_written_to_work_directory) ... ok
+test_python_site_packages_are_not_loaded (test_runtime_release.IsolationTests.test_python_site_packages_are_not_loaded) ... ok
+test_runs_from_both_directories (test_runtime_release.IsolationTests.test_runs_from_both_directories) ... ok
+test_wrong_output_fails (test_runtime_release.IsolationTests.test_wrong_output_fails) ... ok
+test_archive_is_repeatable_and_contains_only_skill (test_runtime_release.PackagingTests.test_archive_is_repeatable_and_contains_only_skill) ... ok
+test_bootstrap_not_releasable (test_runtime_release.PackagingTests.test_bootstrap_not_releasable) ... ok
+test_builder_does_not_overwrite_user_directory (test_runtime_release.PackagingTests.test_builder_does_not_overwrite_user_directory) ... ok
+test_builder_refuses_outside_dist (test_runtime_release.PackagingTests.test_builder_refuses_outside_dist) ... ok
+test_changed_content_changes_hash (test_runtime_release.PackagingTests.test_changed_content_changes_hash) ... ok
+test_changed_payload_without_skill_bump_fails (test_runtime_release.PackagingTests.test_changed_payload_without_skill_bump_fails) ... ok
+test_corrupt_archive_rejected_before_remote_call (test_runtime_release.PackagingTests.test_corrupt_archive_rejected_before_remote_call) ... ok
+test_index_and_checksums_match (test_runtime_release.PackagingTests.test_index_and_checksums_match) ... ok
+test_preview_excludes_drafts (test_runtime_release.PackagingTests.test_preview_excludes_drafts) ... ok
+test_publish_refuses_wrong_github_repository (test_runtime_release.PackagingTests.test_publish_refuses_wrong_github_repository) ... ok
+test_real_git_tagged_fixture_builds (test_runtime_release.PackagingTests.test_real_git_tagged_fixture_builds) ... ok
+test_release_dirty_tree_fails (test_runtime_release.PackagingTests.test_release_dirty_tree_fails) ... ok
+test_release_mismatched_tag_fails (test_runtime_release.PackagingTests.test_release_mismatched_tag_fails) ... ok
+test_release_not_at_tag_fails (test_runtime_release.PackagingTests.test_release_not_at_tag_fails) ... ok
+test_unchanged_skill_can_keep_version (test_runtime_release.PackagingTests.test_unchanged_skill_can_keep_version) ... ok
+test_all_actions_pinned_to_full_sha (test_workflows.WorkflowContracts.test_all_actions_pinned_to_full_sha) ... ok
+test_checkouts_do_not_persist_credentials (test_workflows.WorkflowContracts.test_checkouts_do_not_persist_credentials) ... ok
+test_ci_has_stable_always_gate (test_workflows.WorkflowContracts.test_ci_has_stable_always_gate) ... ok
+test_issue_forms_parse_and_have_required_information (test_workflows.WorkflowContracts.test_issue_forms_parse_and_have_required_information) ... ok
+test_no_silent_release_token_fallback (test_workflows.WorkflowContracts.test_no_silent_release_token_fallback) ... ok
+test_optional_external_integrations_opt_in (test_workflows.WorkflowContracts.test_optional_external_integrations_opt_in) ... ok
+test_pr_workflow_is_read_only (test_workflows.WorkflowContracts.test_pr_workflow_is_read_only) ... ok
+test_release_is_opt_in_and_main_only (test_workflows.WorkflowContracts.test_release_is_opt_in_and_main_only) ... ok
+test_release_recovers_from_explicit_tag (test_workflows.WorkflowContracts.test_release_recovers_from_explicit_tag) ... ok
+test_remote_publish_not_in_ci (test_workflows.WorkflowContracts.test_remote_publish_not_in_ci) ... ok
+test_user_pr_title_not_interpolated_in_shell (test_workflows.WorkflowContracts.test_user_pr_title_not_interpolated_in_shell) ... ok
+test_workflows_have_explicit_timeouts (test_workflows.WorkflowContracts.test_workflows_have_explicit_timeouts) ... ok
+
+----------------------------------------------------------------------
+Ran 149 tests in 4.056s
+
+OK
+
+[3/4] Copy-only skill checks
+{"name": "orchestrar", "copied_files": 7, "smoke_executions": 0, "behavioral_llm_evaluation": "not executed by this command"}
+[4/4] Preview packaging (drafts excluded)
+OK: 0 active skill(s) packaged. No remote publication performed.

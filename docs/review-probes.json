@@ -1,0 +1,51 @@
+{
+  "baseline": [
+    {
+      "finding": "Release-prefixed branch bypasses payload commit policy",
+      "original_accepts_invalid_case": true
+    },
+    {
+      "finding": "Previously approved evaluation is not bound to content",
+      "original_accepts_invalid_case": true
+    },
+    {
+      "finding": "Repository documentation links are outside validation scope",
+      "original_accepts_invalid_case": true
+    },
+    {
+      "finding": "Component version can go backwards",
+      "original_accepts_invalid_case": true
+    },
+    {
+      "finding": "Full-name CI matrix grows beyond the GitHub per-job output budget",
+      "utf16_bytes_10000_names": 1360774
+    }
+  ],
+  "revised": [
+    {
+      "finding": "Release-prefixed branch does not authorize payload changes",
+      "unsafe_case_rejected": true,
+      "reason": "Release exception requires a verified version-only SKILL.md diff; branch names are not authorization."
+    },
+    {
+      "finding": "Stale approved evaluation fails",
+      "unsafe_case_rejected": true,
+      "reason": "<temporary-repository>/tests/skills/alpha-skill/evals.json: reviewed payload has changed or its fingerprint is missing. Re-evaluate before recording new evidence."
+    },
+    {
+      "finding": "Broken root documentation fails independently",
+      "unsafe_case_rejected": true,
+      "reason": "<temporary-repository>/README.md: broken documentation link: docs/does-not-exist.md"
+    },
+    {
+      "finding": "Component downgrade fails",
+      "unsafe_case_rejected": true,
+      "reason": "alpha-skill: component version must not decrease from 1.0.0 to 0.9.0."
+    },
+    {
+      "finding": "Compact matrix remains below output budget",
+      "utf16_bytes_10000_names": 806,
+      "within_budget": true
+    }
+  ]
+}

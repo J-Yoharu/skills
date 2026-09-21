@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "session_id": "<current-session>",
+  "harness": "codex",
+  "harness_version": "<observed-version>",
+  "observed_at": "<ISO-8601-with-timezone>",
+  "model_selection": false,
+  "effort_selection": false,
+  "evidence": "<actual-inventory-origin>",
+  "models": [],
+  "parent": {
+    "model": null,
+    "effort": null
+  },
+  "_note": "Empty example, not evidence of available tools/models. Populate from actual runtime; do not make paid test calls merely to list models. parent is observation of the current chat, never configuration to apply; selection_scope describes subagent-selection controls.",
+  "selection_scope": "subagents"
+}

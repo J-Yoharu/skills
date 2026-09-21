@@ -1,0 +1,126 @@
+name: Release
+# Manual by default: no duplicate full release preflight on every main push.
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Optional existing catalog tag to repair assets (v1.2.0). Empty = run Release Please.'
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: catalog-release-main
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main' && vars.RELEASES_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Validate requested ref before checkout
+        id: request
+        env:
+          REQUESTED_TAG: ${{ inputs.release_tag }}
+        run: |
+          if [ -n "$REQUESTED_TAG" ] && ! [[ "$REQUESTED_TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo 'Invalid catalog tag.' >&2; exit 1
+          fi
+          printf 'ref=%s\n' "${REQUESTED_TAG:-main}" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.request.outputs.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .node-version
+          package-manager-cache: false
+      - run: make bootstrap
+      - id: active
+        run: make has-active-ci
+      - name: Explain an unreleased catalog
+        if: steps.active.outputs.active != 'true'
+        run: echo 'No evaluated, active skill. No release PR or publication will be created.'
+      - name: Validate the exact candidate once
+        id: checked
+        if: steps.active.outputs.active == 'true'
+        run: |
+          make verify-identity
+          make check
+          printf 'sha=%s\n' "$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Refuse a stale main candidate before Release Please
+        if: steps.active.outputs.active == 'true' && inputs.release_tag == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CHECKED_SHA: ${{ steps.checked.outputs.sha }}
+        run: |
+          CURRENT_SHA="$(gh api "repos/$GITHUB_REPOSITORY/commits/main" --jq .sha)"
+          test "$CURRENT_SHA" = "$CHECKED_SHA" || { echo 'main advanced; rerun Release against the new candidate.' >&2; exit 1; }
+      - name: Maintain release PR or create catalog release
+        id: rp
+        if: steps.active.outputs.active == 'true' && inputs.release_tag == ''
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          # Native token is supported; approve its PR workflows in the UI when required.
+          # A scoped PAT/App token is optional for fully automatic PR workflow triggering.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || github.token }}
+          target-branch: main
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+      - name: Select an exact released tag
+        id: selected
+        if: steps.active.outputs.active == 'true'
+        env:
+          REQUESTED_TAG: ${{ inputs.release_tag }}
+          RELEASE_CREATED: ${{ steps.rp.outputs.release_created }}
+          GENERATED_TAG: ${{ steps.rp.outputs.tag_name }}
+        run: |
+          TAG="$REQUESTED_TAG"
+          if [ -z "$TAG" ] && [ "$RELEASE_CREATED" = true ]; then TAG="$GENERATED_TAG"; fi
+          if [ -z "$TAG" ]; then echo 'publish=false' >> "$GITHUB_OUTPUT"; exit 0; fi
+          if ! [[ "$TAG" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo 'Invalid catalog tag.' >&2; exit 1
+          fi
+          printf 'publish=true\ntag=%s\n' "$TAG" >> "$GITHUB_OUTPUT"
+      - name: Checkout released snapshot, not advancing main
+        if: steps.selected.outputs.publish == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.selected.outputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+          clean: false
+      - name: Do not reuse test evidence for a different commit
+        if: steps.selected.outputs.publish == 'true'
+        env:
+          CHECKED_SHA: ${{ steps.checked.outputs.sha }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$CHECKED_SHA" || {
+            echo 'Released tag differs from the tested commit. Rerun Release with release_tag set to validate that exact snapshot.' >&2
+            exit 1
+          }
+      - name: Build versioned artifacts
+        if: steps.selected.outputs.publish == 'true'
+        env:
+          RELEASE_TAG: ${{ steps.selected.outputs.tag }}
+        run: make build-release
+      - name: Publish missing assets and immutable component tags
+        if: steps.selected.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.selected.outputs.tag }}
+        run: make publish-assets CONFIRM_PUBLISH=yes

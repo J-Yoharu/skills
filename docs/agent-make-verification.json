@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-21",
+  "scope": "Shared agent instructions and Make command integration",
+  "input_archive": "agent-skills-orchestrar-pnpm-reviewed.zip",
+  "local_check": {
+    "command": "node scripts/run.mjs check",
+    "exit_code": 0,
+    "node_tests": 72,
+    "python_tests": 149,
+    "total_tests": 221,
+    "failures": 0,
+    "skipped": 0
+  },
+  "make_routing": {
+    "engine": "GNU Make 4.4.1",
+    "pnpm_process": "explicit test fake, not the real package manager",
+    "bare_make_and_help_executed": true
+  },
+  "python_environment": {
+    "version": "3.13.5",
+    "setup": "isolated venv seeded offline from exact preinstalled requirements",
+    "pip_check": "passed"
+  },
+  "archive_reextraction": {
+    "status": "passed",
+    "command": "node scripts/run.mjs check",
+    "node_tests": 72,
+    "python_tests": 149,
+    "total_tests": 221,
+    "exit_code": 0,
+    "make_help_exit_code": 0
+  },
+  "preservation": {
+    "unchanged": {
+      ".release-please-manifest.json": "b9c66e0126774ab9fa34536f15972438356e7035724a2c0f0ca3b125967e6399",
+      "catalog/orchestrar.json": "0f5ebda6c3be2bc7dbf6e476166087dab6f44250bcfe145bc28a8cb730a4eed1",
+      "pnpm-lock.yaml": "ed2dc02ee73028a149cbd4823dbcdbb84cdbe7bef85f06c0e09978335592f4ae",
+      "release-please-config.json": "4eabf6d6f7549043fc307e398d1f6f06218db2b8c774c8d89b2276e4272741b3",
+      "repository.json": "920b8333ad771bd830848c826d862886a29394b6cbc81cbc047864ba163e8905",
+      "requirements-dev.txt": "acf36996968eb76eeb14b43bf542b3215a89aa62bc77c74d2205587c7f82fbb2",
+      "requirements-reference.txt": "0fc6b0fbbf18d40049457be018636fff5d0cf58ff81a52d9fd3226c6177a7bf1",
+      "skills/orchestrar/CHANGELOG.md": "0cda45d3fec367e996587f916f058929f13e90a8923e653c43d463079ea37bf9",
+      "skills/orchestrar/LICENSE": "e7ca19203fe799b6cbe5015a66068dab4eaaba437480b303fd5b2ddef26acd07",
+      "skills/orchestrar/SKILL.md.template": "bb2f617c789ee9ad99bd865ce7222ebf54d28ae8046c7b2a035efa0529c86691",
+      "skills/orchestrar/assets/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "skills/orchestrar/references/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "skills/orchestrar/scripts/.gitkeep": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "skills/orchestrar/version.txt": "f7af902eefb89f3a2216d798078294bb927e71c64bad70551f80effabd375875",
+      "tests/skills/orchestrar/evals.json": "99a91c439b8ee16c3d6f49a81689b478ce2773687fec1776882e2cea411fb7b6",
+      "version.txt": "f7af902eefb89f3a2216d798078294bb927e71c64bad70551f80effabd375875"
+    },
+    "changed_from_previous_zip": [
+      ".editorconfig",
+      ".github/CODEOWNERS",
+      ".github/pull_request_template.md",
+      ".github/workflows/ci.yml",
+      ".github/workflows/interop.yml",
+      ".github/workflows/release.yml",
+      ".gitignore",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "CONTRIBUTING.md",
+      "README.md",
+      "docs/ADDING_SKILLS.md",
+      "docs/ARCHITECTURE.md",
+      "docs/CATALOG.md",
+      "docs/OPERATIONS.md",
+      "docs/RESEARCH.md",
+      "docs/REVIEW.md",
+      "docs/SETUP.md",
+      "docs/VERIFICATION.md",
+      "package.json",
+      "scripts/__main__.py",
+      "scripts/planning.py",
+      "scripts/repository.py",
+      "scripts/run.mjs",
+      "scripts/validation.py",
+      "tests/launchers/run.test.mjs",
+      "tests/scripts/test_review_regressions.py"
+    ],
+    "added_files": [
+      "Makefile",
+      "docs/AGENT_MAKE_REVIEW.md",
+      "docs/AGENT_WORKFLOW.md",
+      "docs/agent-make-verification.json",
+      "docs/agent-make-verification.log",
+      "tests/launchers/agents.test.mjs",
+      "tests/launchers/make.test.mjs",
+      "tests/scripts/test_agent_operations.py"
+    ]
+  },
+  "native_agent_sessions_executed": false,
+  "hosted_actions_executed": false,
+  "remote_publication_executed": false,
+  "real_pnpm_frozen_install_executed": false,
+  "online_bootstrap_executed": false,
+  "skill_activated": false,
+  "review": "separate self-review pass, not a second-model review",
+  "archive_file_count": 85
+}

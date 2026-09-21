@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "project_id": "<stable-coordinating-root-id>",
+  "sections": {
+    "workflow": {
+      "summary": "<observed-conventions>",
+      "confidence": "unknown"
+    },
+    "sources": {
+      "entries": [],
+      "confidence": "unknown"
+    },
+    "verification": {
+      "commands": [],
+      "confidence": "unknown"
+    },
+    "models": {
+      "policy": "subagents-v2",
+      "role_overrides": {},
+      "selection_scope": "subagents"
+    },
+    "resources": {
+      "pause_context_used_percent": null
+    }
+  },
+  "anchors": {
+    "root_rules": {
+      "sections": [
+        "workflow",
+        "sources"
+      ],
+      "paths": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "README.md",
+        "CONTRIBUTING.md"
+      ],
+      "globs": []
+    },
+    "test_commands": {
+      "sections": [
+        "verification"
+      ],
+      "paths": [
+        "package.json"
+      ],
+      "globs": []
+    }
+  },
+  "_note": "Illustrative draft without integrity metadata or a baseline. Replace placeholders and anchors with observed facts before saving. Without an anchor, models requires semantic revalidation."
+}

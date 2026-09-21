@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "sections": {
+    "resources": {
+      "max_writers": 1
+    },
+    "models": {
+      "role_overrides": {
+        "codex": {
+          "implement": {
+            "choices": [
+              {
+                "family": "sol",
+                "effort": "high"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

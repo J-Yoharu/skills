@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a defect in a skill or repository maintenance.
+title: "fix: "
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Skill or component
+      placeholder: orquestrar or repository maintenance
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version, tag, or commit
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps and expected behavior
+      description: Do not include credentials, private prompts, or customer files.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Actual evidence and environment

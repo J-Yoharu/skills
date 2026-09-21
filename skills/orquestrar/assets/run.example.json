@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "run_id": "exemplo-001",
+  "objective": "The consumer uses the validated contract without breaking existing behavior.",
+  "sources": [
+    {
+      "provider": "local",
+      "locator": "docs/task.md",
+      "revision": "<actual-hash>",
+      "authority": [
+        "acceptance"
+      ]
+    }
+  ],
+  "decisions": [],
+  "permissions": {},
+  "reuse": [],
+  "repositories": [],
+  "active_agents": [],
+  "evidence": [],
+  "sync_pending": [],
+  "tasks": [
+    {
+      "id": "T1",
+      "repo": "api",
+      "status": "integrated",
+      "depends_on": [],
+      "write_scope": [
+        "<canonical-module>"
+      ],
+      "acceptance": [
+        "<criterion-1>"
+      ],
+      "evidence_ref": "<actual-evidence-required>"
+    },
+    {
+      "id": "T2",
+      "repo": "web",
+      "status": "pending",
+      "depends_on": [
+        "T1"
+      ],
+      "write_scope": [
+        "<canonical-consumer>"
+      ],
+      "acceptance": [
+        "<criterion-2>"
+      ]
+    },
+    {
+      "id": "T3",
+      "repo": "docs",
+      "status": "pending",
+      "depends_on": [
+        "T2"
+      ],
+      "write_scope": [
+        "<target-document>"
+      ],
+      "acceptance": [
+        "<criterion-3>"
+      ]
+    }
+  ],
+  "next_action": "Confirm T1 in the consumer checkout before starting T2. This file is illustrative, not an execution.",
+  "project_profile": {
+    "path": "<actual-profile>",
+    "digest": "<validated-sha256>",
+    "sections_used": []
+  },
+  "runtime_ref": "<current-session-inventory>",
+  "coordinator_observation": {
+    "kind": "current_session",
+    "model": null,
+    "effort": null,
+    "evidence": null
+  },
+  "_coordinator_note": "Observational history only, not configuration. On resume, the open session coordinates without restoring the earlier model/effort.",
+  "control": {
+    "state": "running",
+    "reason": null,
+    "requested_at": null,
+    "drain_units": []
+  },
+  "active_processes": [],
+  "retained_resources": []
+}

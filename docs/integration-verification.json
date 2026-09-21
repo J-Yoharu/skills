@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-21",
+  "repository": "J-Yoharu/skills",
+  "skill": {
+    "name": "orquestrar",
+    "status": "draft",
+    "version": "0.0.0",
+    "review": "pending",
+    "behavioral_scenarios": 58,
+    "behavioral_scenarios_executed": 0,
+    "behavioral_execution_status": "not_run"
+  },
+  "native_make_check": {
+    "command": "make check PYTHON=/opt/pyvenv/bin/python PNPM=/deliberately-unavailable-pnpm",
+    "exit_code": 0,
+    "make_executable_real": true,
+    "python_and_node_executables_real": true,
+    "pnpm_required": false,
+    "node_tests_passed": 73,
+    "maintenance_python_tests_passed": 179,
+    "skill_python_tests_passed": 152,
+    "total_tests_passed": 404,
+    "failed": 0,
+    "skipped": 0,
+    "copied_skill_files": 40,
+    "smoke_executions": 8,
+    "release_artifacts_for_drafts": 0
+  },
+  "environment": {
+    "python": "3.13.5",
+    "node": "v22.16.0",
+    "make": "GNU Make 4.4.1",
+    "packages": {
+      "PyYAML": "6.0.3",
+      "jsonschema": "4.26.0",
+      "attrs": "26.1.0",
+      "jsonschema-specifications": "2025.9.1",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.5.1",
+      "typing_extensions": "4.16.0"
+    },
+    "python_override_reason": "Use preinstalled, exact pinned dependencies because package-network DNS is unavailable."
+  },
+  "bootstrap": {
+    "command": "make setup",
+    "executed": true,
+    "completed": false,
+    "venv_created": true,
+    "reason": "Package index DNS/network failure; pinned dependencies could not be installed into the fresh venv. Failure propagated; no pnpm was invoked.",
+    "log": "bootstrap-attempt.log"
+  },
+  "global_environment_pip_check": {
+    "exit_code": 1,
+    "reason": "Preinstalled unrelated moviepy 2.2.1 requires pillow<12, but global environment has pillow 12.3.0. Neither is a repository dependency. This is not a clean-venv pip-check success."
+  },
+  "isolated_archive_recheck": {
+    "status": "passed",
+    "exit_code": 0,
+    "directory_contains_spaces": true,
+    "git_directory_present": false,
+    "venv_present": false,
+    "pnpm_unavailable": true,
+    "command": "make check PYTHON=/opt/pyvenv/bin/python PNPM=/deliberately-unavailable-pnpm",
+    "tests_passed": 404,
+    "smoke_executions": 8,
+    "log": "archive-recheck.log",
+    "scope_note": "All code/configuration and maintenance docs in the candidate ZIP were tested. Only the current verification evidence was appended afterward; final archive bytes and links are checked separately."
+  },
+  "unexecuted": [
+    "Real pnpm frozen install",
+    "Clean online bootstrap completion",
+    "Hosted GitHub Actions",
+    "Remote Release Please execution",
+    "Official skills-ref/skills CLI interoperability",
+    "Native Codex/Claude Code sessions",
+    "All 58 LLM behavioral scenarios",
+    "actionlint (executable unavailable)"
+  ],
+  "remote_effects": {
+    "repository_read_via_github_connector": true,
+    "push": false,
+    "release": false,
+    "settings_changes": false,
+    "secrets_changes": false
+  },
+  "review_method": "Separate self-review pass plus regression tests; not an independent model or agent.",
+  "provenance": {
+    "archive_sha256": "762d1478dece4d95830660ad404245c89446e7e6001612ec086a43e7e7c4912b",
+    "skill": "orquestrar",
+    "source_editing_version_not_release": "2.3.0",
+    "candidate_version": "0.0.0",
+    "status": "draft",
+    "unchanged_product_files": [
+      "assets/profile.example.json",
+      "assets/work-order.md",
+      "assets/model-overrides.example.json",
+      "assets/run.example.json",
+      "assets/model-catalog.json",
+      "assets/runtime.example.json",
+      "assets/project.example.json",
+      "assets/overrides.example.json",
+      "agents/openai.yaml",
+      "references/model-routing.md",
+      "references/scheduling.md",
+      "references/state-delivery.md",
+      "references/source-contract.md",
+      "references/project-profile.md",
+      "references/discovery.md",
+      "references/verification.md",
+      "adapters/generic.md",
+      "adapters/claude-code.md",
+      "adapters/codex.md",
+      "scripts/verify.py",
+      "scripts/profile.py",
+      "scripts/route.py",
+      "assets/native/codex/orq-deep.toml",
+      "assets/native/codex/orq-lookup.toml",
+      "assets/native/codex/orq-explore.toml",
+      "assets/native/codex/orq-critical.toml",
+      "assets/native/codex/orq-review.toml",
+      "assets/native/codex/orq-implement.toml",
+      "assets/native/codex/orq-mechanical.toml",
+      "assets/native/claude-code/orq-mechanical.md",
+      "assets/native/claude-code/orq-critical.md",
+      "assets/native/claude-code/orq-deep.md",
+      "assets/native/claude-code/orq-explore.md",
+      "assets/native/claude-code/orq-review.md",
+      "assets/native/claude-code/orq-implement.md",
+      "assets/native/claude-code/orq-lookup.md"
+    ],
+    "unexpected_product_changes": [],
+    "instruction_body_unchanged": true,
+    "scenarios_json_unchanged": true,
+    "runtime_script_sha256": {
+      "profile.py": "d86ce92f3e96f8b475d5cdfe96b89fbe325a0887752ae85d5c0299c7ebe51647",
+      "route.py": "2690bba5373a766aa59c142d86f0afd9d0086b2795eb162ce790172f19ef2b17",
+      "verify.py": "f5013b074a0a973079e344e9e24883e99912283da56746573987313135141ce4"
+    }
+  }
+}
