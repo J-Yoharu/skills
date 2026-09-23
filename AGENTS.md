@@ -65,6 +65,11 @@ launcher tests; do not replace discovery with a hard-coded file list. After a fo
 test, run `make check` before reporting completion, or name the exact blocker.
 Command/agent changes must preserve the Make routing and shared-instruction contracts.
 
+A globally installed copy of a skill (for example through `skills.sh`) shadows the
+copy under evaluation. Uninstall it temporarily before the first evaluation run and
+reinstall it once at the end of the implementation, not after each edit; report both
+steps. This is the maintainer's standing authorization for that one global change.
+
 Skill content changes require current evaluation cases and genuine review evidence
 bound to the payload fingerprint. A matching digest is not proof that an evaluation
 ran. Never regenerate an approval solely to bypass a stale fingerprint.
