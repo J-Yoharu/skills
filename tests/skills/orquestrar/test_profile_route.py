@@ -1,10 +1,11 @@
 """Deterministic helper tests, not execution in an LLM harness."""
 from __future__ import annotations
 import copy
-from datetime import datetime, timezone, timedelta
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
+import sys
 import tempfile
 import unittest
 
@@ -16,7 +17,6 @@ def module(name):
     mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
     return mod
 profile = module('profile'); route = module('route')
-NOW = datetime(2026, 9, 21, 12, tzinfo=timezone.utc)
 
 
 class ProfileTests(unittest.TestCase):
@@ -24,194 +24,106 @@ class ProfileTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(); self.root = Path(self.temp.name)
         (self.root/'AGENTS.md').write_text('Use the documented workflow.\n')
         (self.root/'package.json').write_text('{"scripts":{"test":"existing-test"}}')
-        (self.root/'rules').mkdir(); (self.root/'rules/one.md').write_text('Rule one')
-        self.draft = {'schema_version':2, 'project_id':'local-test',
-                      'sections': {'workflow':{'summary':'Documented'}, 'verification':{'command':'existing-test'}},
-                      'anchors':{'rules':{'sections':['workflow'],'paths':['AGENTS.md','CLAUDE.md'],'globs':['rules/*.md']},
-                                 'tests':{'sections':['verification'],'paths':['package.json'],'globs':[]}}}
-        self.cache = profile.build(self.root, self.draft, now=NOW)
+        self.draft = {'project_id': 'local-test',
+                      'sections': {'workflow': {'summary': 'Documented'}, 'verification': {'command': 'existing-test'}},
+                      'sources': ['AGENTS.md', 'package.json', 'CLAUDE.md']}
+        self.path = self.root/'.orquestrar/profile.json'
     def tearDown(self): self.temp.cleanup()
-    def check(self, cache=None, now=NOW): return profile.check(self.root, cache or self.cache, now)
+    def cli(self, *args):
+        return subprocess.run([sys.executable, str(SKILL/'scripts/profile.py'), *map(str, args)],
+                              capture_output=True, text=True, timeout=20)
+    def save(self):
+        draft = self.root/'draft.json'; draft.write_text(json.dumps(self.draft))
+        return self.cli('save', '--root', self.root, '--draft', draft, '--profile', self.path)
+    def status(self):
+        return json.loads(self.cli('check', '--root', self.root, '--profile', self.path).stdout)
 
-    def test_unchanged_local_anchors_match(self):
-        self.assertEqual(self.check()['status'],'local_anchors_match')
-    def test_anchor_edit_invalidates_only_workflow(self):
-        (self.root/'AGENTS.md').write_text('New workflow')
-        self.assertEqual(self.check()['invalid_sections'],['workflow'])
-    def test_new_rule_is_detected(self):
-        (self.root/'rules/two.md').write_text('new')
-        self.assertEqual(self.check()['invalid_sections'],['workflow'])
-    def test_removed_rule_is_detected(self):
-        (self.root/'rules/one.md').unlink()
-        self.assertEqual(self.check()['invalid_sections'],['workflow'])
-    def test_previously_missing_instruction_is_detected(self):
-        (self.root/'CLAUDE.md').write_text('New instruction')
-        self.assertEqual(self.check()['invalid_sections'],['workflow'])
-    def test_unrelated_product_edit_does_not_invalidate_workflow(self):
-        (self.root/'app.py').write_text('new implementation')
-        self.assertEqual(self.check()['invalid_sections'],[])
-    def test_ttl_requires_revalidation_not_automatic_renewal(self):
-        result = self.check(now=NOW+timedelta(days=8))
-        self.assertEqual(result['invalid_sections'],['verification','workflow'])
-        self.assertEqual(self.cache['_validated_at']['workflow'],NOW.isoformat())
-    def test_manual_edits_are_not_overwritten(self):
-        bad=copy.deepcopy(self.cache); bad['sections']['workflow']['summary']='human edit'
-        self.assertEqual(self.check(bad)['status'],'manual_edit_or_corrupt')
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,bad,now=NOW)
-    def test_no_anchor_is_never_claimed_automatically_valid(self):
-        self.draft['sections']['sources']={'locator':'opaque-resource'}
-        cache=profile.build(self.root,self.draft,now=NOW)
-        self.assertIn('sources',self.check(cache)['invalid_sections'])
-    def test_external_status_is_explicitly_not_checked(self):
-        self.assertIn('Not checked',self.check()['external_sources'])
-    def test_selective_refresh_preserves_other_section_timestamp(self):
-        (self.root/'AGENTS.md').write_text('new')
-        newer=profile.build(self.root,self.draft,self.cache,['workflow'],NOW+timedelta(days=1))
-        self.assertNotEqual(newer['_validated_at']['workflow'],self.cache['_validated_at']['workflow'])
-        self.assertEqual(newer['_validated_at']['verification'],self.cache['_validated_at']['verification'])
-    def test_selective_refresh_rejects_unselected_value_change(self):
-        self.draft['sections']['verification']['command']='other'
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,self.cache,['workflow'],NOW)
-    def test_shared_changed_anchor_requires_all_sections(self):
-        self.draft['anchors']['rules']['sections'].append('verification')
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,self.cache,['workflow'],NOW)
-    def test_first_save_requires_all_sections(self):
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,None,['workflow'],NOW)
-    def test_root_escape_is_rejected(self):
-        self.draft['anchors']['rules']['paths']=['../outside']
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,now=NOW)
-    def test_absolute_path_is_rejected(self):
-        self.draft['anchors']['rules']['paths']=['/tmp/example']
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,now=NOW)
-    def test_symlink_anchor_is_not_followed(self):
-        (self.root/'AGENTS.md').unlink(); (self.root/'AGENTS.md').symlink_to(self.root/'package.json')
-        self.assertIn('workflow',self.check()['invalid_sections'])
-    def test_unknown_section_in_anchor_is_rejected(self):
-        self.draft['anchors']['rules']['sections']=['missing']
-        with self.assertRaises(profile.ProfileError): profile.build(self.root,self.draft,now=NOW)
-    def test_nested_overrides_preserve_unrelated_fields(self):
-        self.assertEqual(profile.merged({'a':{'b':1,'c':2}},{'a':{'b':3}}),{'a':{'b':3,'c':2}})
-    def test_override_lists_replace_instead_of_append(self):
-        self.assertEqual(profile.merged({'a':[1,2]},{'a':[]}),{'a':[]})
-    def test_override_does_not_mutate_inputs(self):
-        base={'a':{'b':1}}; profile.merged(base,{'a':{'b':2}})
-        self.assertEqual(base,{'a':{'b':1}})
-    def test_first_save_and_atomic_update_keep_backup(self):
-        target=self.root/'.orquestrar/profile.json'; profile.save(target,self.cache,'missing')
-        old=target.read_bytes(); updated=profile.build(self.root,self.draft,self.cache,now=NOW+timedelta(hours=1))
-        profile.save(target,updated,profile.digest(old))
-        self.assertEqual(target.with_name('profile.json.previous').read_bytes(),old)
-        self.assertTrue(profile.intact(profile.load(target)))
-    def test_compare_and_swap_rejects_stale_writer(self):
-        target=self.root/'profile.json'; profile.save(target,self.cache,'missing')
-        with self.assertRaises(profile.ProfileError): profile.save(target,self.cache,'missing')
-    def test_metadata_lock_is_not_removed_by_other_writer(self):
-        target=self.root/'profile.json'; lock=self.root/'profile.json.lock'; lock.write_text('owner')
-        with self.assertRaises(profile.ProfileError): profile.save(target,self.cache,'missing')
-        self.assertEqual(lock.read_text(),'owner')
-    def test_existing_human_edited_profile_preserved_even_with_current_digest(self):
-        target=self.root/'profile.json'; target.write_text('{"manual":"keep"}')
-        old=target.read_bytes()
-        with self.assertRaises(profile.ProfileError): profile.save(target,self.cache,profile.digest(old))
-        self.assertEqual(target.read_bytes(),old)
-    def test_no_timestamp_from_future_is_accepted(self):
-        newer=profile.build(self.root,self.draft,now=NOW+timedelta(days=1))
-        self.assertIn('workflow',self.check(newer)['invalid_sections'])
+    def test_missing_profile_asks_for_discovery_without_writing(self):
+        self.assertEqual(self.status()['status'], 'missing')
+        self.assertFalse(self.path.exists())
 
-    def test_full_rediscovery_can_remove_obsolete_sections(self):
-        self.draft['sections'].pop('verification')
-        self.draft['anchors'].pop('tests')
-        new = profile.build(self.root,self.draft,self.cache,now=NOW)
-        self.assertNotIn('verification',new['_validated_at'])
-        self.assertNotIn('tests',new['_baselines'])
-    def test_inspection_check_does_not_create_state(self):
-        before = sorted(p.relative_to(self.root).as_posix() for p in self.root.rglob('*'))
-        self.check()
-        after = sorted(p.relative_to(self.root).as_posix() for p in self.root.rglob('*'))
-        self.assertEqual(before,after)
-    def test_profile_save_refuses_symlink_parent_before_mkdir(self):
-        external=self.root/'external'; external.mkdir()
-        alias=self.root/'alias'; alias.symlink_to(external,target_is_directory=True)
-        with self.assertRaises(profile.ProfileError):
-            profile.save(alias/'newdir'/'profile.json',self.cache,'missing')
-        self.assertFalse((external/'newdir').exists())
+    def test_saved_profile_is_fresh_and_reused(self):
+        self.assertEqual(self.save().returncode, 0)
+        self.assertEqual(self.status()['status'], 'fresh')
+        self.assertEqual(json.loads(self.path.read_text())['sections'], self.draft['sections'])
+
+    def test_changed_added_or_removed_source_is_reported(self):
+        self.save()
+        (self.root/'AGENTS.md').write_text('New rule.\n')
+        (self.root/'CLAUDE.md').write_text('Now present.\n')
+        (self.root/'package.json').unlink()
+        self.assertEqual(self.status()['changed_sources'], ['AGENTS.md', 'CLAUDE.md', 'package.json'])
+
+    def test_unrelated_product_edit_keeps_profile_fresh(self):
+        self.save(); (self.root/'app.py').write_text('print(1)\n')
+        self.assertEqual(self.status()['status'], 'fresh')
+
+    def test_human_edit_to_sections_is_kept_and_not_flagged(self):
+        self.save()
+        data = json.loads(self.path.read_text()); data['sections']['team'] = {'note': 'human'}
+        self.path.write_text(json.dumps(data))
+        self.assertEqual(self.status()['status'], 'fresh')
+
+    def test_sources_outside_project_are_rejected(self):
+        for bad in ('../outside.md', '/etc/hosts'):
+            with self.subTest(bad=bad):
+                self.draft['sources'] = [bad]
+                result = self.save()
+                self.assertEqual(result.returncode, 2)
+                self.assertFalse(self.path.exists())
+
+    def test_empty_sections_rejected(self):
+        self.draft['sections'] = {}
+        self.assertEqual(self.save().returncode, 2)
+
+    def test_model_policy_in_profile_feeds_route_overrides(self):
+        self.draft['sections']['models'] = {'role_overrides': {'codex': {'review': {'choices': [{'family': 'sol', 'effort': 'medium'}]}}}}
+        self.save()
+        out = subprocess.run([sys.executable, str(SKILL/'scripts/route.py'), '--show-policy', '--harness', 'codex',
+                              '--role', 'review', '--overrides', str(self.path)], capture_output=True, text=True)
+        self.assertEqual(json.loads(out.stdout)['policy']['choices'], [{'family': 'sol', 'effort': 'medium'}])
 
 
-class RoutingTests(unittest.TestCase):
+class RoutingPolicyTests(unittest.TestCase):
     def setUp(self):
         self.cat=json.loads((SKILL/'assets/model-catalog.json').read_text())
-        self.runtime={'schema_version':1,'session_id':'current','harness':'codex','observed_at':NOW.isoformat(),
-                      'evidence':'runtime-schema-and-model-list','model_selection':True,'effort_selection':True,
-                      'models':[{'id':id,'available':True,'supported_efforts':['low','medium','high','xhigh'],
-                                 'evidence':'current-list'} for id in ['gpt-5.6-luna','gpt-5.6-terra','gpt-5.6-sol','gpt-6-astra']]}
-    def resolve(self,role,**kwargs):
-        return route.resolve(self.cat,self.runtime,'current',role,now=NOW,**kwargs)
-    def claude(self):
-        self.runtime['harness']='claude-code'
-        self.runtime['models']=[{'id':id,'available':True,'supported_efforts':[] if id=='haiku' else ['low','medium','high','xhigh'],
-                                 'evidence':'current-list'} for id in ['haiku','sonnet','opus','fable']]
+    def view(self,role,harness='codex',**kwargs):
+        return route.policy_view(self.cat,harness,role,**kwargs)
     def test_codex_implementation_defaults_sol_medium(self):
-        self.assertEqual(self.resolve('implement')['native_fields'],{'model':'gpt-5.6-sol','model_reasoning_effort':'medium'})
-    def test_codex_explore_uses_terra(self):
-        self.assertEqual(self.resolve('explore')['requested']['model'],'gpt-5.6-terra')
-    def test_codex_review_uses_sol_high(self):
-        self.assertEqual(self.resolve('review')['requested'],{'model':'gpt-5.6-sol','effort':'high'})
-    def test_claude_implementation_uses_different_native_effort_field(self):
-        self.claude(); self.assertEqual(self.resolve('implement')['native_fields'],{'model':'sonnet','effort':'high'})
+        view=self.view('implement')
+        self.assertEqual(view['policy']['choices'][0],{'family':'sol','effort':'medium'})
+        self.assertEqual((view['model_field'],view['effort_field']),('model','model_reasoning_effort'))
+    def test_claude_uses_different_native_effort_field(self):
+        self.assertEqual(self.view('implement','claude-code')['effort_field'],'effort')
     def test_haiku_does_not_receive_invented_effort(self):
-        self.claude(); self.assertEqual(self.resolve('lookup')['native_fields'],{'model':'haiku'})
-    def test_effort_unknown_does_not_resolve(self):
-        self.runtime['models'][2]['supported_efforts']=None
-        self.assertEqual(self.resolve('implement')['status'],'configuration_required')
-    def test_effort_not_controllable_does_not_claim_applied(self):
-        self.runtime['effort_selection']=False
-        self.assertEqual(self.resolve('implement')['status'],'configuration_required')
-    def test_missing_model_does_not_silently_downgrade_review(self):
-        self.runtime['models'][2]['available']=False
-        self.assertEqual(self.resolve('review')['status'],'configuration_required')
-    def test_allowed_fallback_can_upgrade_lookup(self):
-        self.runtime['models'][0]['available']=False
-        self.assertEqual(self.resolve('lookup')['requested']['model'],'gpt-5.6-terra')
+        self.assertEqual(self.view('lookup','claude-code')['policy']['choices'][0],{'family':'haiku','effort':None})
+    def test_review_is_not_downgraded_to_mechanical(self):
+        self.assertEqual(self.view('review')['policy']['choices'][0],{'family':'sol','effort':'high'})
     def test_frontier_requires_explicit_opt_in(self):
-        self.assertEqual(self.resolve('frontier')['status'],'authorization_required')
-    def test_frontier_opt_in_still_requires_availability(self):
-        self.runtime['models'][3]['available']=False
-        self.assertEqual(self.resolve('frontier',allow_frontier=True)['status'],'configuration_required')
-    def test_frontier_opt_in_uses_mapped_model(self):
-        self.assertEqual(self.resolve('frontier',allow_frontier=True)['requested']['model'],'gpt-6-astra')
-    def test_old_session_inventory_is_rejected(self):
-        self.runtime['session_id']='previous'
-        with self.assertRaises(route.RouteError): self.resolve('implement')
-    def test_stale_runtime_is_rejected(self):
-        self.runtime['observed_at']=(NOW-timedelta(days=2)).isoformat()
-        with self.assertRaises(route.RouteError): self.resolve('implement')
-    def test_no_selection_is_uncontrolled_not_claimed_optimized(self):
-        self.runtime['model_selection']=False
-        self.assertEqual(self.resolve('implement')['status'],'uncontrolled_inheritance')
-    def test_resolved_is_not_effective_execution(self):
-        self.assertEqual(self.resolve('implement')['effective'],{'model':None,'effort':None})
-    def test_project_override_is_applied_without_rewriting_catalog(self):
-        over={'role_overrides':{'codex':{'implement':{'choices':[{'family':'sol','effort':'high'}]}}}}
-        self.assertEqual(self.resolve('implement',overrides=over)['requested']['effort'],'high')
-        self.assertEqual(self.resolve('implement')['requested']['effort'],'medium')
-    def test_gpt_alias_only_used_when_observed(self):
-        self.runtime['models'][2]['id']='gpt-5.6'
-        self.assertEqual(self.resolve('implement')['requested']['model'],'gpt-5.6')
+        self.assertTrue(self.view('frontier')['policy']['opt_in'])
     def test_frontier_cannot_be_enabled_just_by_removing_opt_in_flag(self):
         over={'role_overrides':{'codex':{'frontier':{'opt_in':False}}}}
-        self.assertEqual(self.resolve('frontier',overrides=over)['status'],'authorization_required')
-    def test_model_evidence_required(self):
-        self.runtime['models'][2].pop('evidence')
-        self.assertEqual(self.resolve('implement')['status'],'configuration_required')
-    def test_deep_does_not_silently_clamp_to_high(self):
-        self.runtime['models'][2]['supported_efforts']=['medium','high']
-        self.assertEqual(self.resolve('deep')['status'],'configuration_required')
-    def test_catalog_age_is_reported_not_silently_updated(self):
-        self.cat['reviewed_on']='2026-01-01'
-        self.assertTrue(self.resolve('implement')['policy_review_due'])
-    def test_duplicate_runtime_models_are_rejected(self):
-        self.runtime['models'].append(copy.deepcopy(self.runtime['models'][0]))
-        with self.assertRaises(route.RouteError): self.resolve('implement')
+        self.assertTrue(self.view('frontier',overrides=over)['policy']['opt_in'])
+    def test_frontier_family_in_other_role_still_requires_opt_in(self):
+        for harness,family in [('codex','astra'),('claude-code','fable')]:
+            with self.subTest(harness=harness):
+                over={'role_overrides':{harness:{'critical':{'choices':[{'family':family,'effort':'high'}]}}}}
+                self.assertTrue(self.view('critical',harness,overrides=over)['policy']['opt_in'])
+        self.assertFalse(self.view('critical')['policy']['opt_in'])
+    def test_policy_is_not_availability_or_execution(self):
+        view=self.view('implement')
+        self.assertEqual(view['availability'],'unverified'); self.assertIsNone(view['effective'])
+    def test_project_override_is_applied_without_rewriting_catalog(self):
+        before=copy.deepcopy(self.cat)
+        over={'role_overrides':{'codex':{'implement':{'choices':[{'family':'sol','effort':'high'}]}}}}
+        self.assertEqual(self.view('implement',overrides=over)['policy']['choices'][0]['effort'],'high')
+        self.assertEqual(self.cat,before)
+    def test_resolver_mode_was_removed(self):
+        p=subprocess.run([sys.executable,str(SKILL/'scripts/route.py'),'--harness','codex','--runtime','x.json','--session-id','s','--role','review'],
+                         capture_output=True,text=True,timeout=10)
+        self.assertEqual(p.returncode,2); self.assertIn('unrecognized arguments',p.stderr)
+        self.assertFalse(hasattr(route,'resolve'))
+        self.assertFalse((SKILL/'assets/runtime.example.json').exists())
 
 
 class PackageV21Tests(unittest.TestCase):
@@ -230,13 +142,14 @@ class PackageV21Tests(unittest.TestCase):
         self.assertEqual(len(ids), len(set(ids)))
         self.assertTrue({f'E{i:02}' for i in range(1, 53)}.issubset(ids))
         self.assertTrue(all(e['execution_status']=='not_run' for e in data['scenarios']))
-    def test_native_presets_exist_for_each_harness(self):
-        for harness,extension in [('claude-code','md'),('codex','toml')]:
-            self.assertEqual(len(list((SKILL/'assets/native'/harness).glob('*.'+extension))),7)
-    def test_claude_review_has_no_shell_or_write_tool(self):
-        text=(SKILL/'assets/native/claude-code/orq-review.md').read_text()
-        self.assertIn('tools: Read, Glob, Grep',text)
-        self.assertNotIn('Bash',text)
+    def test_unused_install_examples_are_not_shipped(self):
+        removed=('assets/native','project.example.json','runtime.example.json','--runtime','--allow-frontier')
+        for name in removed[:3]:
+            self.assertFalse((SKILL/'assets'/name.removeprefix('assets/')).exists(),name)
+        for path in SKILL.rglob('*'):
+            if path.suffix in {'.md','.json','.py','.template'}:
+                for token in removed:
+                    self.assertNotIn(token,path.read_text(),str(path))
 
 
 if __name__ == '__main__': unittest.main()

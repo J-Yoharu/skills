@@ -1,9 +1,11 @@
 # Agents, dependencies, and resources
 
-**Fixed root topology:** the current session's model is the coordinator. `auto`,
-`solo`, and `delegado` change work distribution, never who coordinates or the chat's
-model/effort. Only subagents use the catalog or escalation; there is no
-`coordinate` subagent or delegated coordination.
+Use this reference for multi-unit dependency/ownership questions or stalled workers,
+not for routine one-unit setup. The ordinary execution choice is in `SKILL.md`.
+
+**Fixed root topology:** the current session coordinates and workers implement.
+Only subagents use the catalog or escalation; there is no `coordinate` subagent or
+delegated coordination, and the chat's model/effort never changes.
 
 ## Units and execution path
 
@@ -23,28 +25,28 @@ already delivered prerequisites; do not redo them. Do not execute descendants
 beyond that boundary. User/board priorities precede local optimization; among
 equivalent items, prefer work that unblocks consumers. Do not invent estimates.
 
-## Deciding whether to delegate
+## Delegating work
 
-Delegate a bounded outcome with at least one concrete benefit: context isolation,
-independent investigation, review separate from the author, specialist capability,
-or overlap between independent work.
+Product units go to workers; the coordinator keeps coordination and integration and
+edits directly only for small adjustments. Match the worker role to the unit:
+`mechanical` for closed edits, `implement` for ordinary features, `deep` or
+`critical` for hard algorithms, exactness, concurrency or high-risk contracts.
+Reuse one worker for cohesive corrections and group tiny related units in one
+order. Do not delegate an already solved lookup or duplicate reading. A worker may
+run local tests and self-check, but this never replaces required independent review.
 
-Do not delegate an already solved lookup, duplicate reading, fragment a three-line
-edit, or meet a subagent quota. In `solo`, the coordinator implements; in
-`delegado`, it retains coordination and integration. A worker may implement, run
-local tests, and self-review, but this never replaces required independent review.
-
-Apply [model routing](model-routing.md) before choosing a native agent. Model and
+First establish whether a suitable native subagent exists. Apply
+[model routing](model-routing.md) only when choosing an actual subagent. Model and
 effort are separate decisions. Use suitable existing profiles and actually exposed
 capacity. Uncertain rules, migrations, or concurrency bugs must not be downgraded
-because the patch is short. Record `requested`, `effective`, and confirmation
-origin; `effective: unknown` is better than unverifiable claims. Do not modify
-global settings to complete a unit.
+because the patch is short. Record the model you requested, or `inherited`.
+Do not modify global settings to complete a unit.
 
-## Safe parallelism
+## Dependencies and ownership
 
-Conservative defaults: one writer; up to two parallel readers when useful; one
-heavy process per resource with unknown capacity. These are adjustable initial
+Defaults: up to two writers for independent units with disjoint write scopes in one
+tree (otherwise one); up to two parallel readers when useful; one heavy process per
+resource with unknown capacity. These are adjustable initial
 ceilings, not slot-filling requirements. Increase only with observed capacity and
 authorization; reduce for low memory, contention, instability, or excessive rework.
 
@@ -75,8 +77,12 @@ than promise autonomous continuation after responding.
 ## Agent lifecycle
 
 Only the coordinator starts/stops agents, including reviewers and specialists.
-Keep a registry: `session_agent_id, role, unit, checkout, input_revision,
-write_scope, state, result_ref, model_requested, model_effective`.
+Use the checkpoint's existing `active_agents` observations, not another registry:
+`id, role, unit, checkout, input_revision, write_scope, state`; add a result reference
+and model metadata when observed. Prepare these fields before spawn, then persist
+the actual returned ID/state before unrelated work or waiting. See the inline entry
+in the core; do not reverse-engineer the helper. Unknown spawn outcomes require
+reconciliation before replacement. Confirmed terminal entries move to `agent_history`.
 
 Use actual harness states to determine whether messaging or resuming is valid.
 Avoid immediate repeated polling; wait with the appropriate tool. Failure or
@@ -86,7 +92,8 @@ may keep writing; resolve ownership before creating a replacement writer.
 Reuse workers for corrections and continuity in the same domain. Use fresh
 context for changed objectives/contracts, contaminated context, or repeatedly
 failed strategies. Close completed agents after collecting and persisting their
-results. Session IDs are not durable state.
+results. Persisted IDs identify observations; they do not guarantee native-agent
+resumption in another session.
 
 Two cycles without progress on a defect trigger diagnosis/escalation, not approval
 of failure. Distinguish environmental failure from regression, verifying the base
@@ -97,7 +104,7 @@ other independent nodes remain eligible during normal execution.
 
 `worker_finished` does not satisfy a dependency. Inspect the diff, review, verify,
 and make the result available in the consumer checkout through an authorized
-mechanism. Then mark the piece `integrated` and record its commit or contract fingerprint.
+mechanism. Then mark the piece `integrated` and record its commit or contract reference.
 
 For stacked branches, record parent branch and parent SHA. Rebase, merge, and
 cherry-pick follow project policy; do not rewrite published history for convenience.
@@ -107,12 +114,12 @@ dependency blocked for consumers that do not yet have it.
 
 ## Dispatch during a pause
 
-Check `control` before spawn, a follow-up starting a new unit, or a `solo` unit.
+Check `control` before spawn, a follow-up starting a new unit, or a coordinator adjustment.
 `draining` allows only closing the frozen IDs, including review/corrections, never
 the batch's next card. `paused`/`interrupted` block dispatch until reconciled resume.
 Free capacity does not override this rule. The protocol and exceptions live in
 [state and delivery](state-delivery.md); do not create a second pause policy in
-this scheduler or native presets.
+this scheduler or in agent presets.
 
 For a batch, the same worker returns each unit before receiving coordinator
 clearance for the next; pause blocks that clearance. No per-unit user approval is
@@ -120,3 +127,38 @@ required. If an already dispatched tool started another write before receiving
 the pause, record the race and reconcile ownership. Do not hide the extra unit or
 claim a clean pause. Explicitly replan only the stabilization needed for that
 work without releasing the rest of the batch.
+
+## Route the next decision, not a fixed ceremony
+
+Before each step, ask what observable result would unblock this unit. If the
+contract is missing, do one targeted investigation; do not launch an implementer
+and reviewer to guess independently. Understood work gets one bounded implementer
+with a precise work order; extra readers need distinct unanswered questions. Test/review stable outcomes rather
+than have a reviewer chase a moving tree.
+
+Check required review and test availability before coding. Missing independent
+review is not repaired by raising reasoning effort, changing the coordinator,
+retrying unsupported spawn fields or calling self-review independent. Useful
+authorized implementation may proceed with that limitation disclosed, but its
+acceptance stays pending. Once no ready work remains, produce a blocked result
+with the completed diff/tests and the exact missing capability.
+
+Every helper call, investigation or child needs a purpose and a return condition.
+For optional profile/routing maintenance, allow one initial attempt and at most
+one evidence-backed correction. No change in evidence means no identical retry.
+Use native inherited subagents when appropriate, or live sources without cache;
+keep actual mandatory gates intact. Model/runtime configuration is not a new
+implementation task. These limits do not shorten legitimate tests or graceful
+draining of already active units.
+
+A completed worker becomes reusable context, not permission to start its next
+card. Preserve per-unit authorization by the coordinator, including during pause.
+Do not use a blocked successor as a reason to reimplement its already validated
+producer.
+
+
+Before the first writer, require the checkpoint round trip in
+[state and delivery](state-delivery.md). Reuse its location and the scoped source
+map thereafter. Keep long-run dependency outlines and detail the next frontier;
+a one-unit task needs no separate planner. Persistence failure freezes new lanes,
+not just the unit that happened to report it.

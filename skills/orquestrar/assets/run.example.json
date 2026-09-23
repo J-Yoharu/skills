@@ -15,7 +15,23 @@
   "decisions": [],
   "permissions": {},
   "reuse": [],
-  "repositories": [],
+  "repositories": [
+    {
+      "id": "api",
+      "path": "<absolute-api-checkout>",
+      "base_revision": "<observed-HEAD-or-unborn>"
+    },
+    {
+      "id": "web",
+      "path": "<absolute-web-checkout>",
+      "base_revision": "<observed-HEAD-or-unborn>"
+    },
+    {
+      "id": "docs",
+      "path": "<absolute-docs-checkout>",
+      "base_revision": "<observed-HEAD-or-unborn>"
+    }
+  ],
   "active_agents": [],
   "evidence": [],
   "sync_pending": [],
@@ -83,5 +99,7 @@
     "drain_units": []
   },
   "active_processes": [],
-  "retained_resources": []
+  "retained_resources": [],
+  "result": "open",
+  "agent_history": []
 }

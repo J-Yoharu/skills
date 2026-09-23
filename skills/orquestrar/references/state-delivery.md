@@ -1,36 +1,74 @@
-# State, delivery, and resumption
+# State, delivery and recovery
 
-## A profile is not a checkpoint
+The ordinary save/read contract is in `SKILL.md`; do not read this file to repeat
+that contract. Use **Persistence recovery** for a storage problem, **Graceful pause** or
+**Resuming in the same or another session** when control changes, **Delivery** for an authorized nonlocal delivery.
+Read other sections only for a current state/dependency question.
 
-Load the project profile on every invocation; it survives multiple runs. Reference
-its digest in the run instead of copying it. Runtime inventory belongs to one
-session; rediscover capabilities after restart. Execution does not edit human
-overrides. See [project profile](project-profile.md).
+## Persistence recovery
 
-## Minimal durable state
+Use project state, otherwise the workspace `.orquestrar/runs/<run-id>/run.json`.
+Project state still passes each status change through `verify.py checkpoint-check`
+with the previous and next run documents (see `SKILL.md`); a project rule against
+state files never disables the unit gates.
+Resolve the real path/permissions including symlinks. Known protected paths such as
+`.git` are not new write candidates. Readable legacy state is not write permission.
+One coordinator owns each run; a different worktree does not imply shared ownership.
 
-Reuse project artifacts. Do not create a second board or planning system. One
-`run.json` suffices as a checkpoint; large evidence artifacts live alongside it
-and are referenced. Only the coordinator writes this state. Use the existing
-atomic replacement mechanism; otherwise, write a complete new checkpoint before
-pointing to it. Do not delete the previous one prematurely.
+If the first destination fails, disclose it and try **one known permitted** workspace
+fallback. An exclusive project destination forbids fallback. Do not search for
+writable directories, widen permissions, change ignore rules or follow an escaping
+symlink. Save and parse/compare the real content before any product writer. If this
+cannot succeed, stop recovery-dependent work; never silently select a nonresumable
+mode because a task is small. Only the user can explicitly choose that exception.
 
-Without an existing Git convention, use the absolute directory returned by
-`git -C <checkout> rev-parse --path-format=absolute --git-common-dir`, under
-`orquestrar/runs/<run-id>/`. Confirm installed-command support; resolve the relative
-path manually if needed. This keeps operational files out of PRs and shares state
-between a repository's worktrees. For multiple repositories, choose a coordinating
-root and record checkouts by identity.
+On relocation, reconcile sources, checkout and writer quiescence first. Preserve
+the original bytes, record the origin in the new copy and announce its new path.
+On mid-run write failure, freeze new dispatch, preserve the last readable version
+and code, safely close active work where possible, and report the unpersisted delta.
+Without a successful new save/read, no durable completion or clean resumable pause.
 
-Without Git, use the user/project's designated state area; otherwise announce a
-local state directory outside product files before writing. If only `/tmp` is
-available, disclose volatility and preserve an authorized copy before the session
-ends. Do not describe a temporary file as durable persistence.
+Use the project's tested atomic API or `verify.py checkpoint-save` as specified in
+`SKILL.md`. The bundled helper validates before replacement, requires the prior
+state token and a cooperative local lock, flushes, replaces on the same filesystem,
+and validates read-back. A directory fsync failure after replacement is reported as
+an uncertain save, never success. Reread and reconcile before retrying. A crash can
+leave `run.json.lock` with `owner.json` (PID, time, run); never remove it on age alone. Confirm owner termination and
+inspect the checkpoint/owned temporary first. It is not a distributed lock or a
+sandbox against hostile filesystem mutations. Respect native sandbox permissions.
 
-Minimum state: schema version, run ID, objective, sources/revisions, decisions,
-permissions, reuse map, repositories/bases, units/dependencies, session agents,
-evidence, deliveries, pending synchronization, and next action. Do not store
-tokens, `.env` contents, or unnecessary personal data.
+**Malformed/legacy checkpoint:** first preserve the original bytes. Do not fix
+schema errors until the existing record is overwritten, loop on validation, or map
+`verified` to delivered without evidence. Recover actual sources, checkouts,
+permissions, units and pending writers. If the original cannot pass its reader,
+write a reconciled canonical record to a new authorized path using `--expected
+missing`, recording `recovered_from` with original locator and hash. Announce the
+new canonical path, keep the original, and do not continue unless the recovered
+facts and required quality gates support it. No automatic completion or migration.
+
+## Proportional state and output
+
+A single unit needs identity/objective, source revisions, permissions, checkout,
+criteria/scope, control, current status and next action; add evidence and reviewer
+observations when known. The [run example](../assets/run.example.json) illustrates optional multi-unit
+fields; do not load or copy the whole example for one unit. Preserve unknown legacy fields/history.
+No fake coordinator metadata, empty specialist maps or duplicate copies of profile
+sections. Observed agent/model details belong only to agents that actually ran.
+
+The helper parses/compares the full saved update and returns path, run ID,
+result/control, task counts, next action and a state token. The token refers to
+observed bytes; do not regenerate it to conceal a concurrent edit. Do not `cat run.json` after
+every update or print accumulated logs. On resume load the stable decision/permission
+map and active/next units; open referenced older evidence when relevant. Never infer
+that unprinted fields were checked without actually parsing/comparing them.
+
+Keep large evidence and completed-unit details by reference once useful; use the
+existing project format, not a new storage framework. No forced file splitting or
+arbitrary line/token caps. Do not erase history to save context. One write/read may
+cover both the last unit and final closure. Persist before a long worker/gate or an
+ambiguous remote operation so its identity/result can be reconciled after a crash.
+Checkpoint updates alone do not invalidate tests. A profile failure does not
+waive a required checkpoint.
 
 ## States and transitions
 
@@ -40,7 +78,7 @@ self-review is allowed, record it and pass through `reviewing` without inventing
 
 `verified` means the unit candidate passed its gate. `integrated` means the result
 is available in the base/tree needed by consumers with sufficient integration
-evidence. In solo/local mode in one checkout, these may coincide; explain the
+evidence. In local mode in one checkout, these may coincide; explain the
 evidence. `delivered` follows delivery policy, not necessarily merge or final
 product acceptance.
 
@@ -54,14 +92,24 @@ cycles, and declared control. `dependency_ready` describes the graph;
 resources/permissions nor observes processes. Closing a drain uses only
 `drain_remaining`; this is not an automatic dispatch queue.
 
+`result` is additive to schema 1: absent legacy values read as `open`; new saves
+must write `open|completed`. It is independent of the control latch. A completed
+result requires all selected units at stable integration/delivery boundaries,
+per-unit evidence references and empty confirmed active agents/processes. It
+suppresses dispatch even though control stays `running`. Keep remaining graph
+units pending using `selected_tasks` only when that scope was authorized (for
+example `--ate`). New scope after completion starts a linked run, not silent reopening.
+
 `control` is additive to schema 1: `state` is `running|draining|paused|interrupted`;
 `reason` and `requested_at` record the pause; `drain_units` stores frozen IDs.
-A clean pause requires empty, confirmed `active_agents` and `active_processes`;
+Only unresolved/current activity belongs in `active_agents`/`active_processes`;
+move finished observations to `agent_history`/`process_history`. A clean pause
+requires empty, confirmed `active_agents` and `active_processes`;
 retained services belong in `retained_resources`. These fields record observations,
 not produce them. The helper rejects a declared pause with active units or an
 incomplete drain; the coordinator still evaluates evidence and delivery.
 
-## Permissions and Git strategy
+## Delivery
 
 Record scope and authorization origin for editing, testing, branch creation,
 commit, push, PR creation/updates, tracker writes, task closure, merge, deployment,
@@ -108,12 +156,12 @@ A PR link does not prove merge; a board status does not prove tests. Check actua
 revision/state. Deliver pending items and merge order at the end; do not execute
 that order without recorded permission.
 
-## Graceful pause: finish active work, not the remainder
+## Graceful pause
 
 A pause for review, session transfer, or another activity means **drain**: start no
 new units and finish those that already crossed their start boundary. "Stop now"
-means immediate interruption with preservation, not drain. This applies in solo,
-delegated, and parallel modes. The current chat remains the coordinator.
+means immediate interruption with preservation, not drain. This applies to serial
+and parallel work. The current chat remains the coordinator.
 
 ### 1. Record before dispatch
 
@@ -122,7 +170,7 @@ In the same run checkpoint, write `control.state: draining`, reason, time, and
 implementation, running reviews/gates, and pending integration; exclude planned
 work, a worker's queue, and unstarted consumers. Record active agents and ongoing
 operations, including publication with an ambiguous result. Only the coordinator
-writes, using the existing atomic-write policy. Do not add a daemon, queue, hook,
+writes, using the existing atomic-write policy and a brief read-back confirmation. Do not add a daemon, queue, hook,
 second control file, or another coordinator.
 
 The set is **frozen**. Repeated pause requests are idempotent: they neither expand
@@ -167,13 +215,15 @@ and required; otherwise preserve files and describe their state. Do not use
 include others' work. Push/PR remain subject to original authorization.
 
 Update the same checkpoint, not just the conversation, with:
-- Finished units, checkouts/branches/HEAD, and content/evidence identities.
+- Finished units, checkouts/branches/HEAD, and evidence references.
+- Source locators **with observed revisions**, applicable test command/environment,
+  and whether required review actually ran; paths alone cannot establish freshness.
 - Necessary decisions/contracts and pending synchronization/publication.
 - Finished or unknown agents/processes, retained resources, and ownership.
 - The next **unstarted** unit, first resume action, and constraints.
 
-Reread the saved checkpoint. Save/reread the final version with
-`control.state: paused`, then report a clean pause in the user's language with
+Save the final version once with `control.state: paused`, `result: open`, using
+the previous state token and the helper/API; return its compact receipt, then report a clean pause in the user's language with
 results, evidence, actual/pending publication, checkpoint path, and resume command.
 Do not say it is safe to change sessions with an active or unknown writer.
 Without persistence, provide a conversational handoff and disclose the limitation
@@ -192,42 +242,18 @@ If existing project hooks require literal phrases such as `Rodada concluída`,
 `Pausa concluída`, or `Parada:`, preserve those phrases; do not translate the
 integration contract. Otherwise, prose is localized and stored states stay unchanged.
 
-## Session context
-
-Manual pause needs no telemetry. The optional threshold is
-`sections.resources.pause_context_used_percent` in project overrides/profile;
-`null` or absence disables only the numeric trigger. No universal percentage is
-imposed. An explicit request may set a threshold for this run; persist it as a
-project preference only when requested.
-
-The value is greater than 0 and less than 100 and means **context used**, not weekly
-quota, cost, or progress. For example, 70 used means 30 remaining. Use only a
-current, confirmed signal from the same session, available through a tool/metadata
-or supplied by the user. Record value, unit, origin, and time. Without reliable
-measurement, use `unknown`; do not estimate from conversation tokens. A statusline
-visible to the user is not automatically visible to the model.
-
-Check before a new unit/dispatch and after large returns, not by constant polling.
-When the threshold is reached, use the same drain. This is a checkpoint observation,
-not real-time monitoring or a guarantee of pausing at an exact percentage. Leave
-headroom for review, corrections, and handoff; a large unit may exceed the reserve.
-A real insufficient-context warning may trigger an earlier pause or interruption.
-Do not change the coordinator's model/effort.
-
-Compaction does not finish tests, transfer ownership, or cancel a recorded pause.
-A later drop in context percentage does not release the latch. Do not automatically
-invoke `/clear`, `/compact`, or another CLI to avoid pausing. Existing hooks or
-telemetry may supply signals; this skill does not install monitoring by default.
-
 ## Resuming in the same or another session
 
 "Review what you did", opening the repository, or reading the checkpoint does
 **not** authorize continuation. An explicit natural-language or `--retomar` request
 authorizes reconciliation; return to `running` only after the checks below.
+With the bundled writer, pass `--resume` on that one transition. This is an
+acknowledgment of the user's request, not a source of authorization.
 If asked only to finish an interrupted pause, return to `draining` with the same
 set, not to backlog execution.
 
-Read local instructions, the validated profile, and the specified checkpoint.
+Read local instructions, the specified checkpoint, and relevant usable profile
+sections (or their live source locators when cache is unavailable).
 Check source/checkout identities, changes since verification, permissions, and
 pending operations. Resolve old agents/processes before claiming ownership.
 Without access to the old harness, state is unknown; confirm quiescence or isolate
@@ -243,15 +269,13 @@ pause history and pending work. Reuse existing work and valid evidence; revalida
 affected inputs only. Restart services only when required for the next step and
 authorized.
 
-Default `git-common-dir` persistence is **machine-local** and does not travel with
-a clone/push. For another session in the same checkout, its path suffices. For
+Default workspace persistence is **machine-local** unless explicitly transferred;
+it does not automatically travel with a clone/push. For another session in the same checkout, its path suffices. For
 another machine, transfer the checkpoint **and** code/evidence absent from the
 remote by an authorized method. A text summary does not transfer uncommitted files.
 Do not promise remote backup when state is only local.
 
-## Coordinator identity on resume
 
-The coordinator is always the current session. Earlier model/effort metadata is
-history, not configuration to restore. Reconcile the new session's agents and
-capabilities; reusable routing remains subagent-only. Do not create an agent using
-the old chat's model to resume coordination.
+The current chat always resumes coordination; previous model/effort is history,
+not configuration. Do not create a coordinator agent. Cache maintenance never
+precedes latching a pause or becomes a prerequisite to recovering finished work.

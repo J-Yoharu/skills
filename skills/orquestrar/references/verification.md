@@ -1,5 +1,8 @@
 # Review and quality evidence
 
+The ordinary gate/review policy is in `SKILL.md`. Read **Changed evidence** when a
+failure or finding needs interpretation. This file is not a mandatory preflight read.
+
 ## Verification plan
 
 Discover canonical commands in instructions, scripts, and CI. For each acceptance
@@ -23,11 +26,20 @@ A review explicitly covers both:
 2. Engineering: correctness, regressions, boundaries, concurrency, security,
    meaningful tests, and absence of duplicated capabilities.
 
+Choose the reviewer separately from the implementer; neither a worker nor a
+coordinator adjustment approves its own behavioral change. New or
+changed behavior requires an independent context even for a small isolated helper.
 Use disclosed self-review only for small nonbehavioral changes when policy allows.
-Require independent context for product rules, public APIs/events, databases/data,
-authorization, concurrency, multi-repository integration, or when DoD requires it.
+Product rules, public APIs/events, databases/data, authorization, concurrency,
+multi-repository integration and a DoD requiring independence also require it.
+Without the required review, keep acceptance pending rather than mark delivered.
 Add another reviewer only for a distinct specialist risk; voting and agent counts
 are not proof.
+
+Decide whether independent review is required while planning the unit, and check
+whether the session can provide it. Lack of that capability must be surfaced
+before coding, not after repeated configuration attempts. Useful authorized work
+may proceed, but cannot pass the missing gate.
 
 The reviewer receives requirements, base/candidate, scope, and test references.
 It reads the full scoped diff and necessary code. Treat the implementer's report
@@ -40,49 +52,24 @@ Validate findings in code; do not dismiss a defect because the plan omitted its
 fix. After material corrections, review the change and rerun affected tests.
 Contract changes also reopen acceptance review; rereading changed lines is insufficient.
 
-## Evidence identity
+## Evidence
 
-Reusable evidence records:
-- Repositories/checkouts, HEAD/base, file content, and relevant index state.
-- Command/arguments, working directory, toolchain/image/lockfiles, and relevant environment.
-- Requirement revisions, dependency contracts, and covered acceptance criteria.
-- Time, exit code, per-step outcome, logs/artifacts, and executor.
+Evidence is what a reviewer or a resumed session needs to trust a result: the
+canonical command, where it ran, its actual outcome, and which criteria it covers.
+Prefer the project's own reports and CI on the correct commit. Do not invent or
+silently change the project's test command; disclose any substitution and why.
 
-Compare content **before and after** execution to detect concurrent changes.
-Tests that generate code or update snapshots must stabilize first; verify the
-final result. Do not accept a tree still being edited by another agent.
+## Changed evidence
 
-`git status --short`, line counts, and `diff --stat` can remain unchanged after a
-behavioral change. They are not fingerprints. Prefer native project evidence tied
-to the exact artifact. Otherwise, this skill's helper hashes tracked and nonignored
-untracked files, HEAD, and index using SHA-256.
+Inspect the actual diff/changed paths before selecting a response. A product, rule,
+contract, dependency, command or material environment change invalidates affected
+proof. A mandatory new gate or material review finding also requires verification.
+A report-only change does not.
 
-Store output **outside the captured files**, outside the checkout or under
-`<git-common-dir>/orquestrar/`:
-
-```bash
-python3 <skill>/scripts/verify.py snapshot --repo <checkout> --context <run>/verification-context.json --out <run>/before.json
-# Run the authorized canonical test command and capture its actual outcome here.
-python3 <skill>/scripts/verify.py compare --repo <checkout> --context <run>/verification-context.json --snapshot <run>/before.json
-```
-
-`verification-context.json` contains nonsecret metadata: command, source IDs and
-revisions, tool versions/test image, dataset, and dependencies. Example:
-`{"command":["npm","test"],"requirements_revision":"r3","runtime":"node-22","dataset":"fixture-v1"}`.
-The helper compares the file; it **does not discover or attest** the actual
-environment. Update metadata from observation, never to force equality.
-
-Limits: the helper does not cover ignored files, credentials, databases, clocks,
-remote services, processes, or transient edit history. It does not follow symlinks;
-it compares target text. If a gate depends on linked content, capture the authorized
-target separately or do not reuse evidence. Nested repositories/submodules need
-their own snapshots; the helper fails explicitly on them. Matching snapshots do
-not replace isolation during execution. SHA-256 detects change, not a report's author.
-
-Inspect actual logs/reports and map steps to criteria. If any material input is
-unknown, do not certify reuse; run verification in the correct environment or
-record `unverified`. Do not repeat an expensive gate merely because another person
-reads the report. If delivery policy requires a new run, comply.
+After a valid check and resolved review, accept the unit. No rerun for a read-only
+reviewer, checkpoint write, final summary or different person reading evidence,
+unless a real input changed or policy demands it. Flaky output needs diagnosis or an
+explicit unverified result, not a retry loop.
 
 ## Baselines and regressions
 
@@ -106,3 +93,24 @@ Summarize unit, files, contract decisions, checks/results, review, and gaps. Kee
 logs, long lists, and findings in referenced checkpoint artifacts. Never omit a
 risk or requirement to meet a line limit. Telegraphic style is optional; complete
 contracts and accurate evidence are not.
+
+## Completion is observable
+
+A finished implementation must produce a final result or a concrete blocked
+handoff, not remain in optional profile/routing maintenance. Record code, test,
+review and delivery outcomes separately. A rejected optional cache does not
+invalidate an independent review or a product test by itself; a material source
+or content change does. Conversely, passing tests do not make missing review
+complete. Fix environment commands from documented evidence; an unavailable
+`python` is not evidence that product code failed if the declared runtime is
+`python3`. Disclose any command substitution and its basis.
+
+## Persistence is a different proof
+
+A `checkpoint-save` receipt confirms validated declared state and exact read-back.
+It does not attest tests, requirements, independence or delivery. Use `plan` for
+graph/control diagnostics and `checkpoint-read` for the durable contract, not
+`json.tool` or an unconditional success string. If the record is invalid, preserve
+it and use the reconciliation procedure rather than weakening the validator.
+A gate can pass while a save fails: keep the gate evidence, freeze dispatch and
+report the unpersisted delta. Never rerun product tests to repair a state file.

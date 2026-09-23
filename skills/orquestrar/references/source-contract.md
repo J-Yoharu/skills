@@ -26,7 +26,12 @@ Confirm commands and authorization against current instructions.
 Read the referenced resource and its direct links first. Expand only to resolve
 material gaps. Use actual pagination/filters for the scope; never treat a partial
 response as a complete list. Store version information, not indiscriminate full
-copies. Without a revision API, reread the required excerpt before using it.
+copies. Bind acceptance to the observed revision in the checkpoint or immutable
+referenced evidence; a pointer to a profile that will be refreshed is not enough.
+Reuse provider revisions, commits for unchanged files, or existing content digests.
+Hash only relevant unversioned inputs when needed, not the repository or every
+source. If no version is available, record that limit and reread the required
+excerpt before reuse; a read timestamp does not establish unchanged content.
 
 A cache remembers where to look; it does not certify unchanged remote state.
 A document update invalidates the affected subject and dependent work orders,

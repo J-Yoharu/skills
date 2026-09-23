@@ -16,6 +16,11 @@ subagent-only. Graceful pause, immediate stop, resume, and existing Portuguese C
 control spellings remain intact. User-language behavior remains independent of the
 repository's English maintenance policy.
 
+Later maintenance removed the unused route resolver mode (`--runtime`/`--session-id`),
+the native subagent presets under `assets/native/`, and the unreferenced
+`runtime.example.json` and `project.example.json` assets. This paragraph records the
+import; it does not describe the current payload.
+
 `SKILL.md` became `SKILL.md.template` to prevent accidental distribution of an unapproved
 candidate. Its metadata version became `0.0.0` with the repository release marker.
 The redundant `disable-model-invocation: false` extension was removed: false is the

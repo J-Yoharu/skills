@@ -1,51 +1,18 @@
 {
-  "schema_version": 2,
-  "project_id": "<stable-coordinating-root-id>",
+  "project_id": "<observed-project-id>",
   "sections": {
     "workflow": {
-      "summary": "<observed-conventions>",
-      "confidence": "unknown"
-    },
-    "sources": {
-      "entries": [],
-      "confidence": "unknown"
+      "summary": "<how work is planned, delivered and reviewed here>"
     },
     "verification": {
-      "commands": [],
-      "confidence": "unknown"
+      "command": "<canonical test command>"
     },
-    "models": {
-      "policy": "subagents-v2",
-      "role_overrides": {},
-      "selection_scope": "subagents"
-    },
-    "resources": {
-      "pause_context_used_percent": null
+    "conventions": {
+      "summary": "<reuse points, language, forbidden patterns>"
     }
   },
-  "anchors": {
-    "root_rules": {
-      "sections": [
-        "workflow",
-        "sources"
-      ],
-      "paths": [
-        "AGENTS.md",
-        "CLAUDE.md",
-        "README.md",
-        "CONTRIBUTING.md"
-      ],
-      "globs": []
-    },
-    "test_commands": {
-      "sections": [
-        "verification"
-      ],
-      "paths": [
-        "package.json"
-      ],
-      "globs": []
-    }
-  },
-  "_note": "Illustrative draft without integrity metadata or a baseline. Replace placeholders and anchors with observed facts before saving. Without an anchor, models requires semantic revalidation."
+  "sources": [
+    "AGENTS.md",
+    "<file that defines the test command>"
+  ]
 }

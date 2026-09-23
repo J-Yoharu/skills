@@ -7,6 +7,7 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+tests/skills/*-test.zip
 # Build output and private settings
 dist/
 .env
