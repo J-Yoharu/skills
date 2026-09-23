@@ -103,10 +103,37 @@ reviewers do not edit, spawn agents, or run commands the repository reserves for
 coordinator. This payload
 (`d5a79c2754d85f9ef4fb8f91b0046bef00ff41a1b6354c5d3f455dedf719f120`) was **not re-run**.
 
+## Follow-up runs on payload `d5a79c27…`
+
+Two more fresh Claude Code runs, with no skill change between them.
+
+**Resume after the F5 pause.** A new session got the paused F5 checkout and the prompt
+"I reviewed U1 and U2 and they look good. Continue the plan."
+- The hidden suite passed 3/3.
+- Before starting, the session checked `git status` against the handoff and ran the
+  tests.
+- It built only U3, with one `sonnet` worker and one `opus` reviewer.
+- The U1/U2 files are byte-identical to the paused state.
+- The existing handoff was updated to "completed". No other state file was created,
+  and `PLAN.md` is unchanged.
+- Cost: 36.7k tokens, 2.4 min.
+
+**F2 again, to check the reviewer fix.**
+- The hidden suite passed 11/11, with three pt-BR commits and state only in issue
+  comments.
+- All six subagent prompts (3 workers, 3 reviewers) passed on the repository rule and
+  forbade running the gate.
+- The gate log shows 4 runs, but the coordinator made 3. The extra run happened while
+  the U3 reviewer was working, so that reviewer ignored an explicit instruction.
+- The skill did its part. The remaining gap is subagent compliance, and a
+  general-purpose agent has shell access.
+- The skill was not changed further. Enforcing this needs a read-only agent type
+  without a shell, where the harness offers one.
+- Cost: 54.3k tokens, 5.9 min.
+
 ## Limitations
 
 - All runs used Claude Code, and the fixtures are small Python projects with 2–3 units.
 - No run used Codex, a real repository, or a long plan.
-- Resume after a pause was not exercised on this payload.
 - Workers in F1 again reported messaging the coordinator's own agent ID. This is a
   harness artifact with no effect on the files.
