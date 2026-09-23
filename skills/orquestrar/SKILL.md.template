@@ -122,8 +122,9 @@ report a blocker.
 
 **Default:** each unit that changes behavior (code paths, public contracts, data,
 security, configuration that changes runtime) gets an independent reviewer: a fresh,
-read-only subagent that sees the diff, the quoted criteria, and the gate result, but not
-your conclusions.
+read-only subagent that sees the diff, the quoted criteria, the gate result, and the
+repository rules that apply to it, but not your conclusions. Reviewers do not edit,
+spawn agents, or run commands the repository reserves for the coordinator.
 
 **No reviewer needed** for changes that do not alter behavior: comments, docs,
 formatting, renames with no API impact, test-only additions. Check them yourself and
