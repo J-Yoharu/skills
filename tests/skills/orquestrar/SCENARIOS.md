@@ -1,5 +1,8 @@
 # Behavioral evaluations — protocol, not results
 
+> These 58 scenarios were supplied with the imported design. Many describe its JSON
+> checkpoint and helper scripts, which the current skill no longer has.
+
 The **58 scenarios** in [scenarios.json](scenarios.json) specify observable behavior.
 Every scenario is `not_run`. They are not unittest/pytest tests or a runner
 connected to Claude Code/Codex. Execution requires actual fixtures/sandboxes or

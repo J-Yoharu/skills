@@ -12,8 +12,20 @@
       "prompt": "Implement the approved plan using the repository workflow and verify the completed units.",
       "should_trigger": true,
       "expected_behaviors": [
-        "Discover and reuse the canonical repository workflow before delegating.",
-        "Keep the current session as coordinator and apply dynamic model selection only to subagents."
+        "Discover the repository rules, plan source, gate and progress mechanism before delegating.",
+        "Delegate implementation to worker subagents; the coordinator edits only small glue and records it.",
+        "Run units in parallel only when their write areas and contracts are disjoint; otherwise in sequence, respecting dependencies.",
+        "Get an independent review for behavior changes; no reviewer for comment or docs-only changes.",
+        "Record progress in the repository's own mechanism, or a simple Markdown file when there is none; never a JSON checkpoint."
+      ]
+    },
+    {
+      "id": "review-override",
+      "prompt": "Implement the approved plan, but skip per-unit reviews and run a single review of the whole diff at the end.",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Record the user's review policy and run exactly one independent review over the combined diff at the end.",
+        "Still verify each unit with the repository gate and state in the final report that per-unit review was skipped by request."
       ]
     },
     {
@@ -21,8 +33,8 @@
       "prompt": "Pause after finishing the units already in progress so I can review before continuing.",
       "should_trigger": true,
       "expected_behaviors": [
-        "Latch the pause before a new dispatch.",
-        "Finish and verify active units without starting new objectives; save an honest checkpoint."
+        "Start no new unit; finish, review and verify the units in progress.",
+        "Record the state and how to resume in the repository's mechanism (or its handoff), then stop."
       ]
     },
     {
@@ -30,7 +42,7 @@
       "prompt": "Explain the Orquestrar design and translate this example; do not execute any implementation.",
       "should_trigger": false,
       "expected_behaviors": [
-        "Explain or translate only; do not start orchestration or write a checkpoint."
+        "Explain or translate only; do not start orchestration or write any progress record."
       ]
     }
   ]

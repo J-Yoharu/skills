@@ -1,20 +1,16 @@
 # Orquestrar verification
 
-The runtime implementation is in `skills/orquestrar/`. The five imported `test_*.py`
-files are deterministic helper/contract regressions; they do not execute an LLM.
-Run them with `make test-skills NAME=orquestrar`. The test runner discovers future
-`test_*.py` files automatically and runs each skill in a fresh subprocess.
+The skill is a single instruction file, `skills/orquestrar/SKILL.md.template`, plus
+`agents/openai.yaml`. It bundles no scripts, so there are no runtime entrypoints or
+smoke tests. `test_skill_contract.py` checks the package shape and the evaluation
+record; it does not execute an LLM. Run it with `make test-skills NAME=orquestrar`.
 
-[Scenarios](scenarios.json) preserves all 58 supplied behavioral specifications and
-multilingual user inputs. [Scenario guidance](SCENARIOS.md) explains execution evidence.
-Every scenario remains `not_run`. [Readiness](evals.json) remains `pending`; passing
-unit tests or CLI smoke tests is not behavioral approval.
+Behavioral evidence comes from real agent runs recorded in `evaluation-*.md` and
+summarized in [evals.json](evals.json), whose review stays `pending` until a human
+approves it. [Scenarios](scenarios.json) and [SCENARIOS.md](SCENARIOS.md) are the 58
+specifications supplied with the imported design; many describe its JSON checkpoint,
+which no longer exists. All remain `not_run`.
 
-Use `make skill-preview NAME=orquestrar` to obtain a local, installable evaluation
-copy at `dist/skill-preview/orquestrar`. This does not rename the source template,
-activate the catalog entry, record approval, register a release, or contact GitHub.
-See [the import record](../../../docs/ORQUESTRAR_IMPORT.md) for provenance and changes.
-
-After real native-agent evaluation and explicit authorization, record the current
-fingerprint from `make skill-fingerprint NAME=orquestrar` with actual review evidence.
-Only then use `make skill-activate NAME=orquestrar`. Never approve solely to pass CI.
+Use `make skill-preview NAME=orquestrar` for a disposable installable copy under
+`dist/skill-preview/orquestrar`. See [the import record](../../../docs/ORQUESTRAR_IMPORT.md)
+for provenance and later changes.

@@ -3,59 +3,6 @@
   "name": "orquestrar",
   "display_name": "Orquestrar",
   "status": "draft",
-  "entrypoints": [
-    "scripts/profile.py",
-    "scripts/route.py",
-    "scripts/verify.py"
-  ],
-  "smoke_tests": [
-    {
-      "name": "profile-help",
-      "command": [
-        "python",
-        "{skill}/scripts/profile.py",
-        "--help"
-      ],
-      "timeout_seconds": 20,
-      "expected_exit": 0,
-      "stdout_contains": "usage:"
-    },
-    {
-      "name": "route-help",
-      "command": [
-        "python",
-        "{skill}/scripts/route.py",
-        "--help"
-      ],
-      "timeout_seconds": 20,
-      "expected_exit": 0,
-      "stdout_contains": "usage:"
-    },
-    {
-      "name": "verify-help",
-      "command": [
-        "python",
-        "{skill}/scripts/verify.py",
-        "--help"
-      ],
-      "timeout_seconds": 20,
-      "expected_exit": 0,
-      "stdout_contains": "usage:"
-    },
-    {
-      "name": "verify-example-plan",
-      "command": [
-        "python",
-        "{skill}/scripts/verify.py",
-        "plan",
-        "--file",
-        "{skill}/assets/run.example.json",
-        "--until",
-        "T2"
-      ],
-      "timeout_seconds": 20,
-      "expected_exit": 0,
-      "stdout_contains": "\"valid\": true"
-    }
-  ]
+  "entrypoints": [],
+  "smoke_tests": []
 }

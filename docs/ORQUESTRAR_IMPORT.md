@@ -21,6 +21,12 @@ the native subagent presets under `assets/native/`, and the unreferenced
 `runtime.example.json` and `project.example.json` assets. This paragraph records the
 import; it does not describe the current payload.
 
+The skill was then reduced to a single Markdown instruction file. The bundled scripts
+(`profile.py`, `route.py`, `verify.py`), the JSON checkpoint and profile, the model
+catalog, the references, and the adapters were removed. Progress is recorded in the
+repository's own mechanism (issues, handoff, plan checkboxes) or in a plain Markdown
+file. The validator-based design remains in the git history for comparison.
+
 `SKILL.md` became `SKILL.md.template` to prevent accidental distribution of an unapproved
 candidate. Its metadata version became `0.0.0` with the repository release marker.
 The redundant `disable-model-invocation: false` extension was removed: false is the
