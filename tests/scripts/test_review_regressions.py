@@ -199,6 +199,11 @@ class ReviewRegressions(RepositoryCase):
 class ReleaseReviewRegressions(RepositoryCase):
     def prepare(self):
         from scripts.repository import configure
+        # CI exports GITHUB_REPOSITORY; the fixture repository must not inherit it.
+        environment = patch.dict(os.environ)
+        environment.start()
+        self.addCleanup(environment.stop)
+        os.environ.pop('GITHUB_REPOSITORY', None)
         self.active()
         configure(self.root, 'fixture-owner/fixture-repo')
         self.simulated_release_bump('alpha-skill', '1.0.0')
