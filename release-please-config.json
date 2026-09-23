@@ -10,8 +10,20 @@
       "include-component-in-tag": false,
       "version-file": "version.txt",
       "changelog-path": "CHANGELOG.md",
-      "exclude-paths": [
-        "skills/orquestrar"
+      "exclude-paths": []
+    },
+    "skills/orquestrar": {
+      "release-type": "simple",
+      "package-name": "orquestrar",
+      "component": "orquestrar",
+      "version-file": "version.txt",
+      "changelog-path": "CHANGELOG.md",
+      "skip-github-release": true,
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "SKILL.md"
+        }
       ]
     }
   }

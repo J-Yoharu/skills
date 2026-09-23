@@ -47,7 +47,9 @@ class SkillContractTests(unittest.TestCase):
 
     def test_eval_cases_cover_review_override_and_negative_activation(self):
         data = json.loads((EVALS / "evals.json").read_text())
-        self.assertEqual(data["review"]["status"], "pending")
+        review = data["review"]
+        if review["status"] == "approved":
+            self.assertRegex(review.get("payload_sha256", ""), r"^[0-9a-f]{64}$")
         cases = {c["id"]: c for c in data["cases"]}
         self.assertTrue(cases["review-override"]["should_trigger"])
         self.assertFalse(cases["discussion-only"]["should_trigger"])

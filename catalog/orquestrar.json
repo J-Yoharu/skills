@@ -2,7 +2,7 @@
   "schema_version": 1,
   "name": "orquestrar",
   "display_name": "Orquestrar",
-  "status": "draft",
+  "status": "active",
   "entrypoints": [],
   "smoke_tests": []
 }
