@@ -13,6 +13,7 @@ from .common import (
 
 DRAFT_MARKER = "SCAFFOLD:NOT_READY"
 VERSION_MARKER = "x-release-please-version"
+INITIAL_RELEASE_VERSION = "0.1.0"
 
 
 def settings(root: Path) -> dict:
@@ -53,6 +54,7 @@ def expected_release_config(root: Path) -> dict:
         ".": {
             "release-type": "simple",
             "package-name": "agent-skills-catalog",
+            "initial-version": INITIAL_RELEASE_VERSION,
             "include-component-in-tag": False,
             "version-file": "version.txt",
             "changelog-path": "CHANGELOG.md",
@@ -67,6 +69,7 @@ def expected_release_config(root: Path) -> dict:
             "release-type": "simple",
             "package-name": name,
             "component": name,
+            "initial-version": INITIAL_RELEASE_VERSION,
             "version-file": "version.txt",
             "changelog-path": "CHANGELOG.md",
             "skip-github-release": True,
