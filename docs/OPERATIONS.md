@@ -100,6 +100,8 @@ approved active skills. The publisher reconstructs artifacts, preflights remote 
 and component-tag conflicts, and refuses incompatible overwrites. Network operations
 are not transactions: a network failure can leave some valid assets uploaded. Repair
 using the same immutable tag, never `--clobber` or a moved tag.
+For the order of PRs, dispatches, GitHub prerequisites, and remote verification,
+follow the [release runbook](VERSIONING.md#release-runbook).
 
 All workflows call this command menu. They install Python dependencies once per job;
 they do not add pnpm/Node dependency installation to Python-only maintenance work.

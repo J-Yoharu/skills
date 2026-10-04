@@ -66,21 +66,13 @@ choose review rules consistent with the actual contributors and available GitHub
 
 ## Manual releases
 
-Keep releases disabled while Orquestrar is unapproved. After genuine evaluation,
-authorized activation, and a passing main CI run, set `RELEASES_ENABLED=true`.
-Allow workflow PR creation and the declared contents/PR/issues write permissions.
-Run **Actions > Release > Run workflow** on `main` with an empty `release_tag` to
-open/update the combined version PR. Review/merge that PR, then dispatch again to
-create the release and upload verified assets. This is intentionally not a push trigger.
-
-The workflow explicitly defaults to `GITHUB_TOKEN`. GitHub may require a maintainer
-to approve CI runs for PRs created by this token. `RELEASE_PLEASE_TOKEN` is optional:
-a scoped PAT or reviewed GitHub App token can enable automatic follow-up PR workflows.
-Never commit credentials. See [CI/CD](CI_CD.md) for the current official behavior.
-
-To repair missing release assets, dispatch on `main` with the exact existing catalog
-tag in `release_tag`. The workflow validates that snapshot and never moves tags or
-clobbers mismatched assets. `gh` is needed for publication only, not ordinary checks.
+The first catalog and Orquestrar release, `v0.1.0`, was published on 2026-10-04.
+Future releases remain manual; a current `RELEASES_ENABLED=true` value and
+GitHub PR-creation capability must be checked before every dispatch. Follow
+the [release runbook](VERSIONING.md#release-runbook) for exact preflight,
+version PR, two-dispatch workflow, verification, and repair steps. Do not
+assume a successful workflow published assets until the remote release and
+tags are verified. Never commit credentials.
 
 ## Optional interoperability and updates
 

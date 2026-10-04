@@ -34,21 +34,25 @@ and PR intent checks. Unknown history falls back to full coverage.
 
 No success-only upload/retention job is configured; GitHub logs and summaries carry
 routine results. Review account budgets, log retention, and cache limits in GitHub
-settings before enabling additional services. This archive does not change account settings.
+settings before enabling additional services. CI does not change account settings;
+release enablement and PR-creation permissions are maintainer-controlled live settings.
 
 ## Releases and interoperability
 
-Both are manual `workflow_dispatch` workflows, disabled until their repository variables
-are explicitly set. There is no release preflight on every push and no weekly interop
+Both are manual `workflow_dispatch` workflows, gated by their repository variables.
+`RELEASES_ENABLED` was enabled for the `v0.1.0` release; verify its live value before
+future runs. There is no release preflight on every push and no weekly interop
 schedule. Release has one job and a 20-minute timeout. It validates the requested
 snapshot once and reuses that evidence only if the released tag has the exact same SHA;
 a different SHA stops publication and requires a fresh dispatch against that tag.
 
-`RELEASES_ENABLED=true` and an active evaluated skill are required. The workflow may
-use its native token; official GitHub docs currently require approval for certain PR
-workflow runs created with that token. A scoped `RELEASE_PLEASE_TOKEN` is an optional
-alternative, not a tracked secret. Release artifacts are published in the same explicit
-run; no recursive push/release workflow trigger is required.
+`RELEASES_ENABLED=true` and an active evaluated skill are required. The native
+`GITHUB_TOKEN` also needs GitHub's **Allow GitHub Actions to create and approve pull
+requests** repository setting to open Release Please PRs. PRs created with that token
+do not automatically trigger GitHub Actions workflows; validate their exact head
+separately, or use an authorized scoped `RELEASE_PLEASE_TOKEN`. Release artifacts
+are published in the same explicit run; no recursive push/release workflow trigger
+is required. See the [release runbook](VERSIONING.md#release-runbook).
 
 The first manual run opens a release PR; merge it only after valid checks/review,
 then dispatch again to create the release. Asset repair uses `release_tag` and the
