@@ -3,7 +3,7 @@ name: orquestrar
 description: Execute an approved plan, epic, issue set, or handoff by coordinating implementation subagents. The current chat owns decisions and progress, workers implement, and reviewers check. Also pause or resume a run. Use for execution, not for discussion, translation, or review of this skill.
 compatibility: Claude Code, Codex, or any harness that can spawn subagents. Uses Git when available. No bundled scripts.
 metadata:
-  version: "0.1.0" # x-release-please-version
+  version: "0.2.0" # x-release-please-version
 ---
 
 # Orquestrar
