@@ -45,7 +45,73 @@ Content PR -> CI/review -> squash merge on main
            -> catalog release -> verified artifacts and component tags
 ```
 
-Release handling is disabled by default and requires an active skill, configured identity,
+## Release runbook
+
+1. Confirm the content PR is merged, the exact `main` commit passed CI, and the
+   worktree is clean. Run `make verify-identity REPO=J-Yoharu/skills` and
+   `make check`. For a changed skill, confirm that its `evals.json` approval
+   names the current `make skill-fingerprint NAME=<skill>` digest. Choose the
+   first SemVer deliberately; generated configuration starts at `0.1.0`.
+   Release Please, not the maintainer, updates version files, changelogs, and
+   the manifest.
+2. Check GitHub prerequisites **before** dispatching. `RELEASES_ENABLED` must
+   equal `true`. If the workflow uses `GITHUB_TOKEN`, the repository setting
+   [**Allow GitHub Actions to create and approve pull requests**](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository)
+   must be enabled; alternatively configure the optional scoped
+   `RELEASE_PLEASE_TOKEN`. Do not dispatch while neither PR-creation route works.
+   Verify the current settings:
+
+   ```bash
+   gh variable get RELEASES_ENABLED --repo J-Yoharu/skills
+   gh api repos/J-Yoharu/skills/actions/permissions/workflow --jq '.can_approve_pull_request_reviews'
+   ```
+
+3. Dispatch `gh workflow run release.yml --repo J-Yoharu/skills --ref main`
+   with no `release_tag`. Release Please opens or updates the combined version
+   PR. Keep its generated title and body: its default combined title is
+   `chore: release main`, its body contains parseable per-component versions,
+   and its label is `autorelease: pending`. A plausible manual title or a
+   generic PR description is **not** equivalent; Release Please uses them to
+   find the merged PR and create tags. Review the exact proposed versions,
+   manifest, changelogs, metadata-only `SKILL.md` changes, and CI. If a PR
+   created by `GITHUB_TOKEN` does not trigger PR CI, validate the PR title/diff
+   locally and dispatch CI for its branch. Confirm that CI tested the same head
+   SHA before merging:
+
+   ```bash
+   git fetch origin main release-please--branches--main
+   BASE_SHA=$(git rev-parse origin/main) HEAD_SHA=$(git rev-parse origin/release-please--branches--main) PR_TITLE='chore: release main' PR_BRANCH='release-please--branches--main' make check-pr
+   gh workflow run ci.yml --repo J-Yoharu/skills --ref release-please--branches--main
+   ```
+
+   Squash-merge the reviewed release PR.
+4. Wait for the merged `main` commit's CI to pass. Dispatch Release again on
+   `main` with no `release_tag`. The workflow creates the catalog GitHub
+   Release and tag, builds from that exact tagged commit, uploads `index.json`,
+   `SHA256SUMS`, and skill archives, then creates component tags.
+5. Verify publication independently. A successful workflow with build/upload
+   steps skipped is **not** a published release. Confirm the GitHub Release is
+   neither draft nor missing assets, and confirm both remote tags resolve to
+   the tested commit. For example, replace `0.1.0` with the chosen version:
+
+   ```bash
+   gh release view v0.1.0 --repo J-Yoharu/skills --json tagName,targetCommitish,assets,url
+   git ls-remote --tags origin refs/tags/v0.1.0 refs/tags/orquestrar-v0.1.0
+   ```
+
+If GitHub reports `GitHub Actions is not permitted to create or approve pull
+requests`, fix the PR-creation permission or token before retrying. Do not
+manually open the generated branch as the routine workaround: an incorrect
+title or body can pass ordinary CI yet prevent Release Please from recognizing
+the merged PR. If this already happened, inspect the merged PR's title, body,
+and `autorelease: pending` label against the [Release Please pull-request
+format](https://github.com/googleapis/release-please/blob/main/docs/customizing.md)
+before another dispatch. Never merge the newly proposed next-version branch
+while the previous release is untagged. Once the catalog tag and GitHub Release
+exist, repair missing assets with `release_tag` set to that **existing** tag;
+this path validates the tagged snapshot and never moves tags or clobbers assets.
+
+Release handling remains manual and requires an active skill, configured identity,
 credentials, and `RELEASES_ENABLED=true`. Merge content and release PRs only after checks.
 A release build rejects a dirty tree, a mismatched tag, catalog/component downgrades,
 and changed skill files without a version bump. A maintenance-only catalog release may
@@ -59,10 +125,8 @@ catalog/component tag or full commit and use the pinned external installer's doc
 local-source syntax after verifying compatibility. No untested version-install shortcut
 is promised by this scaffold.
 
-## Current imported candidate
+## Current release
 
-Orquestrar is `draft`, with `version.txt` and `metadata.version` both `0.0.0`.
-The supplied archive label `2.3.0` identified an editing iteration, not a validated
-release, so it is recorded only in [import provenance](ORQUESTRAR_IMPORT.md).
-The release manifest contains only the bootstrap catalog until authorized activation.
-Unit tests do not choose the first stable SemVer or approve an implementation.
+Catalog `v0.1.0` and component `orquestrar-v0.1.0` identify the same tested
+repository snapshot. Orquestrar's supplied archive label `2.3.0` was an editing
+iteration, not an earlier semantic release; see [import provenance](ORQUESTRAR_IMPORT.md).
