@@ -273,6 +273,8 @@ class LifecycleTests(RepositoryCase):
         self.assertFalse((directory / "SKILL.md.template").exists())
         config = load_json(self.root / "release-please-config.json")
         self.assertIn("skills/alpha-skill", config["packages"])
+        self.assertEqual(config["packages"]["."]["initial-version"], "0.1.0")
+        self.assertEqual(config["packages"]["skills/alpha-skill"]["initial-version"], "0.1.0")
         self.assertEqual(config["packages"]["skills/alpha-skill"]["extra-files"], [{"type": "generic", "path": "SKILL.md"}])
         self.assertTrue(config["packages"]["skills/alpha-skill"]["skip-github-release"])
         validate_repository(self.root)

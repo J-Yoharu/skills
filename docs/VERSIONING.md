@@ -33,6 +33,8 @@ The configuration explicitly uses pre-1.0 behavior: breaking changes bump the mi
 below 1.0; ordinary features bump the minor as configured. Review every release PR; do
 not assume the first release must be 1.0.0. A deliberate stable-1.0 release decision is
 separate from accepting the scaffold's initial version.
+The generated release configuration starts new catalog and skill releases at `0.1.0`;
+`0.0.0` remains the unreleased bootstrap state.
 
 ## Workflow
 

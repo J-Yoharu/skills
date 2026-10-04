@@ -7,6 +7,7 @@
     ".": {
       "release-type": "simple",
       "package-name": "agent-skills-catalog",
+      "initial-version": "0.1.0",
       "include-component-in-tag": false,
       "version-file": "version.txt",
       "changelog-path": "CHANGELOG.md",
@@ -16,6 +17,7 @@
       "release-type": "simple",
       "package-name": "orquestrar",
       "component": "orquestrar",
+      "initial-version": "0.1.0",
       "version-file": "version.txt",
       "changelog-path": "CHANGELOG.md",
       "skip-github-release": true,
