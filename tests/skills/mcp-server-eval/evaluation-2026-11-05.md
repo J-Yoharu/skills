@@ -1,4 +1,6 @@
-# MCP Server Playbook evaluation — 2026-11-05
+# MCP Server Eval evaluation — 2026-11-05
+
+This record predates the rename: the skill was `mcp-server-playbook` when these runs happened.
 
 Status: agent evaluation complete. On 2026-11-05 the maintainer read the summary of this report and
 authorized activation, without a separate line-by-line review of the payload.

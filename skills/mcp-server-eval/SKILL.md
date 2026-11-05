@@ -1,5 +1,5 @@
 ---
-name: mcp-server-playbook
+name: mcp-server-eval
 description: Use when connecting an MCP server to Claude Code, adding OAuth to an MCP server, testing a local MCP server without HTTPS certificates, designing MCP tools and descriptions, or measuring whether a model can really use an MCP server, including tool choice, token usage, cost, golden tests, evals and regression fixtures. Also use when someone asks how a round went or wants the results of a golden round or an `.mcp-eval` folder summarized, when server instructions get truncated, when Claude misuses or ignores tools, or when someone says "test my MCP", even if they do not mention evals.
 compatibility: Requires Claude Code 2.1.280 or newer and Python 3.9 or newer. The OAuth and design guides apply to any MCP client; the golden runner targets Claude Code.
 license: MIT
@@ -7,7 +7,7 @@ metadata:
   version: "0.0.0" # x-release-please-version
 ---
 
-# MCP Server Playbook
+# MCP Server Eval
 
 An MCP server has a user that ordinary tests cannot see: the model. A unit test proves a tool works. It does not prove the model picks the right tool, understands the error, stops at the right moment and delivers what the person asked for. That is only measured by putting a real model on the real client path.
 
