@@ -13,6 +13,21 @@
       "changelog-path": "CHANGELOG.md",
       "exclude-paths": []
     },
+    "skills/mcp-server-playbook": {
+      "release-type": "simple",
+      "package-name": "mcp-server-playbook",
+      "component": "mcp-server-playbook",
+      "initial-version": "0.1.0",
+      "version-file": "version.txt",
+      "changelog-path": "CHANGELOG.md",
+      "skip-github-release": true,
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "SKILL.md"
+        }
+      ]
+    },
     "skills/orquestrar": {
       "release-type": "simple",
       "package-name": "orquestrar",

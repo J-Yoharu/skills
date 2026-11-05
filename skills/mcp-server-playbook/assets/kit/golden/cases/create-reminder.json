@@ -1,0 +1,20 @@
+{
+  "id": "create-reminder",
+  "title": "A non-technical person asks to save a reminder",
+  "persona": "non-technical",
+  "kind": "create",
+  "tier": "public",
+  "prompt": "jot this down for me: call the accountant on friday about the october invoice",
+  "ideal_calls": [1, 2],
+  "checks": [
+    { "type": "tool_called", "tool": "create_note", "min": 1, "max": 1 },
+    { "type": "args_match", "tool": "create_note", "regex": "(?i)accountant" },
+    { "type": "max_errors", "value": 1 },
+    { "type": "command", "run": "grep -qi 'accountant' \"$EVAL_ARTIFACT_DIR/notes.json\"" }
+  ],
+  "rubric": [
+    "The note says who to call, when, and about what.",
+    "The title sums up the reminder in a few words.",
+    "The final answer confirms what was saved."
+  ]
+}

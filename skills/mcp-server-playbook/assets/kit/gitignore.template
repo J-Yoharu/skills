@@ -1,0 +1,7 @@
+# Local outputs: transcripts can hold data, and they are not worth versioning.
+.mcp-eval/
+__pycache__/
+*.pyc
+
+# Filled-in server configuration, which can hold a real address.
+mcp.local.json

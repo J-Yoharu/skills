@@ -1,0 +1,26 @@
+{
+  "id": "count-by-tag",
+  "title": "A count that the server can only answer by walking pages",
+  "persona": "non-technical",
+  "kind": "read",
+  "tier": "public",
+  "prompt": "how many of my notes are tagged purchasing?",
+  "ideal_calls": [
+    1,
+    2
+  ],
+  "checks": [
+    {
+      "type": "final_matches",
+      "regex": "(\\b7\\b|seven)"
+    },
+    {
+      "type": "tool_not_called",
+      "tool": "create_note"
+    }
+  ],
+  "rubric": [
+    "The answer gives the right count, 7.",
+    "The answer does not claim a total it did not verify."
+  ]
+}

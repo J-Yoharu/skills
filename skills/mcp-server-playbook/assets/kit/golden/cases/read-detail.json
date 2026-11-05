@@ -1,0 +1,18 @@
+{
+  "id": "read-detail",
+  "title": "An answer that exists only in the full text of the note",
+  "persona": "non-technical",
+  "kind": "read",
+  "tier": "public",
+  "prompt": "who was in charge of the welcome guide again?",
+  "ideal_calls": [2, 3],
+  "checks": [
+    { "type": "tool_order", "first": "search_notes", "then": "get_note" },
+    { "type": "final_matches", "regex": "Marina" },
+    { "type": "tool_not_called", "tool": "create_note" }
+  ],
+  "rubric": [
+    "The answer says Marina is the owner.",
+    "The answer makes up no detail that is not in the note."
+  ]
+}

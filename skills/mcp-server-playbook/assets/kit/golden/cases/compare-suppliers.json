@@ -1,0 +1,17 @@
+{
+  "id": "compare-suppliers",
+  "title": "Reserved case: a comparison that needs the full note",
+  "persona": "non-technical",
+  "kind": "read",
+  "tier": "holdout",
+  "prompt": "i don't need the packaging by tomorrow, next week is fine. which supplier is cheaper for 1000 units?",
+  "ideal_calls": [2, 3],
+  "checks": [
+    { "type": "final_matches", "regex": "Quick Pack" },
+    { "type": "final_matches", "regex": "1,?600" }
+  ],
+  "rubric": [
+    "Picks Quick Pack, which fits the deadline and costs less.",
+    "Shows the math for 1,000 units."
+  ]
+}
