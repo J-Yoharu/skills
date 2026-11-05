@@ -6,7 +6,7 @@ the guards really hold back the spend, instead of only looking safe.
 
 These tests stay outside the payload: consumers get the engine, not its test suite.
 
-Usage: make test-skills NAME=mcp-server-playbook
+Usage: make test-skills NAME=mcp-server-eval
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # bytecode inside the payload fails repository validation
-ROOT = Path(__file__).resolve().parents[3] / "skills" / "mcp-server-playbook"
+ROOT = Path(__file__).resolve().parents[3] / "skills" / "mcp-server-eval"
 SCRIPTS = ROOT / "scripts"
 KIT = ROOT / "assets" / "kit"
 sys.path.insert(0, str(SCRIPTS))

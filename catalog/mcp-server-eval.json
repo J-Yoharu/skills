@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "name": "mcp-server-playbook",
-  "display_name": "MCP Server Playbook",
+  "name": "mcp-server-eval",
+  "display_name": "MCP Server Eval",
   "status": "active",
   "entrypoints": [
     "scripts/analyze_behavior.py",
