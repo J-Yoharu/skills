@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "name": "mcp-server-playbook",
+  "display_name": "MCP Server Playbook",
+  "status": "active",
+  "entrypoints": [
+    "scripts/analyze_behavior.py",
+    "scripts/check_auth.py",
+    "scripts/check_contract.py",
+    "scripts/demo_server.py",
+    "scripts/discover_project.py",
+    "scripts/grade_golden.py",
+    "scripts/init_kit.py",
+    "scripts/report_golden.py",
+    "scripts/run_golden.py"
+  ],
+  "smoke_tests": [
+    {
+      "name": "discover-empty-project",
+      "command": [
+        "python",
+        "{skill}/scripts/discover_project.py",
+        "--root",
+        "{work}"
+      ],
+      "timeout_seconds": 20,
+      "expected_exit": 0,
+      "stdout_contains": "suggested_target: tools/mcp-eval"
+    },
+    {
+      "name": "init-kit-into-work",
+      "command": [
+        "python",
+        "{skill}/scripts/init_kit.py",
+        "--target",
+        "{work}/kit"
+      ],
+      "timeout_seconds": 20,
+      "expected_exit": 0,
+      "stdout_contains": "kit copied to"
+    },
+    {
+      "name": "contract-over-stdio-demo",
+      "command": [
+        "python",
+        "{skill}/scripts/check_contract.py",
+        "--config",
+        "{skill}/assets/kit/eval.config.example.json"
+      ],
+      "timeout_seconds": 30,
+      "expected_exit": 0,
+      "stdout_contains": "contract passed"
+    },
+    {
+      "name": "golden-plan-calls-no-model",
+      "command": [
+        "python",
+        "{skill}/scripts/run_golden.py",
+        "--config",
+        "{skill}/assets/kit/eval.config.example.json"
+      ],
+      "timeout_seconds": 20,
+      "expected_exit": 0,
+      "stdout_contains": "Plan (nothing was run)"
+    },
+    {
+      "name": "auth-reports-a-refused-connection",
+      "command": [
+        "python",
+        "{skill}/scripts/check_auth.py",
+        "--url",
+        "http://127.0.0.1:9/mcp"
+      ],
+      "timeout_seconds": 20,
+      "expected_exit": 1,
+      "stdout_contains": "auth failed"
+    },
+    {
+      "name": "grader-help",
+      "command": [
+        "python",
+        "{skill}/scripts/grade_golden.py",
+        "--help"
+      ],
+      "timeout_seconds": 10,
+      "expected_exit": 0,
+      "stdout_contains": "Blind grading"
+    },
+    {
+      "name": "analyst-help",
+      "command": [
+        "python",
+        "{skill}/scripts/analyze_behavior.py",
+        "--help"
+      ],
+      "timeout_seconds": 10,
+      "expected_exit": 0,
+      "stdout_contains": "Free detectors"
+    },
+    {
+      "name": "report-help",
+      "command": [
+        "python",
+        "{skill}/scripts/report_golden.py",
+        "--help"
+      ],
+      "timeout_seconds": 10,
+      "expected_exit": 0,
+      "stdout_contains": "Run report"
+    },
+    {
+      "name": "demo-server-help",
+      "command": [
+        "python",
+        "{skill}/scripts/demo_server.py",
+        "--help"
+      ],
+      "timeout_seconds": 10,
+      "expected_exit": 0,
+      "stdout_contains": "Demo MCP server"
+    }
+  ]
+}

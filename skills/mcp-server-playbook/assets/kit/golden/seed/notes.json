@@ -1,0 +1,198 @@
+[
+  {
+    "id": "n1",
+    "title": "Quarterly planning meeting",
+    "body": "Goals for the quarter: cut support response time to 4 hours and publish the welcome guide by the 15th. Owner of the guide: Marina.",
+    "tags": [
+      "work",
+      "planning"
+    ]
+  },
+  {
+    "id": "n2",
+    "title": "Cheese bread recipe",
+    "body": "500 g of sour tapioca starch, 250 ml of milk, 100 ml of oil, 2 eggs and 200 g of cheese. Bake at 180 degrees for 25 minutes.",
+    "tags": [
+      "home",
+      "recipe"
+    ]
+  },
+  {
+    "id": "n3",
+    "title": "Packaging suppliers",
+    "body": "Strong Box delivers in 3 days and charges US$ 2.10 per unit. Quick Pack delivers in 7 days and charges US$ 1.60 per unit.",
+    "tags": [
+      "work",
+      "purchasing"
+    ]
+  },
+  {
+    "id": "n4",
+    "title": "Team lunch ideas",
+    "body": "Try the new place on the corner next Thursday.",
+    "tags": [
+      "work"
+    ]
+  },
+  {
+    "id": "n5",
+    "title": "Printer ink order",
+    "body": "Order two black cartridges before the end of the month.",
+    "tags": [
+      "purchasing"
+    ]
+  },
+  {
+    "id": "n6",
+    "title": "Dentist appointment",
+    "body": "Tuesday at 3 pm, bring the insurance card.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n7",
+    "title": "Laptop stand quote",
+    "body": "Three models quoted, the cheapest costs US$ 40.",
+    "tags": [
+      "purchasing"
+    ]
+  },
+  {
+    "id": "n8",
+    "title": "Weekend hike",
+    "body": "Leave at 7, the trail takes about four hours.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n9",
+    "title": "Office chairs",
+    "body": "Twelve chairs needed for the new room.",
+    "tags": [
+      "purchasing",
+      "work"
+    ]
+  },
+  {
+    "id": "n10",
+    "title": "Book list",
+    "body": "Finish the biography, then the history of maps.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n11",
+    "title": "Coffee supplier",
+    "body": "New contract starts in March, monthly delivery.",
+    "tags": [
+      "purchasing"
+    ]
+  },
+  {
+    "id": "n12",
+    "title": "Onboarding checklist",
+    "body": "Laptop, badge, accounts and a first-week buddy.",
+    "tags": [
+      "work"
+    ]
+  },
+  {
+    "id": "n13",
+    "title": "Car service",
+    "body": "Oil change due at the next 10,000 km.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n14",
+    "title": "Cleaning supplies",
+    "body": "Monthly order goes out on the first Monday.",
+    "tags": [
+      "purchasing"
+    ]
+  },
+  {
+    "id": "n15",
+    "title": "Conference notes",
+    "body": "Three talks worth sharing with the team.",
+    "tags": [
+      "work"
+    ]
+  },
+  {
+    "id": "n16",
+    "title": "Birthday gift",
+    "body": "Something for the garden, under US$ 50.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n17",
+    "title": "Standing desks",
+    "body": "Two quotes pending, decision next week.",
+    "tags": [
+      "purchasing"
+    ]
+  },
+  {
+    "id": "n18",
+    "title": "Budget review",
+    "body": "Move the review to the last Friday of the month.",
+    "tags": [
+      "work"
+    ]
+  },
+  {
+    "id": "n19",
+    "title": "Paint colors",
+    "body": "Light gray for the hall, white for the ceiling.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n20",
+    "title": "Newsletter draft",
+    "body": "Send the draft to the team before Wednesday.",
+    "tags": [
+      "work"
+    ]
+  },
+  {
+    "id": "n21",
+    "title": "Water filter",
+    "body": "Replace the filter every six months.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n22",
+    "title": "Team offsite",
+    "body": "Book the venue before the end of the quarter.",
+    "tags": [
+      "work"
+    ]
+  },
+  {
+    "id": "n23",
+    "title": "Plant care",
+    "body": "Water the ferns twice a week.",
+    "tags": [
+      "home"
+    ]
+  },
+  {
+    "id": "n24",
+    "title": "Quarterly report",
+    "body": "Numbers due on the 5th, slides on the 8th.",
+    "tags": [
+      "work"
+    ]
+  }
+]

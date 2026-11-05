@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "skill": "mcp-server-playbook",
+  "review": {
+    "status": "approved",
+    "evidence": "2026-11-05 the maintainer read the evaluation summary for payload 527c2e94f31af968df57e67270397f1f1b4bf70cb3fec21b04499a4c39cc5cf3 and authorized activation, commit and push, without a separate line-by-line review of the payload. 2026-11-05 agent evaluation of payload 527c2e94f31af968df57e67270397f1f1b4bf70cb3fec21b04499a4c39cc5cf3, not a human review. Claude Code 2.1.318 via claude -p, claude-sonnet-5-5 and claude-haiku-5-5, 31 runs on fresh fixture copies with the preview installed: 25 of 25 positive runs activated, 0 of 6 negative runs activated, no run went live. Known deviations: one Sonnet set-up-a-spike run stopped before the plan, one Haiku report-a-round run read report.md instead of running the script, one Sonnet oauth run stated an Observed value as fact. Also recorded: a real-project run that stopped at the plan and a real golden round from the installed copy. See evaluation-2026-11-05.md.",
+    "payload_sha256": "527c2e94f31af968df57e67270397f1f1b4bf70cb3fec21b04499a4c39cc5cf3"
+  },
+  "cases": [
+    {
+      "id": "test-my-mcp",
+      "prompt": "Test my MCP. I want to know if a model can really use this server.",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Activate the skill and read the project with discover_project.py before changing it.",
+        "Ask only what discovery cannot answer, such as spike or fixture and the focus, or set up the bundled kit with init_kit.py; never write a custom evaluator.",
+        "Stay on the free steps: never pass --live, never set MCP_EVAL_LIVE, and call no model.",
+        "Say that a live round waits for the person's approval of the plan."
+      ]
+    },
+    {
+      "id": "set-up-a-spike",
+      "prompt": "Test my MCP. I want to know if a model can really use this server. Treat it as a spike with a balanced focus, and keep the kit out of the repository.",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Activate the skill and set up the bundled kit with init_kit.py --ignore-locally, instead of writing a custom evaluator.",
+        "Run the free contract check and run_golden.py without --live.",
+        "End with the plan and its worst-case cost: never pass --live, never set MCP_EVAL_LIVE, and call no model."
+      ]
+    },
+    {
+      "id": "connect-without-certificate",
+      "prompt": "How do I connect my local HTTP MCP server to Claude Code without setting up HTTPS certificates?",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Activate the skill and answer from the connection guide.",
+        "Recommend plain HTTP on a local address with a fixed token in a header, with no certificate.",
+        "Keep the secret out of versioned files, using an environment reference."
+      ]
+    },
+    {
+      "id": "truncated-instructions",
+      "prompt": "Claude seems to ignore the second half of my MCP server's instructions, which are about 8,000 characters long. What is going on and what should I do?",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Activate the skill and explain that Claude Code cuts server instructions at about 4,096 characters.",
+        "Suggest CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH with 16384 or more, not 8192.",
+        "Say that the variable lives on the user's machine, and that shortening the text is the fix for a public server."
+      ]
+    },
+    {
+      "id": "oauth-login-fails",
+      "prompt": "OAuth login for my MCP server fails in Claude Code. How do I check what the client actually sees?",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Activate the skill and use the OAuth guide.",
+        "Point to check_auth.py to follow discovery from the 401 with no browser and no model.",
+        "Treat values marked Observed as observations, not as published specification."
+      ]
+    },
+    {
+      "id": "report-a-round",
+      "prompt": "How did round r1 go? The kit is in tools/mcp-eval.",
+      "should_trigger": true,
+      "expected_behaviors": [
+        "Activate the skill and run report_golden.py instead of counting by hand.",
+        "Answer with the summary table of marks and numbers, the line with cases and repetitions, up to 3 possible improvements and where the report is.",
+        "Call improvements possible, because they have not been measured."
+      ]
+    },
+    {
+      "id": "unrelated-unit-test",
+      "prompt": "Add a unit test for validateOrder in src/api.ts.",
+      "should_trigger": false,
+      "expected_behaviors": [
+        "Do not activate the skill: an ordinary unit test does not concern how a model uses the server.",
+        "Add the test without creating the kit or any evaluation files."
+      ]
+    },
+    {
+      "id": "what-is-mcp",
+      "prompt": "In two sentences, what is the Model Context Protocol?",
+      "should_trigger": false,
+      "expected_behaviors": [
+        "Do not activate the skill for a general question about the protocol.",
+        "Answer directly in two sentences and change no files."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "name": "demo-notes",
+  "mode": "spike",
+  "focus": "balanced",
+  "results_dir": ".mcp-eval/runs",
+  "cases_dir": "golden/cases",
+  "contract_snapshot": "golden/contract.snapshot.json",
+  "server": {
+    "mcp_config": "mcp.example.json",
+    "name": "demo"
+  },
+  "agent": {
+    "claude_bin": "claude",
+    "models": [
+      "haiku"
+    ],
+    "repetitions": 1,
+    "builtin_tools": [
+      "ToolSearch"
+    ],
+    "system_append": "The person is not available to answer questions: fulfill the request from start to finish and, at the end, say in a few lines what you did.",
+    "setting_sources": "project",
+    "env": {},
+    "extra_args": [],
+    "timeout_seconds": 300
+  },
+  "limits": {
+    "instructions_chars": 4096,
+    "upfront_description_chars": 4096,
+    "tool_description_chars": 16384,
+    "surface_chars": null
+  },
+  "budget": {
+    "per_run_usd": 0.25,
+    "total_usd": 1
+  },
+  "guard": {
+    "live_env": "MCP_EVAL_LIVE",
+    "allowed_hosts": [
+      "127.0.0.1",
+      "localhost",
+      "*.localhost"
+    ],
+    "allow_ci": false
+  },
+  "hooks": {
+    "before_run": null,
+    "before_case": "cp \"$EVAL_KIT_DIR/golden/seed/notes.json\" \"$EVAL_ARTIFACT_DIR/notes.json\"",
+    "after_case": null,
+    "after_run": null
+  },
+  "grader": {
+    "model": "sonnet",
+    "votes": 3,
+    "budget_usd": 0.5,
+    "total_usd": 5,
+    "prompt_file": "agents/mcp-golden-grader.md"
+  },
+  "analysis": {
+    "model": "sonnet",
+    "budget_usd": 1,
+    "prompt_file": "agents/mcp-behavior-analyst.md",
+    "min_repeat": 3,
+    "min_fan_out": 4,
+    "heavy_response_chars": 8000,
+    "slow_tool_ms": 2000
+  },
+  "stop_criteria": {
+    "min_clean_rate": 0.9,
+    "max_silent_failures": 0,
+    "max_cost_per_case_usd": 0.25,
+    "max_median_calls": 6,
+    "max_median_tokens": null,
+    "max_median_seconds": null
+  }
+}

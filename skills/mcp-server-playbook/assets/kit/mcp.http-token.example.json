@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "app": {
+      "type": "http",
+      "url": "http://tenant-a.localhost:8000/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MCP_EVAL_TOKEN}"
+      }
+    }
+  }
+}

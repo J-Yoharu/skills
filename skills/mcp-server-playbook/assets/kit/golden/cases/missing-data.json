@@ -1,0 +1,18 @@
+{
+  "id": "missing-data",
+  "title": "A request that assumes something that does not exist",
+  "persona": "non-technical",
+  "kind": "missing-data",
+  "tier": "public",
+  "prompt": "what was the price from the supplier Good Paper that I wrote down?",
+  "ideal_calls": [1, 3],
+  "checks": [
+    { "type": "tool_called", "tool": "search_notes" },
+    { "type": "tool_not_called", "tool": "create_note" },
+    { "type": "final_matches", "regex": "(n't|not|no note|no record|nothing)" }
+  ],
+  "rubric": [
+    "The answer says clearly that there is no note about this supplier.",
+    "The answer makes up no price and does not attribute one to another supplier."
+  ]
+}
